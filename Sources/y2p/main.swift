@@ -1,4 +1,17 @@
 import Cocoa
+import Yaml
+
+let fileURL = URL(fileURLWithPath: "sample.yml")
+do {
+    let contents = try String(contentsOf: fileURL, encoding: .utf8)
+    print(contents)
+    
+    let value = try Yaml.load(contents)
+    print(value)
+    
+} catch {
+    print("Could not read file: \(error)")
+}
 
 // 画像のサイズ
 let imageSize = NSSize(width: 1000, height: 1000)
