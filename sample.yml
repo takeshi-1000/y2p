@@ -1,0 +1,30 @@
+settings:
+  transionContext: [push, modal, alert]
+  transionContextColor:
+    - push: .red
+    - modal: .blue
+    - alert: .green
+  defaultTransionContext: push
+  objectColor:
+    - border: .black
+    - content: .white
+    - text: .black
+
+views:
+  - Splash:
+      name: "スプラッシュ"
+  - LoginTop:
+      name: "ログイントップ"
+      transionContext: modal
+  - LoginMail:
+      name: "ログインメール"
+      transionContext: push
+  - DoorTop:
+      name: "ドアトップ"
+      transionContext: push
+  - DoorDetail:
+      name: "ドア詳細"
+      transionContext: push
+  - DoorSetting:
+      name: "ドア設定"
+      transionContext: push
