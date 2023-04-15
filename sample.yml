@@ -13,6 +13,18 @@ settings:
 views:
   - Splash:
       name: "スプラッシュ"
+      views:
+       - Hoge:
+          name: "ほげ"
+       - Hoge2:
+          name: "ほげ2"
+       - Hoge3:
+          name: "ほげ3"
+          views:
+           - Hoge4:
+              name: "ほげ4"
+           - Hoge5:
+              name: "ほげ5"
   - LoginTop:
       name: "ログイントップ"
       transionContext: modal

@@ -1,13 +1,82 @@
 import Cocoa
 import Yaml
 
-let fileURL = URL(fileURLWithPath: "sample.yml")
+struct View {
+    var nameData: (key: String, value: String) = (key: "", value: "")
+    var index: Int = 0
+    var views: [View]
+}
+
+var views: [View] = []
+
+func createViews(index: Int, viewsArray: [Yaml]) -> [View] {
+    var _views: [View] = []
+    
+    viewsArray.forEach { viewData in
+        var _nameKey: String = ""
+        var _nameValue: String = ""
+        var _childviews: [View] = []
+        
+        if case .dictionary(let viewsDataDictionaries) = viewData {
+            viewsDataDictionaries.forEach { viewsDataDictionary in
+                if case .string(let viewNameKey) = viewsDataDictionary.key,
+                   case .dictionary(let viewInfoList) = viewsDataDictionary.value {
+                    _nameKey = viewNameKey
+                    
+                    viewInfoList.forEach { viewInfo in
+                        if case .string("name") = viewInfo.key,
+                           case .string(let viewNameValue) = viewInfo.value {
+                            _nameValue = viewNameValue
+                        }
+                        
+                        if case .string("views") = viewInfo.key,
+                           case .array(let childViews) = viewInfo.value {
+                            _childviews = createViews(index: index + 1, viewsArray: childViews)
+                        }
+                    }
+                }
+            }
+        }
+        
+        _views.append(
+            View(nameData: (key: _nameKey, value: _nameValue),
+                 index: index,
+                 views: _childviews)
+        )
+    }
+    
+    return _views
+}
+
+let fileURL = URL(fileURLWithPath: "/Users/komoritakeshi/me/takeshi-1000/y2p/sample.yml")
 do {
     let contents = try String(contentsOf: fileURL, encoding: .utf8)
-    print(contents)
-    
     let value = try Yaml.load(contents)
     print(value)
+    print("==================================")
+    
+    guard case .dictionary(let dictionaries) = value else {
+        throw fatalError()
+    }
+    
+    var startIndex = dictionaries.startIndex
+    
+    while dictionaries.endIndex > startIndex {
+        
+        let test = dictionaries[startIndex]
+        
+        if test.key == .string("views"), case .array(let viewsArray) = test.value {
+            views = createViews(index: 0, viewsArray: viewsArray)
+        }
+        
+        if test.key == .string("settings") {
+            
+        }
+        
+        startIndex = dictionaries.index(after: startIndex)
+    }
+    
+    print("views :: \(views)")
     
 } catch {
     print("Could not read file: \(error)")
