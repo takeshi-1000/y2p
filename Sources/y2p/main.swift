@@ -129,11 +129,11 @@ var maxHorizontalDeepCount = createMaxHorizontalCount(index: 0, viewsArray: view
 var maxVerticalDeepCount = createMaxVerticalCount(viewsArray: views)
 
 // 画像のサイズ
-let viewObjectSize = NSPoint(x: 100, y: 100)
+let viewObjectSize = NSSize(width: 100, height: 100)
 let margin: Double = 16
 
-let contentWidth = viewObjectSize.x * Double(maxHorizontalDeepCount) + margin * Double(maxHorizontalDeepCount - 1)
-let contentHeight = viewObjectSize.y * Double(maxVerticalDeepCount) + margin * Double(maxVerticalDeepCount - 1)
+let contentWidth = viewObjectSize.width * Double(maxHorizontalDeepCount) + margin * Double(maxHorizontalDeepCount - 1)
+let contentHeight = viewObjectSize.height * Double(maxVerticalDeepCount) + margin * Double(maxVerticalDeepCount - 1)
 let imageWidth = contentWidth + (margin * 2)
 let imageHeight = contentHeight + (margin * 2)
 let imageSize = NSSize(width: imageWidth,
@@ -144,29 +144,8 @@ print("imageSize :: \(imageSize)")
 // 画像の背景色
 let backgroundColor = NSColor.white
 
-// FirstViewの位置とサイズ
-let firstViewRect = NSRect(x: 50, y: 150, width: 100, height: 100)
-
-// FirstViewの背景色
-let firstViewColor = NSColor.red
-
-// lineViewの位置とサイズ
-let lineViewRect = NSRect(x: 150, y: 200, width: 100, height: 1)
-
-// lineの背景色
-let lineViewColor = NSColor.black
-
-// SecondViewの位置とサイズ
-let secondViewRect = NSRect(x: 250, y: 150, width: 100, height: 100)
-
-// SecondViewの背景色
-let secondViewColor = NSColor.blue
-
-// ThirdViewの位置とサイズ
-let thirdViewRect = NSRect(x: 250, y: 0, width: 100, height: 100)
-
-// ThirdViewの背景色
-let thirdViewColor = NSColor.green
+// viewの背景色
+let viewObjectColor = NSColor.red
 
 // 画像の作成
 let bitmap = NSBitmapImageRep(bitmapDataPlanes: nil,
@@ -179,6 +158,7 @@ let bitmap = NSBitmapImageRep(bitmapDataPlanes: nil,
                               colorSpaceName: NSColorSpaceName.calibratedRGB,
                               bytesPerRow: 0,
                               bitsPerPixel: 0)
+bitmap?.canBeCompressed(using: .lzw)
 
 NSGraphicsContext.saveGraphicsState()
 
@@ -186,42 +166,65 @@ NSGraphicsContext.current = NSGraphicsContext(bitmapImageRep: bitmap!)
 
 // 背景色の描画
 backgroundColor.setFill()
-__NSRectFill(NSRect(origin: .zero, size: imageSize))
-/*
+__NSRectFill(NSRect(x: 0, y: 0, width: imageSize.width, height: imageSize.height))
+//__NSRectFill(NSRect(origin: .zero, size: imageSize))
 
-// FirstViewの描画
-firstViewColor.setFill()
-__NSRectFill(firstViewRect)
-let firstViewText = "AですAですAですAですAですAですAです"
-let firstViewTextAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: NSColor.white, .font: NSFont.systemFont(ofSize: 24)]
-let firstViewTextSize = firstViewText.size(withAttributes: firstViewTextAttributes)
-let firstViewTextRect = NSRect(x: firstViewRect.origin.x + (firstViewRect.width - firstViewTextSize.width) / 2, y: firstViewRect.origin.y + (firstViewRect.height - firstViewTextSize.height) / 2, width: firstViewTextSize.width, height: firstViewTextSize.height)
-firstViewText.draw(in: firstViewTextRect, withAttributes: firstViewTextAttributes)
-
-// lineViewの描画
-lineViewColor.setFill()
-__NSRectFill(lineViewRect)
-
-// SecondViewの描画
-secondViewColor.setFill()
-__NSRectFill(secondViewRect)
-
-// ThirdViewの描画
-thirdViewColor.setFill()
-__NSRectFill(thirdViewRect)
-
-
-let path = NSBezierPath()
-let angle = CGFloat.pi / 6.0 // 30度をラジアンに変換
-let length = CGFloat(100.0)
-let startPoint = NSPoint(x: 150, y: 200)
-let endPoint = NSPoint(x: 250, y: 0)
-path.move(to: startPoint)
-path.line(to: endPoint)
-path.lineWidth = 1
-NSColor.green.setStroke()
-path.stroke()
-*/
+views.enumerated().forEach { data in
+    let view: View = data.element
+    let index: Int = data.offset
+    
+    let preViewMaxCount: Int = {
+        if index != 0 {
+            let views = views[0...(index - 1)].map { $0 }
+            return createMaxVerticalCount(viewsArray: views)
+        } else {
+            return 0
+        }
+    }()
+    
+    // topMargin
+    let viewY = margin + (Double(preViewMaxCount) * (margin + viewObjectSize.height))
+    
+    print("viewY :: \(viewY)")
+    
+    setFillView(x: margin,
+                y: viewY,
+                viewText: view.nameData.value)
+    
+    setFillForViewViews(view.views, baseViewY: viewY)
+    
+    func setFillForViewViews(_ views: [View], baseViewY: Double) {
+        views.enumerated().forEach { data in
+            let _view: View = data.element
+            let _viewOffSet: Int = data.offset
+            
+            let x: Double = (Double(_view.index) * (margin + viewObjectSize.width)) + margin
+            let y: Double = Double(_viewOffSet) * (margin + viewObjectSize.height) + baseViewY
+            
+            setFillView(x: x, y: y, viewText: _view.nameData.value)
+            
+            if _view.views.count > 0 {
+                setFillForViewViews(_view.views, baseViewY: baseViewY)
+            }
+        }
+    }
+    
+    func setFillView(x: Double, y: Double, viewText: String) {
+        let viewRect: NSRect = .init(x: x,
+                                     y: imageHeight - y - viewObjectSize.height,
+                                     width: viewObjectSize.width,
+                                     height: viewObjectSize.height)
+        viewObjectColor.setFill()
+        __NSRectFill(viewRect)
+        let viewTextAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: NSColor.white, .font: NSFont.systemFont(ofSize: 20)]
+        let viewTextSize = viewText.size(withAttributes: viewTextAttributes)
+        let viewTextRect = NSRect(x: viewRect.origin.x + (viewRect.width - viewTextSize.width) / 2,
+                                  y: viewRect.origin.y + (viewRect.height - viewTextSize.height) / 2,
+                                  width: viewTextSize.width,
+                                  height: viewTextSize.height)
+        viewText.draw(in: viewRect, withAttributes: viewTextAttributes)
+    }
+}
 
 NSGraphicsContext.restoreGraphicsState()
 
