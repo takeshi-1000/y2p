@@ -15,6 +15,7 @@ struct Settings {
     var viewVerticalMargin: Double = 16
     var viewHorizontalMargin: Double = 50
     var margin: Double = 16
+    var imageName: String = "transition.png"
 }
 
 var views: [View] = []
@@ -27,7 +28,6 @@ func createMaxVerticalCount(viewsArray: [View]) -> Int {
         var viewsTotalCountList: [Int] = []
         
         if viewArrayItem.views.count > 0 {
-            // view.index == 0
             viewsTotalCountList.append(viewArrayItem.views.count)
             
             func testViews(views: [View]) {
@@ -102,12 +102,72 @@ func createViews(index: Int, viewsArray: [Yaml]) -> [View] {
     return _views
 }
 
+func createSettings(originalSettings: Settings, settingsInfoList: [Yaml : Yaml]) -> Settings {
+    var _settings = originalSettings
+        
+    settingsInfoList.forEach { settings in
+        
+        if case .string("margin") = settings.key,
+           case .int(let margin) = settings.value {
+            _settings.margin = Double(margin)
+        }
+        
+        if case .string("imageName") = settings.key,
+           case .string(let imageName) = settings.value {
+            _settings.imageName = imageName
+        }
+        
+        if case .string("object") = settings.key,
+           case .dictionary(let objectInfoDictionaryArray) = settings.value {
+            
+            objectInfoDictionaryArray.forEach { objectInfoDic in
+                if case .string("verticalMargin") = objectInfoDic.key,
+                   case .int(let verticalMargin) = objectInfoDic.value {
+                    _settings.viewVerticalMargin = Double(verticalMargin)
+                }
+                
+                if case .string("horizontalMargin") = objectInfoDic.key,
+                   case .int(let horizontalMargin) = objectInfoDic.value {
+                    _settings.viewHorizontalMargin = Double(horizontalMargin)
+                }
+                /*
+                if case .string("contentColor") = objectInfoDic.key,
+                   case .string(let contentColorHexCode) = objectInfoDic.value {
+                    _settings.viewObjectColor = NSColor(hex: contentColorHexCode)
+                }
+                
+                if case .string("textColor") = objectInfoDic.key,
+                   case .string(let textColorHexCode) = objectInfoDic.value {
+                    _settings.viewObjectTextColor = NSColor(hex: textColorHexCode)
+                }
+                 */
+                                
+                if case .string("size") = objectInfoDic.key,
+                   case .dictionary(let sizeDictionaries) = objectInfoDic.value {
+                    
+                    sizeDictionaries.forEach { sizeDic in
+                        if case .string("width") = sizeDic.key,
+                           case .int(let width) = sizeDic.value {
+                            _settings.viewObjectSize.width = Double(width)
+                        }
+                        
+                        if case .string("height") = sizeDic.key,
+                           case .int(let height) = sizeDic.value {
+                            _settings.viewObjectSize.height = Double(height)
+                        }
+                    }
+                }
+            }
+        }
+    }
+        
+    return _settings
+}
+
 let fileURL = URL(fileURLWithPath: "/Users/komoritakeshi/me/takeshi-1000/y2p/sample.yml")
 do {
     let contents = try String(contentsOf: fileURL, encoding: .utf8)
     let value = try Yaml.load(contents)
-    print(value)
-    print("==================================")
     
     guard case .dictionary(let dictionaries) = value else {
         throw fatalError()
@@ -117,20 +177,18 @@ do {
     
     while dictionaries.endIndex > startIndex {
         
-        let test = dictionaries[startIndex]
+        let dictionary = dictionaries[startIndex]
         
-        if test.key == .string("views"), case .array(let viewsArray) = test.value {
+        if dictionary.key == .string("views"), case .array(let viewsArray) = dictionary.value {
             views = createViews(index: 0, viewsArray: viewsArray)
         }
         
-        if test.key == .string("settings") {
-            
+        if dictionary.key == .string("settings"), case .dictionary(let settingsDictionary) = dictionary.value {
+            settings = createSettings(originalSettings: settings, settingsInfoList: settingsDictionary)
         }
         
         startIndex = dictionaries.index(after: startIndex)
     }
-    
-    print("views :: \(views)")
     
 } catch {
     print("Could not read file: \(error)")
@@ -152,8 +210,6 @@ let imageWidth = contentWidth + (contentMargin * 2)
 let imageHeight = contentHeight + (contentMargin * 2)
 let imageSize = NSSize(width: imageWidth,
                        height: imageHeight)
-
-print("imageSize :: \(imageSize)")
 
 // 画像の背景色
 let backgroundColor = NSColor.white
@@ -178,7 +234,6 @@ NSGraphicsContext.current = NSGraphicsContext(bitmapImageRep: bitmap!)
 // 背景色の描画
 backgroundColor.setFill()
 __NSRectFill(NSRect(x: 0, y: 0, width: imageSize.width, height: imageSize.height))
-//__NSRectFill(NSRect(origin: .zero, size: imageSize))
 
 views.enumerated().forEach { data in
     let view: View = data.element
@@ -194,9 +249,7 @@ views.enumerated().forEach { data in
     }()
     
     let viewY = contentMargin + (Double(preViewMaxCount) * (viewObjectVerticalMargin + viewObjectSize.height))
-    
-    print("viewY :: \(viewY)")
-    
+        
     setFillView(x: contentMargin,
                 y: viewY,
                 viewText: view.nameData.value)
@@ -242,4 +295,7 @@ NSGraphicsContext.restoreGraphicsState()
 
 // 画像の保存
 let imageData = bitmap?.representation(using: .png, properties: [:])
-try? imageData?.write(to: URL(fileURLWithPath: "transition.png"))
+try? imageData?.write(to: URL(fileURLWithPath: settings.imageName))
+
+print("Success created!")
+

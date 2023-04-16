@@ -1,14 +1,21 @@
 settings:
   transionContext: [push, modal, alert]
   transionContextColor:
-    - push: .red
-    - modal: .blue
-    - alert: .green
+   - push: .red
+   - modal: .blue
+   - alert: .green
   defaultTransionContext: push
-  objectColor:
-    - border: .black
-    - content: .white
-    - text: .black
+  object:
+   borderColor: .black
+   contentColor: "#00BFFF"
+   textColor: "#FFFFFF"
+   verticalMargin: 16
+   horizontalMargin: 16
+   size:
+    width: 100
+    height: 100
+  margin: 16
+  imageName: "test.png"
 
 views:
   - Splash:
