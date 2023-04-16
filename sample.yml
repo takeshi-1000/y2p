@@ -1,0 +1,74 @@
+settings:
+  transionContext: [push, modal, alert]
+  transionContextColor:
+   - push: .red
+   - modal: .blue
+   - alert: .green
+  defaultTransionContext: push
+  object:
+   borderColor: .black
+   contentColor: "#00BFFF"
+   textColor: "#FFFFFF"
+   verticalMargin: 16
+   horizontalMargin: 16
+   size:
+    width: 100
+    height: 100
+  margin: 16
+  imageName: "test.png"
+
+views:
+  - Splash:
+      name: "スプラッシュ"
+      views:
+       - Hoge:
+          name: "ほげ"
+       - Hoge2:
+          name: "ほげ2"
+       - Hoge3:
+          name: "ほげ3"
+          views:
+           - Hoge4:
+              name: "ほげ4"
+           - Hoge5:
+              name: "ほげ5"
+  - LoginTop:
+      name: "ログイントップ"
+      transionContext: modal
+      views:
+       - Hoge0:
+          name: "ほげ"
+       - Hoge:
+          name: "ほげ"
+       - Hoge2:
+          name: "ほげ2"
+       - Hoge3:
+          name: "ほげ3"
+          views:
+           - Hoge4:
+              name: "ほげ4"
+           - Hoge5:
+              name: "ほげ5"
+              views:
+               - Hoge4:
+                  name: "ほげ4"
+                  views:
+                   - Hoge4:
+                      name: "ほげ4"
+               - Hoge5:
+                  name: "ほげ5"
+  - LoginMail:
+      name: "ログインメール"
+      transionContext: push
+  - DoorTop:
+      name: "ドアトップ"
+      transionContext: push
+  - DoorDetail:
+      name: "ドア詳細"
+      transionContext: push
+  - DoorSetting:
+      name: "ドア設定"
+      transionContext: push
+  - DoorSetting:
+      name: "ドア設定"
+      transionContext: push
