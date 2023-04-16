@@ -28,6 +28,28 @@ views:
   - LoginTop:
       name: "ログイントップ"
       transionContext: modal
+      views:
+       - Hoge0:
+          name: "ほげ"
+       - Hoge:
+          name: "ほげ"
+       - Hoge2:
+          name: "ほげ2"
+       - Hoge3:
+          name: "ほげ3"
+          views:
+           - Hoge4:
+              name: "ほげ4"
+           - Hoge5:
+              name: "ほげ5"
+              views:
+               - Hoge4:
+                  name: "ほげ4"
+                  views:
+                   - Hoge4:
+                      name: "ほげ4"
+               - Hoge5:
+                  name: "ほげ5"
   - LoginMail:
       name: "ログインメール"
       transionContext: push
@@ -36,6 +58,9 @@ views:
       transionContext: push
   - DoorDetail:
       name: "ドア詳細"
+      transionContext: push
+  - DoorSetting:
+      name: "ドア設定"
       transionContext: push
   - DoorSetting:
       name: "ドア設定"

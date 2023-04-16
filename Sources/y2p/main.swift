@@ -9,6 +9,49 @@ struct View {
 
 var views: [View] = []
 
+func createMaxVerticalCount(viewsArray: [View]) -> Int {
+    var count: Int = 0
+    
+    viewsArray.forEach { viewArrayItem in
+        var viewsTotalCountList: [Int] = []
+        
+        if viewArrayItem.views.count > 0 {
+            // view.index == 0
+            viewsTotalCountList.append(viewArrayItem.views.count)
+            
+            func testViews(views: [View]) {
+                if views.count > 0 {
+                    viewsTotalCountList.append(views.count)
+                    
+                    views.forEach { view in
+                        testViews(views: view.views)
+                    }
+                } else {
+                    viewsTotalCountList.append(1)
+                }
+            }
+        } else {
+            viewsTotalCountList.append(1)
+        }
+
+        count += viewsTotalCountList.max() ?? 1
+    }
+    
+    return count
+}
+
+func createMaxHorizontalCount(index: Int, viewsArray: [View]) -> Int {
+    var indexList: [Int] = [index]
+    
+    viewsArray.forEach { view in
+        if view.views.count > 0 {
+            indexList.append(createMaxHorizontalCount(index: index + 1, viewsArray: view.views))
+        }
+    }
+    
+    return indexList.max() ?? index
+}
+
 func createViews(index: Int, viewsArray: [Yaml]) -> [View] {
     var _views: [View] = []
     
@@ -82,8 +125,21 @@ do {
     print("Could not read file: \(error)")
 }
 
+var maxHorizontalDeepCount = createMaxHorizontalCount(index: 0, viewsArray: views)
+var maxVerticalDeepCount = createMaxVerticalCount(viewsArray: views)
+
 // 画像のサイズ
-let imageSize = NSSize(width: 1000, height: 1000)
+let viewObjectSize = NSPoint(x: 100, y: 100)
+let margin: Double = 16
+
+let contentWidth = viewObjectSize.x * Double(maxHorizontalDeepCount) + margin * Double(maxHorizontalDeepCount - 1)
+let contentHeight = viewObjectSize.y * Double(maxVerticalDeepCount) + margin * Double(maxVerticalDeepCount - 1)
+let imageWidth = contentWidth + (margin * 2)
+let imageHeight = contentHeight + (margin * 2)
+let imageSize = NSSize(width: imageWidth,
+                       height: imageHeight)
+
+print("imageSize :: \(imageSize)")
 
 // 画像の背景色
 let backgroundColor = NSColor.white
@@ -131,6 +187,7 @@ NSGraphicsContext.current = NSGraphicsContext(bitmapImageRep: bitmap!)
 // 背景色の描画
 backgroundColor.setFill()
 __NSRectFill(NSRect(origin: .zero, size: imageSize))
+/*
 
 // FirstViewの描画
 firstViewColor.setFill()
@@ -164,6 +221,7 @@ path.line(to: endPoint)
 path.lineWidth = 1
 NSColor.green.setStroke()
 path.stroke()
+*/
 
 NSGraphicsContext.restoreGraphicsState()
 
