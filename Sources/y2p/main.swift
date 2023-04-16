@@ -7,7 +7,18 @@ struct View {
     var views: [View]
 }
 
+struct Settings {
+    var viewObjectSize: NSSize = NSSize(width: 100, height: 50)
+    var viewObjectColor: NSColor = NSColor.red
+    var viewObjectTextColor: NSColor = NSColor.white
+    var viewObjectTextFontSize: Double = 20
+    var viewVerticalMargin: Double = 16
+    var viewHorizontalMargin: Double = 50
+    var margin: Double = 16
+}
+
 var views: [View] = []
+var settings: Settings = .init()
 
 func createMaxVerticalCount(viewsArray: [View]) -> Int {
     var count: Int = 0
@@ -125,17 +136,20 @@ do {
     print("Could not read file: \(error)")
 }
 
+// 水平方向にどれくらい深くなるか
 var maxHorizontalDeepCount = createMaxHorizontalCount(index: 0, viewsArray: views)
+// 垂直方向にどれくらい深くなるか
 var maxVerticalDeepCount = createMaxVerticalCount(viewsArray: views)
 
-// 画像のサイズ
-let viewObjectSize = NSSize(width: 100, height: 100)
-let margin: Double = 16
+let viewObjectSize = settings.viewObjectSize
+let viewObjectVerticalMargin: Double = settings.viewVerticalMargin
+let viewObjectHorizontalMargin: Double = settings.viewHorizontalMargin
+let contentMargin: Double = settings.margin
 
-let contentWidth = viewObjectSize.width * Double(maxHorizontalDeepCount) + margin * Double(maxHorizontalDeepCount - 1)
-let contentHeight = viewObjectSize.height * Double(maxVerticalDeepCount) + margin * Double(maxVerticalDeepCount - 1)
-let imageWidth = contentWidth + (margin * 2)
-let imageHeight = contentHeight + (margin * 2)
+let contentWidth = viewObjectSize.width * Double(maxHorizontalDeepCount) + viewObjectHorizontalMargin * Double(maxHorizontalDeepCount - 1)
+let contentHeight = viewObjectSize.height * Double(maxVerticalDeepCount) + viewObjectVerticalMargin * Double(maxVerticalDeepCount - 1)
+let imageWidth = contentWidth + (contentMargin * 2)
+let imageHeight = contentHeight + (contentMargin * 2)
 let imageSize = NSSize(width: imageWidth,
                        height: imageHeight)
 
@@ -143,9 +157,6 @@ print("imageSize :: \(imageSize)")
 
 // 画像の背景色
 let backgroundColor = NSColor.white
-
-// viewの背景色
-let viewObjectColor = NSColor.red
 
 // 画像の作成
 let bitmap = NSBitmapImageRep(bitmapDataPlanes: nil,
@@ -182,12 +193,11 @@ views.enumerated().forEach { data in
         }
     }()
     
-    // topMargin
-    let viewY = margin + (Double(preViewMaxCount) * (margin + viewObjectSize.height))
+    let viewY = contentMargin + (Double(preViewMaxCount) * (viewObjectVerticalMargin + viewObjectSize.height))
     
     print("viewY :: \(viewY)")
     
-    setFillView(x: margin,
+    setFillView(x: contentMargin,
                 y: viewY,
                 viewText: view.nameData.value)
     
@@ -198,8 +208,8 @@ views.enumerated().forEach { data in
             let _view: View = data.element
             let _viewOffSet: Int = data.offset
             
-            let x: Double = (Double(_view.index) * (margin + viewObjectSize.width)) + margin
-            let y: Double = Double(_viewOffSet) * (margin + viewObjectSize.height) + baseViewY
+            let x: Double = (Double(_view.index) * (viewObjectHorizontalMargin + viewObjectSize.width)) + contentMargin
+            let y: Double = Double(_viewOffSet) * (viewObjectVerticalMargin + viewObjectSize.height) + baseViewY
             
             setFillView(x: x, y: y, viewText: _view.nameData.value)
             
@@ -214,9 +224,11 @@ views.enumerated().forEach { data in
                                      y: imageHeight - y - viewObjectSize.height,
                                      width: viewObjectSize.width,
                                      height: viewObjectSize.height)
-        viewObjectColor.setFill()
+        settings.viewObjectColor.setFill()
         __NSRectFill(viewRect)
-        let viewTextAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: NSColor.white, .font: NSFont.systemFont(ofSize: 20)]
+        let viewTextAttributes: [NSAttributedString.Key: Any] = [
+            .foregroundColor: settings.viewObjectTextColor, .font: NSFont.systemFont(ofSize: settings.viewObjectTextFontSize)
+        ]
         let viewTextSize = viewText.size(withAttributes: viewTextAttributes)
         let viewTextRect = NSRect(x: viewRect.origin.x + (viewRect.width - viewTextSize.width) / 2,
                                   y: viewRect.origin.y + (viewRect.height - viewTextSize.height) / 2,
