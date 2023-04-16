@@ -1,3 +1,3 @@
 # y2p
 
-This is Cli application with yaml file. It provides screen trantision diagram. 
+This is Cli application which use yaml file. It provides screen trantision diagram. 
