@@ -1,3 +1,3 @@
 # y2p
 
-A description of this package.
+This is Cli application with yaml file. It provides screen trantision diagram. 
