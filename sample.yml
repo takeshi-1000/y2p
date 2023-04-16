@@ -60,15 +60,15 @@ views:
   - LoginMail:
       name: "ログインメール"
       transionContext: push
-  - DoorTop:
+  - Top:
       name: "トップ"
       transionContext: push
-  - DoorDetail:
+  - Detail:
       name: "詳細"
       transionContext: push
-  - DoorSetting:
+  - Setting:
       name: "設定"
       transionContext: push
-  - DoorSetting:
+  - Setting2:
       name: "設定2"
       transionContext: push
