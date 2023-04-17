@@ -9,8 +9,9 @@ struct View {
 
 struct Settings {
     var viewObjectSize: NSSize = NSSize(width: 100, height: 50)
-    var viewObjectColor: NSColor = NSColor.red
-    var viewObjectTextColor: NSColor = NSColor.white
+    var viewObjectColor: NSColor = NSColor.white
+    var viewObjectBorderColor: NSColor = NSColor.black
+    var viewObjectTextColor: NSColor = NSColor.black
     var viewObjectTextFontSize: Double = 20
     var viewVerticalMargin: Double = 16
     var viewHorizontalMargin: Double = 50
@@ -284,6 +285,11 @@ views.enumerated().forEach { data in
                                   width: viewTextSize.width,
                                   height: viewTextSize.height)
         viewText.draw(in: viewRect, withAttributes: viewTextAttributes)
+        // 枠線
+        let borderPath = NSBezierPath(rect: viewRect)
+        borderPath.lineWidth = 1.0
+        settings.viewObjectBorderColor.setStroke()
+        borderPath.stroke()
     }
 }
 
