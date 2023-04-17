@@ -27,22 +27,18 @@ func createMaxVerticalCount(viewsArray: [View]) -> Int {
     viewsArray.forEach { viewArrayItem in
         var viewsTotalCountList: [Int] = []
         
-        if viewArrayItem.views.count > 0 {
-            viewsTotalCountList.append(viewArrayItem.views.count)
-            
-            func testViews(views: [View]) {
-                if views.count > 0 {
-                    viewsTotalCountList.append(views.count)
-                    
-                    views.forEach { view in
-                        testViews(views: view.views)
-                    }
-                } else {
-                    viewsTotalCountList.append(1)
+        calcTotalCountEveryViews(viewArrayItem.views)
+        
+        func calcTotalCountEveryViews(_ views: [View]) {
+            if views.count > 0 {
+                viewsTotalCountList.append(views.count)
+                
+                views.forEach { view in
+                    calcTotalCountEveryViews(view.views)
                 }
+            } else {
+                viewsTotalCountList.append(1)
             }
-        } else {
-            viewsTotalCountList.append(1)
         }
 
         count += viewsTotalCountList.max() ?? 1
@@ -52,7 +48,7 @@ func createMaxVerticalCount(viewsArray: [View]) -> Int {
 }
 
 func createMaxHorizontalCount(index: Int, viewsArray: [View]) -> Int {
-    var indexList: [Int] = [index]
+    var indexList: [Int] = [index + 1]
     
     viewsArray.forEach { view in
         if view.views.count > 0 {
@@ -297,5 +293,5 @@ NSGraphicsContext.restoreGraphicsState()
 let imageData = bitmap?.representation(using: .png, properties: [:])
 try? imageData?.write(to: URL(fileURLWithPath: settings.imageName))
 
-print("Success created!")
+print("Success \(settings.imageName) created!")
 

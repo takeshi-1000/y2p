@@ -10,10 +10,10 @@ settings:
    contentColor: "#00BFFF"
    textColor: "#FFFFFF"
    verticalMargin: 16
-   horizontalMargin: 16
+   horizontalMargin: 100
    size:
     width: 100
-    height: 100
+    height: 50
   margin: 16
   imageName: "test.png"
 
@@ -53,8 +53,23 @@ views:
                - Hoge4:
                   name: "ほげ4"
                   views:
-                   - Hoge4:
-                      name: "ほげ4"
+                   - Hoge6:
+                      name: "ほげ6"
+                      views:
+                        - Hoge7:
+                           name: "ほげ7"
+                        - Hoge8:
+                           name: "ほげ8"
+                        - Hoge9:
+                           name: "ほげ9"
+                        - Hoge10:
+                           name: "ほげ10"
+                        - Hoge11:
+                           name: "ほげ11"
+                        - Hoge12:
+                           name: "ほげ12"
+                        - Hoge13:
+                           name: "ほげ13"
                - Hoge5:
                   name: "ほげ5"
   - LoginMail:
