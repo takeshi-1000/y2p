@@ -7,8 +7,8 @@ settings:
   defaultTransionContext: push
   object:
    borderColor: .black
-   contentColor: "#00BFFF"
-   textColor: "#FFFFFF"
+   contentColor: "00BFFF"
+   textColor: "000000"
    verticalMargin: 16
    horizontalMargin: 100
    size:
@@ -25,13 +25,25 @@ views:
           name: "ほげ"
        - Hoge2:
           name: "ほげ2"
+          views:
+           - Hoge4:
+              name: "ほげ40"
+           - Hoge5:
+              name: "ほげ50"
+           - Hoge6:
+              name: "ほげ60"
+           - Hoge7:
+              name: "ほげ70"
+              views:
+               - Hoge8:
+                  name: "ほげ80"
        - Hoge3:
           name: "ほげ3"
           views:
            - Hoge4:
-              name: "ほげ4"
+              name: "ほげ41"
            - Hoge5:
-              name: "ほげ5"
+              name: "ほげ51"
   - LoginTop:
       name: "ログイントップ"
       transionContext: modal

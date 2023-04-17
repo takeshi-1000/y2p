@@ -1,6 +1,16 @@
 import Cocoa
 import Yaml
 
+extension NSColor {
+    convenience init(hex: String, alpha: CGFloat = 1.0) {
+        let v = Int("000000" + hex, radix: 16) ?? 0
+        let r = CGFloat(v / Int(powf(256, 2)) % 256) / 255
+        let g = CGFloat(v / Int(powf(256, 1)) % 256) / 255
+        let b = CGFloat(v / Int(powf(256, 0)) % 256) / 255
+        self.init(red: r, green: g, blue: b, alpha: min(max(alpha, 0), 1))
+    }
+}
+
 struct View {
     var nameData: (key: String, value: String) = (key: "", value: "")
     var index: Int = 0
@@ -22,23 +32,39 @@ struct Settings {
 var views: [View] = []
 var settings: Settings = .init()
 
+/*
+ e.g 下記のように、垂直方向にどれだけ深いかを算出するためのロジック
+ ========
+ 0 1 2 3
+   1 2 3
+   1     → ここまでで3
+ 0 1 2 3
+       3
+       3 → ここまでで6
+ 0       → ここまでで7
+ ========
+ */
 func createMaxVerticalCount(viewsArray: [View]) -> Int {
     var count: Int = 0
     
     viewsArray.forEach { viewArrayItem in
-        var viewsTotalCountList: [Int] = []
+        var viewsTotalCountList: [Int] = [1] // ここを通過する時点で1つは存在するので
         
         calcTotalCountEveryViews(viewArrayItem.views)
         
         func calcTotalCountEveryViews(_ views: [View]) {
-            if views.count > 0 {
-                viewsTotalCountList.append(views.count)
-                
-                views.forEach { view in
-                    calcTotalCountEveryViews(view.views)
-                }
-            } else {
-                viewsTotalCountList.append(1)
+            var _count = 0
+            var _nextViews: [View] = []
+            
+            views.forEach { view in
+                _count += view.views.count
+                _nextViews.append(contentsOf: view.views)
+            }
+            
+            viewsTotalCountList.append(_count)
+            
+            if _nextViews.isEmpty == false {
+                calcTotalCountEveryViews(_nextViews)
             }
         }
 
@@ -122,23 +148,18 @@ func createSettings(originalSettings: Settings, settingsInfoList: [Yaml : Yaml])
                    case .int(let verticalMargin) = objectInfoDic.value {
                     _settings.viewVerticalMargin = Double(verticalMargin)
                 }
-                
                 if case .string("horizontalMargin") = objectInfoDic.key,
                    case .int(let horizontalMargin) = objectInfoDic.value {
                     _settings.viewHorizontalMargin = Double(horizontalMargin)
                 }
-                /*
                 if case .string("contentColor") = objectInfoDic.key,
                    case .string(let contentColorHexCode) = objectInfoDic.value {
                     _settings.viewObjectColor = NSColor(hex: contentColorHexCode)
                 }
-                
                 if case .string("textColor") = objectInfoDic.key,
                    case .string(let textColorHexCode) = objectInfoDic.value {
                     _settings.viewObjectTextColor = NSColor(hex: textColorHexCode)
                 }
-                 */
-                                
                 if case .string("size") = objectInfoDic.key,
                    case .dictionary(let sizeDictionaries) = objectInfoDic.value {
                     
@@ -166,9 +187,12 @@ do {
     let contents = try String(contentsOf: fileURL, encoding: .utf8)
     let value = try Yaml.load(contents)
     
-    guard case .dictionary(let dictionaries) = value else {
-        throw fatalError()
-    }
+    let dictionaries: ([Yaml : Yaml]) = {
+        if case .dictionary(let dictionaries) = value {
+            return dictionaries
+        }
+        return ([:])
+    }()
     
     var startIndex = dictionaries.startIndex
     
@@ -233,6 +257,7 @@ backgroundColor.setFill()
 __NSRectFill(NSRect(x: 0, y: 0, width: imageSize.width, height: imageSize.height))
 
 views.enumerated().forEach { data in
+    // 第一階層
     let view: View = data.element
     let index: Int = data.offset
     
@@ -251,9 +276,14 @@ views.enumerated().forEach { data in
                 y: viewY,
                 viewText: view.nameData.value)
     
+    // 第二階層以降
     setFillForViewViews(view.views, baseViewY: viewY)
+    // TODO: 斜線
+//    let baseViewYForSlash: Double = viewY + (viewObjectSize.height / 2)
+//    setSlashForViewViews(view.views, baseViewY: baseViewYForSlash)
     
     func setFillForViewViews(_ views: [View], baseViewY: Double) {
+        var nextViews: [View] = []
         views.enumerated().forEach { data in
             let _view: View = data.element
             let _viewOffSet: Int = data.offset
@@ -264,8 +294,12 @@ views.enumerated().forEach { data in
             setFillView(x: x, y: y, viewText: _view.nameData.value)
             
             if _view.views.count > 0 {
-                setFillForViewViews(_view.views, baseViewY: baseViewY)
+                nextViews.append(contentsOf: _view.views)
             }
+        }
+        
+        if nextViews.isEmpty == false {
+            setFillForViewViews(nextViews, baseViewY: baseViewY)
         }
     }
     
@@ -279,17 +313,44 @@ views.enumerated().forEach { data in
         let viewTextAttributes: [NSAttributedString.Key: Any] = [
             .foregroundColor: settings.viewObjectTextColor, .font: NSFont.systemFont(ofSize: settings.viewObjectTextFontSize)
         ]
-        let viewTextSize = viewText.size(withAttributes: viewTextAttributes)
-        let viewTextRect = NSRect(x: viewRect.origin.x + (viewRect.width - viewTextSize.width) / 2,
-                                  y: viewRect.origin.y + (viewRect.height - viewTextSize.height) / 2,
-                                  width: viewTextSize.width,
-                                  height: viewTextSize.height)
         viewText.draw(in: viewRect, withAttributes: viewTextAttributes)
         // 枠線
         let borderPath = NSBezierPath(rect: viewRect)
         borderPath.lineWidth = 1.0
         settings.viewObjectBorderColor.setStroke()
         borderPath.stroke()
+    }
+    
+    func setSlashForViewViews(_ views: [View], baseViewY: Double) {
+        views.enumerated().forEach { data in
+            if data.offset != 1 {
+                return
+            }
+            let _view: View = data.element
+            let _offset: Int = data.offset
+            let _horizontalIndex = _view.index
+            let _baseViewY = baseViewY + (Double(_offset) * settings.viewObjectSize.height)
+            
+            let endPointX: Double = settings.margin + (Double(_horizontalIndex) * (settings.viewObjectSize.width + settings.viewHorizontalMargin))
+            let startPointX: Double = endPointX - viewObjectHorizontalMargin
+            let startPointXClamped = startPointX < 0 ? 0 : startPointX
+            let startPoint = NSPoint(x: startPointXClamped, y: baseViewY)
+            let endPoint = NSPoint(x: endPointX, y: _baseViewY)
+            setSlash(startPoint: startPoint, endPoint: endPoint)
+            
+            if _view.views.count > 0 {
+                setSlashForViewViews(_view.views, baseViewY: _baseViewY)
+            }
+        }
+    }
+    
+    func setSlash(startPoint: NSPoint, endPoint: NSPoint) {
+        let path = NSBezierPath()
+        path.move(to: startPoint)
+        path.line(to: endPoint)
+        path.lineWidth = 1
+        NSColor.green.setStroke()
+        path.stroke()
     }
 }
 
