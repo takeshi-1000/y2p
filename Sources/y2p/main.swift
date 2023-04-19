@@ -11,10 +11,19 @@ extension NSColor {
     }
 }
 
-struct View {
+class View {
     var nameData: (key: String, value: String) = (key: "", value: "")
     var index: Int = 0
     var views: [View]
+    var cgrect: NSRect = .zero
+    
+    init(nameData: (key: String, value: String),
+         index: Int,
+         views: [View]) {
+        self.nameData = nameData
+        self.index = index
+        self.views = views
+    }
 }
 
 struct Settings {
@@ -274,13 +283,12 @@ views.enumerated().forEach { data in
         
     setFillView(x: contentMargin,
                 y: viewY,
-                viewText: view.nameData.value)
+                view: view)
     
     // 第二階層以降
     setFillForViewViews(view.views, baseViewY: viewY)
-    // TODO: 斜線
-//    let baseViewYForSlash: Double = viewY + (viewObjectSize.height / 2)
-//    setSlashForViewViews(view.views, baseViewY: baseViewYForSlash)
+    // 斜線
+    setSlashForViewViews(baseView: view)
     
     func setFillForViewViews(_ views: [View], baseViewY: Double) {
         var nextViews: [View] = []
@@ -291,7 +299,7 @@ views.enumerated().forEach { data in
             let x: Double = (Double(_view.index) * (viewObjectHorizontalMargin + viewObjectSize.width)) + contentMargin
             let y: Double = Double(_viewOffSet) * (viewObjectVerticalMargin + viewObjectSize.height) + baseViewY
             
-            setFillView(x: x, y: y, viewText: _view.nameData.value)
+            setFillView(x: x, y: y, view: _view)
             
             if _view.views.count > 0 {
                 nextViews.append(contentsOf: _view.views)
@@ -303,7 +311,7 @@ views.enumerated().forEach { data in
         }
     }
     
-    func setFillView(x: Double, y: Double, viewText: String) {
+    func setFillView(x: Double, y: Double, view: View) {
         let viewRect: NSRect = .init(x: x,
                                      y: imageHeight - y - viewObjectSize.height,
                                      width: viewObjectSize.width,
@@ -313,33 +321,24 @@ views.enumerated().forEach { data in
         let viewTextAttributes: [NSAttributedString.Key: Any] = [
             .foregroundColor: settings.viewObjectTextColor, .font: NSFont.systemFont(ofSize: settings.viewObjectTextFontSize)
         ]
-        viewText.draw(in: viewRect, withAttributes: viewTextAttributes)
+        view.nameData.value.draw(in: viewRect, withAttributes: viewTextAttributes)
         // 枠線
         let borderPath = NSBezierPath(rect: viewRect)
         borderPath.lineWidth = 1.0
         settings.viewObjectBorderColor.setStroke()
         borderPath.stroke()
+        // view情報にNSRectセット
+        view.cgrect = viewRect
     }
-    
-    func setSlashForViewViews(_ views: [View], baseViewY: Double) {
-        views.enumerated().forEach { data in
-            if data.offset != 1 {
-                return
-            }
+    func setSlashForViewViews(baseView: View) {
+        baseView.views.enumerated().forEach { data in
             let _view: View = data.element
-            let _offset: Int = data.offset
-            let _horizontalIndex = _view.index
-            let _baseViewY = baseViewY + (Double(_offset) * settings.viewObjectSize.height)
-            
-            let endPointX: Double = settings.margin + (Double(_horizontalIndex) * (settings.viewObjectSize.width + settings.viewHorizontalMargin))
-            let startPointX: Double = endPointX - viewObjectHorizontalMargin
-            let startPointXClamped = startPointX < 0 ? 0 : startPointX
-            let startPoint = NSPoint(x: startPointXClamped, y: baseViewY)
-            let endPoint = NSPoint(x: endPointX, y: _baseViewY)
+            let startPoint = NSPoint(x: baseView.cgrect.maxX, y: baseView.cgrect.minY + (settings.viewObjectSize.height / 2))
+            let endPoint = NSPoint(x: _view.cgrect.minX, y: _view.cgrect.minY + (settings.viewObjectSize.height / 2))
             setSlash(startPoint: startPoint, endPoint: endPoint)
             
             if _view.views.count > 0 {
-                setSlashForViewViews(_view.views, baseViewY: _baseViewY)
+                setSlashForViewViews(baseView: _view)
             }
         }
     }
@@ -349,7 +348,7 @@ views.enumerated().forEach { data in
         path.move(to: startPoint)
         path.line(to: endPoint)
         path.lineWidth = 1
-        NSColor.green.setStroke()
+        NSColor.red.setStroke()
         path.stroke()
     }
 }

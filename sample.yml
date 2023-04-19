@@ -54,13 +54,23 @@ views:
           name: "ほげ"
        - Hoge2:
           name: "ほげ2"
+          views:
+           - Hoge24:
+              name: "ほげ24"
+              views:
+               - Hoge400:
+                  name: "ほげ400"
+               - Hoge401:
+                  name: "ほげ401"
+           - Hoge25:
+              name: "ほげ25"
        - Hoge3:
           name: "ほげ3"
           views:
            - Hoge4:
-              name: "ほげ4"
+              name: "ほげ34"
            - Hoge5:
-              name: "ほげ5"
+              name: "ほげ35"
               views:
                - Hoge4:
                   name: "ほげ4"
