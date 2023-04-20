@@ -14,16 +14,19 @@ extension NSColor {
 class View {
     var nameData: (key: String, value: String) = (key: "", value: "")
     var transitionContextKey: String
+    var contentColor: String = ""
     var index: Int = 0
     var views: [View]
     var cgrect: NSRect = .zero
     
     init(nameData: (key: String, value: String),
          transitionContextKey: String,
+         contentColor: String,
          index: Int,
          views: [View]) {
         self.nameData = nameData
         self.transitionContextKey = transitionContextKey
+        self.contentColor = contentColor
         self.index = index
         self.views = views
     }
@@ -112,6 +115,7 @@ func createViews(index: Int, viewsArray: [Yaml]) -> [View] {
         var _nameKey: String = ""
         var _nameValue: String = ""
         var _transitionContextKey: String = ""
+        var _contentColor: String = ""
         var _childviews: [View] = []
         
         if case .dictionary(let viewsDataDictionaries) = viewData {
@@ -129,6 +133,10 @@ func createViews(index: Int, viewsArray: [Yaml]) -> [View] {
                            case .string(let transitionContextKey) = viewInfo.value {
                             _transitionContextKey = transitionContextKey
                         }
+                        if case .string("contentColor") = viewInfo.key,
+                           case .string(let contentColor) = viewInfo.value {
+                            _contentColor = contentColor
+                        }
                         
                         if case .string("views") = viewInfo.key,
                            case .array(let childViews) = viewInfo.value {
@@ -142,6 +150,7 @@ func createViews(index: Int, viewsArray: [Yaml]) -> [View] {
         _views.append(
             View(nameData: (key: _nameKey, value: _nameValue),
                  transitionContextKey: _transitionContextKey,
+                 contentColor: _contentColor,
                  index: index,
                  views: _childviews)
         )
@@ -378,10 +387,15 @@ views.enumerated().forEach { data in
                                      y: imageHeight - y - viewObjectSize.height,
                                      width: viewObjectSize.width,
                                      height: viewObjectSize.height)
-        settings.viewObjectColor.setFill()
+        if view.contentColor.isEmpty {
+            settings.viewObjectColor.setFill()
+        } else {
+            NSColor(hex: view.contentColor).setFill()
+        }
         __NSRectFill(viewRect)
         let viewTextAttributes: [NSAttributedString.Key: Any] = [
-            .foregroundColor: settings.viewObjectTextColor, .font: NSFont.systemFont(ofSize: settings.viewObjectTextFontSize)
+            .foregroundColor: settings.viewObjectTextColor,
+            .font: NSFont.systemFont(ofSize: settings.viewObjectTextFontSize),
         ]
         view.nameData.value.draw(in: viewRect, withAttributes: viewTextAttributes)
         // 枠線

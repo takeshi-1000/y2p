@@ -60,6 +60,7 @@ views:
           name: "ほげ"
        - Hoge2:
           name: "ほげ2"
+          contentColor: "FFFFFF"
           views:
            - Hoge24:
               name: "ほげ24"
@@ -88,6 +89,7 @@ views:
                         - Hoge7:
                            name: "ほげ7"
                            transitionContext: alert
+                           contentColor: "FFFFFF"
                         - Hoge8:
                            name: "ほげ8"
                            transitionContext: alert
