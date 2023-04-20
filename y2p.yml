@@ -18,7 +18,7 @@ settings:
     height: 50
   margin: 16
   imageName: "test.png"
-  slashWidth: 5
+  slashWidth: 3
 
 views:
   - Splash:

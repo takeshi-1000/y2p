@@ -40,9 +40,9 @@ struct Settings {
     var margin: Double = 16
     var imageName: String = "transition.png"
     var defaulttransitionContextKey: String = ""
-    var transitionContextList: [transitionContext] = []
+    var transitionContextList: [TransitionContext] = []
     var slashWidth: Double = 1
-    struct transitionContext {
+    struct TransitionContext {
         var typeStr: String = ""
         var colorStr: String = ""
     }
@@ -172,7 +172,7 @@ func createSettings(originalSettings: Settings, settingsInfoList: [Yaml : Yaml])
         
         if case .string("transitionContextList") = settings.key,
            case .array(let transitionContextList) = settings.value {
-            var _transitionContextList: [Settings.transitionContext] = []
+            var _transitionContextList: [Settings.TransitionContext] = []
             
             transitionContextList.forEach { yaml in
                 if case .dictionary(let transitionContextInfoList) = yaml {
@@ -193,7 +193,7 @@ func createSettings(originalSettings: Settings, settingsInfoList: [Yaml : Yaml])
                             }
                         }
                         _transitionContextList.append(
-                            Settings.transitionContext(
+                            Settings.TransitionContext(
                                 typeStr: _transitionContextTypeStr,
                                 colorStr: _transitionContextColorStr
                             )
@@ -252,7 +252,7 @@ func createSettings(originalSettings: Settings, settingsInfoList: [Yaml : Yaml])
     return _settings
 }
 
-let fileURL = URL(fileURLWithPath: "/Users/komoritakeshi/me/takeshi-1000/y2p/sample.yml")
+let fileURL = URL(fileURLWithPath: "y2p.yml")
 do {
     let contents = try String(contentsOf: fileURL, encoding: .utf8)
     let value = try Yaml.load(contents)
