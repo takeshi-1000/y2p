@@ -15,6 +15,7 @@ class View {
     var nameData: (key: String, value: String) = (key: "", value: "")
     var transitionContextKey: String
     var contentColor: String = ""
+    var borderColor: String = ""
     var index: Int = 0
     var views: [View]
     var cgrect: NSRect = .zero
@@ -22,11 +23,13 @@ class View {
     init(nameData: (key: String, value: String),
          transitionContextKey: String,
          contentColor: String,
+         borderColor: String,
          index: Int,
          views: [View]) {
         self.nameData = nameData
         self.transitionContextKey = transitionContextKey
         self.contentColor = contentColor
+        self.borderColor = borderColor
         self.index = index
         self.views = views
     }
@@ -116,6 +119,7 @@ func createViews(index: Int, viewsArray: [Yaml]) -> [View] {
         var _nameValue: String = ""
         var _transitionContextKey: String = ""
         var _contentColor: String = ""
+        var _borderColor: String = ""
         var _childviews: [View] = []
         
         if case .dictionary(let viewsDataDictionaries) = viewData {
@@ -137,6 +141,11 @@ func createViews(index: Int, viewsArray: [Yaml]) -> [View] {
                            case .string(let contentColor) = viewInfo.value {
                             _contentColor = contentColor
                         }
+                        if case .string("borderColor") = viewInfo.key,
+                           case .string(let borderColor) = viewInfo.value {
+                            _borderColor = borderColor
+                            print(_borderColor)
+                        }
                         
                         if case .string("views") = viewInfo.key,
                            case .array(let childViews) = viewInfo.value {
@@ -151,6 +160,7 @@ func createViews(index: Int, viewsArray: [Yaml]) -> [View] {
             View(nameData: (key: _nameKey, value: _nameValue),
                  transitionContextKey: _transitionContextKey,
                  contentColor: _contentColor,
+                 borderColor: _borderColor,
                  index: index,
                  views: _childviews)
         )
@@ -401,7 +411,11 @@ views.enumerated().forEach { data in
         // 枠線
         let borderPath = NSBezierPath(rect: viewRect)
         borderPath.lineWidth = 1.0
-        settings.viewObjectBorderColor.setStroke()
+        if view.borderColor.isEmpty {
+            settings.viewObjectBorderColor.setStroke()
+        } else {
+            NSColor(hex: view.borderColor).setStroke()
+        }
         borderPath.stroke()
         // view情報にNSRectセット
         view.cgrect = viewRect

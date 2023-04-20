@@ -9,7 +9,7 @@ settings:
   defaulttransitionContext: push
   object:
    borderColor: .black
-   contentColor: "00BFFF"
+   contentColor: "FFFFFF"
    textColor: "000000"
    verticalMargin: 16
    horizontalMargin: 100
@@ -60,7 +60,7 @@ views:
           name: "ほげ"
        - Hoge2:
           name: "ほげ2"
-          contentColor: "FFFFFF"
+          contentColor: "00BFFF"
           views:
            - Hoge24:
               name: "ほげ24"
@@ -89,7 +89,7 @@ views:
                         - Hoge7:
                            name: "ほげ7"
                            transitionContext: alert
-                           contentColor: "FFFFFF"
+                           contentColor: "00BFFF"
                         - Hoge8:
                            name: "ほげ8"
                            transitionContext: alert
@@ -109,6 +109,7 @@ views:
       name: "ログインメール"
   - Top:
       name: "トップ"
+      borderColor: "E81022"
   - Detail:
       name: "詳細"
   - Setting:
