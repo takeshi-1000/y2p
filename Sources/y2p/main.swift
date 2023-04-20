@@ -13,7 +13,7 @@ extension NSColor {
 
 class View {
     var nameData: (key: String, value: String) = (key: "", value: "")
-    var transitionContextKey: String
+    var transitionTypeKey: String
     var contentColor: String = ""
     var borderColor: String = ""
     var index: Int = 0
@@ -21,13 +21,13 @@ class View {
     var cgrect: NSRect = .zero
     
     init(nameData: (key: String, value: String),
-         transitionContextKey: String,
+         transitionTypeKey: String,
          contentColor: String,
          borderColor: String,
          index: Int,
          views: [View]) {
         self.nameData = nameData
-        self.transitionContextKey = transitionContextKey
+        self.transitionTypeKey = transitionTypeKey
         self.contentColor = contentColor
         self.borderColor = borderColor
         self.index = index
@@ -45,10 +45,10 @@ struct Settings {
     var viewHorizontalMargin: Double = 50
     var margin: Double = 16
     var imageName: String = "transition.png"
-    var defaulttransitionContextKey: String = ""
-    var transitionContextList: [TransitionContext] = []
+    var defaulttransitionTypeKey: String = ""
+    var transitionTypeList: [TransitionType] = []
     var slashWidth: Double = 1
-    struct TransitionContext {
+    struct TransitionType {
         var typeStr: String = ""
         var colorStr: String = ""
     }
@@ -117,7 +117,7 @@ func createViews(index: Int, viewsArray: [Yaml]) -> [View] {
     viewsArray.forEach { viewData in
         var _nameKey: String = ""
         var _nameValue: String = ""
-        var _transitionContextKey: String = ""
+        var _transitionTypeKey: String = ""
         var _contentColor: String = ""
         var _borderColor: String = ""
         var _childviews: [View] = []
@@ -133,9 +133,9 @@ func createViews(index: Int, viewsArray: [Yaml]) -> [View] {
                            case .string(let viewNameValue) = viewInfo.value {
                             _nameValue = viewNameValue
                         }
-                        if case .string("transitionContext") = viewInfo.key,
-                           case .string(let transitionContextKey) = viewInfo.value {
-                            _transitionContextKey = transitionContextKey
+                        if case .string("transitionType") = viewInfo.key,
+                           case .string(let transitionTypeKey) = viewInfo.value {
+                            _transitionTypeKey = transitionTypeKey
                         }
                         if case .string("contentColor") = viewInfo.key,
                            case .string(let contentColor) = viewInfo.value {
@@ -144,7 +144,6 @@ func createViews(index: Int, viewsArray: [Yaml]) -> [View] {
                         if case .string("borderColor") = viewInfo.key,
                            case .string(let borderColor) = viewInfo.value {
                             _borderColor = borderColor
-                            print(_borderColor)
                         }
                         
                         if case .string("views") = viewInfo.key,
@@ -158,7 +157,7 @@ func createViews(index: Int, viewsArray: [Yaml]) -> [View] {
         
         _views.append(
             View(nameData: (key: _nameKey, value: _nameValue),
-                 transitionContextKey: _transitionContextKey,
+                 transitionTypeKey: _transitionTypeKey,
                  contentColor: _contentColor,
                  borderColor: _borderColor,
                  index: index,
@@ -189,44 +188,44 @@ func createSettings(originalSettings: Settings, settingsInfoList: [Yaml : Yaml])
             _settings.slashWidth = Double(slashWidth)
         }
         
-        if case .string("transitionContextList") = settings.key,
-           case .array(let transitionContextList) = settings.value {
-            var _transitionContextList: [Settings.TransitionContext] = []
+        if case .string("transitionTypeList") = settings.key,
+           case .array(let transitionTypeList) = settings.value {
+            var _transitionTypeList: [Settings.TransitionType] = []
             
-            transitionContextList.forEach { yaml in
-                if case .dictionary(let transitionContextInfoList) = yaml {
+            transitionTypeList.forEach { yaml in
+                if case .dictionary(let transitionTypeInfoList) = yaml {
                     
-                    transitionContextInfoList.forEach { transitionContextInfoData in
-                        var _transitionContextTypeStr: String = ""
-                        var _transitionContextColorStr: String = ""
+                    transitionTypeInfoList.forEach { transitionTypeInfoData in
+                        var _transitionTypeTypeStr: String = ""
+                        var _transitionTypeColorStr: String = ""
                         
-                        if case .string(let type) = transitionContextInfoData.key {
-                            _transitionContextTypeStr = type
+                        if case .string(let type) = transitionTypeInfoData.key {
+                            _transitionTypeTypeStr = type
                         }
-                        if case .dictionary(let transitionContextInfoDic) = transitionContextInfoData.value {
-                            transitionContextInfoDic.forEach { transitionContextInfo in
-                                if case .string("color") = transitionContextInfo.key,
-                                   case .string(let colorStr) = transitionContextInfo.value {
-                                    _transitionContextColorStr = colorStr
+                        if case .dictionary(let transitionTypeInfoDic) = transitionTypeInfoData.value {
+                            transitionTypeInfoDic.forEach { transitionTypeInfo in
+                                if case .string("color") = transitionTypeInfo.key,
+                                   case .string(let colorStr) = transitionTypeInfo.value {
+                                    _transitionTypeColorStr = colorStr
                                 }
                             }
                         }
-                        _transitionContextList.append(
-                            Settings.TransitionContext(
-                                typeStr: _transitionContextTypeStr,
-                                colorStr: _transitionContextColorStr
+                        _transitionTypeList.append(
+                            Settings.TransitionType(
+                                typeStr: _transitionTypeTypeStr,
+                                colorStr: _transitionTypeColorStr
                             )
                         )
                     }
                 }
             }
             
-            _settings.transitionContextList = _transitionContextList
+            _settings.transitionTypeList = _transitionTypeList
         }
         
-        if case .string("defaulttransitionContext") = settings.key,
-           case .string(let defaulttransitionContextKey) = settings.value {
-            _settings.defaulttransitionContextKey = defaulttransitionContextKey
+        if case .string("defaulttransitionType") = settings.key,
+           case .string(let defaulttransitionTypeKey) = settings.value {
+            _settings.defaulttransitionTypeKey = defaulttransitionTypeKey
         }
         
         if case .string("object") = settings.key,
@@ -428,12 +427,12 @@ views.enumerated().forEach { data in
             
             let slashColor: NSColor = {
                 
-                let filteredtransitionContextKey = _view.transitionContextKey.isEmpty == false
-                                                     ? _view.transitionContextKey
-                                                     : settings.defaulttransitionContextKey
+                let filteredtransitionTypeKey = _view.transitionTypeKey.isEmpty == false
+                                                     ? _view.transitionTypeKey
+                                                     : settings.defaulttransitionTypeKey
                 
-                if let defaultContext = settings.transitionContextList
-                    .first(where: { $0.typeStr == filteredtransitionContextKey }) {
+                if let defaultContext = settings.transitionTypeList
+                    .first(where: { $0.typeStr == filteredtransitionTypeKey }) {
                     return NSColor(hex: defaultContext.colorStr)
                 } else {
                     return NSColor(hex: "000000")

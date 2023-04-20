@@ -1,12 +1,12 @@
 settings:
-  transitionContextList:
+  transitionTypeList:
    - push:
       color: "000000"
    - modal:
       color: "800080"
    - alert:
       color: "ef1609"
-  defaulttransitionContext: push
+  defaulttransitionType: push
   object:
    borderColor: .black
    contentColor: "FFFFFF"
@@ -26,10 +26,10 @@ views:
       views:
        - Hoge:
           name: "ほげ"
-          transitionContext: modal
+          transitionType: modal
        - Hoge2:
           name: "ほげ2"
-          transitionContext: modal
+          transitionType: modal
           views:
            - Hoge4:
               name: "ほげ40"
@@ -44,7 +44,7 @@ views:
                   name: "ほげ80"
        - Hoge3:
           name: "ほげ3"
-          transitionContext: modal
+          transitionType: modal
           views:
            - Hoge4:
               name: "ほげ41"
@@ -52,7 +52,7 @@ views:
               name: "ほげ51"
   - LoginTop:
       name: "ログイントップ"
-      transitionContext: modal
+      transitionType: modal
       views:
        - Hoge0:
           name: "ほげ"
@@ -84,15 +84,15 @@ views:
                   views:
                    - Hoge6:
                       name: "ほげ6"
-                      transitionContext: modal
+                      transitionType: modal
                       views:
                         - Hoge7:
                            name: "ほげ7"
-                           transitionContext: alert
+                           transitionType: alert
                            contentColor: "00BFFF"
                         - Hoge8:
                            name: "ほげ8"
-                           transitionContext: alert
+                           transitionType: alert
                         - Hoge9:
                            name: "ほげ9"
                         - Hoge10:
