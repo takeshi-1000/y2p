@@ -1,10 +1,12 @@
 settings:
-  transionContext: [push, modal, alert]
-  transionContextColor:
-   - push: .red
-   - modal: .blue
-   - alert: .green
-  defaultTransionContext: push
+  transitionContextList:
+   - push:
+      color: "000000"
+   - modal:
+      color: "800080"
+   - alert:
+      color: "ef1609"
+  defaulttransitionContext: push
   object:
    borderColor: .black
    contentColor: "00BFFF"
@@ -16,6 +18,7 @@ settings:
     height: 50
   margin: 16
   imageName: "test.png"
+  slashWidth: 5
 
 views:
   - Splash:
@@ -23,8 +26,10 @@ views:
       views:
        - Hoge:
           name: "ほげ"
+          transitionContext: modal
        - Hoge2:
           name: "ほげ2"
+          transitionContext: modal
           views:
            - Hoge4:
               name: "ほげ40"
@@ -39,6 +44,7 @@ views:
                   name: "ほげ80"
        - Hoge3:
           name: "ほげ3"
+          transitionContext: modal
           views:
            - Hoge4:
               name: "ほげ41"
@@ -46,7 +52,7 @@ views:
               name: "ほげ51"
   - LoginTop:
       name: "ログイントップ"
-      transionContext: modal
+      transitionContext: modal
       views:
        - Hoge0:
           name: "ほげ"
@@ -77,11 +83,14 @@ views:
                   views:
                    - Hoge6:
                       name: "ほげ6"
+                      transitionContext: modal
                       views:
                         - Hoge7:
                            name: "ほげ7"
+                           transitionContext: alert
                         - Hoge8:
                            name: "ほげ8"
+                           transitionContext: alert
                         - Hoge9:
                            name: "ほげ9"
                         - Hoge10:
@@ -96,16 +105,11 @@ views:
                   name: "ほげ5"
   - LoginMail:
       name: "ログインメール"
-      transionContext: push
   - Top:
       name: "トップ"
-      transionContext: push
   - Detail:
       name: "詳細"
-      transionContext: push
   - Setting:
       name: "設定"
-      transionContext: push
   - Setting2:
       name: "設定2"
-      transionContext: push

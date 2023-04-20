@@ -13,14 +13,17 @@ extension NSColor {
 
 class View {
     var nameData: (key: String, value: String) = (key: "", value: "")
+    var transitionContextKey: String
     var index: Int = 0
     var views: [View]
     var cgrect: NSRect = .zero
     
     init(nameData: (key: String, value: String),
+         transitionContextKey: String,
          index: Int,
          views: [View]) {
         self.nameData = nameData
+        self.transitionContextKey = transitionContextKey
         self.index = index
         self.views = views
     }
@@ -36,6 +39,13 @@ struct Settings {
     var viewHorizontalMargin: Double = 50
     var margin: Double = 16
     var imageName: String = "transition.png"
+    var defaulttransitionContextKey: String = ""
+    var transitionContextList: [transitionContext] = []
+    var slashWidth: Double = 1
+    struct transitionContext {
+        var typeStr: String = ""
+        var colorStr: String = ""
+    }
 }
 
 var views: [View] = []
@@ -101,6 +111,7 @@ func createViews(index: Int, viewsArray: [Yaml]) -> [View] {
     viewsArray.forEach { viewData in
         var _nameKey: String = ""
         var _nameValue: String = ""
+        var _transitionContextKey: String = ""
         var _childviews: [View] = []
         
         if case .dictionary(let viewsDataDictionaries) = viewData {
@@ -114,6 +125,10 @@ func createViews(index: Int, viewsArray: [Yaml]) -> [View] {
                            case .string(let viewNameValue) = viewInfo.value {
                             _nameValue = viewNameValue
                         }
+                        if case .string("transitionContext") = viewInfo.key,
+                           case .string(let transitionContextKey) = viewInfo.value {
+                            _transitionContextKey = transitionContextKey
+                        }
                         
                         if case .string("views") = viewInfo.key,
                            case .array(let childViews) = viewInfo.value {
@@ -126,6 +141,7 @@ func createViews(index: Int, viewsArray: [Yaml]) -> [View] {
         
         _views.append(
             View(nameData: (key: _nameKey, value: _nameValue),
+                 transitionContextKey: _transitionContextKey,
                  index: index,
                  views: _childviews)
         )
@@ -147,6 +163,51 @@ func createSettings(originalSettings: Settings, settingsInfoList: [Yaml : Yaml])
         if case .string("imageName") = settings.key,
            case .string(let imageName) = settings.value {
             _settings.imageName = imageName
+        }
+        
+        if case .string("slashWidth") = settings.key,
+           case .int(let slashWidth) = settings.value {
+            _settings.slashWidth = Double(slashWidth)
+        }
+        
+        if case .string("transitionContextList") = settings.key,
+           case .array(let transitionContextList) = settings.value {
+            var _transitionContextList: [Settings.transitionContext] = []
+            
+            transitionContextList.forEach { yaml in
+                if case .dictionary(let transitionContextInfoList) = yaml {
+                    
+                    transitionContextInfoList.forEach { transitionContextInfoData in
+                        var _transitionContextTypeStr: String = ""
+                        var _transitionContextColorStr: String = ""
+                        
+                        if case .string(let type) = transitionContextInfoData.key {
+                            _transitionContextTypeStr = type
+                        }
+                        if case .dictionary(let transitionContextInfoDic) = transitionContextInfoData.value {
+                            transitionContextInfoDic.forEach { transitionContextInfo in
+                                if case .string("color") = transitionContextInfo.key,
+                                   case .string(let colorStr) = transitionContextInfo.value {
+                                    _transitionContextColorStr = colorStr
+                                }
+                            }
+                        }
+                        _transitionContextList.append(
+                            Settings.transitionContext(
+                                typeStr: _transitionContextTypeStr,
+                                colorStr: _transitionContextColorStr
+                            )
+                        )
+                    }
+                }
+            }
+            
+            _settings.transitionContextList = _transitionContextList
+        }
+        
+        if case .string("defaulttransitionContext") = settings.key,
+           case .string(let defaulttransitionContextKey) = settings.value {
+            _settings.defaulttransitionContextKey = defaulttransitionContextKey
         }
         
         if case .string("object") = settings.key,
@@ -222,6 +283,7 @@ do {
     
 } catch {
     print("Could not read file: \(error)")
+    // TODO: 終了コード
 }
 
 // 水平方向にどれくらい深くなるか
@@ -335,7 +397,22 @@ views.enumerated().forEach { data in
             let _view: View = data.element
             let startPoint = NSPoint(x: baseView.cgrect.maxX, y: baseView.cgrect.minY + (settings.viewObjectSize.height / 2))
             let endPoint = NSPoint(x: _view.cgrect.minX, y: _view.cgrect.minY + (settings.viewObjectSize.height / 2))
-            setSlash(startPoint: startPoint, endPoint: endPoint)
+            
+            let slashColor: NSColor = {
+                
+                let filteredtransitionContextKey = _view.transitionContextKey.isEmpty == false
+                                                     ? _view.transitionContextKey
+                                                     : settings.defaulttransitionContextKey
+                
+                if let defaultContext = settings.transitionContextList
+                    .first(where: { $0.typeStr == filteredtransitionContextKey }) {
+                    return NSColor(hex: defaultContext.colorStr)
+                } else {
+                    return NSColor(hex: "000000")
+                }
+            }()
+            
+            setSlash(startPoint: startPoint, endPoint: endPoint, color: slashColor)
             
             if _view.views.count > 0 {
                 setSlashForViewViews(baseView: _view)
@@ -343,12 +420,12 @@ views.enumerated().forEach { data in
         }
     }
     
-    func setSlash(startPoint: NSPoint, endPoint: NSPoint) {
+    func setSlash(startPoint: NSPoint, endPoint: NSPoint, color: NSColor) {
         let path = NSBezierPath()
         path.move(to: startPoint)
         path.line(to: endPoint)
-        path.lineWidth = 1
-        NSColor.red.setStroke()
+        path.lineWidth = settings.slashWidth
+        color.setStroke()
         path.stroke()
     }
 }
