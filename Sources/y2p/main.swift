@@ -1,16 +1,6 @@
 import Cocoa
 import Yaml
 
-extension NSColor {
-    convenience init(hex: String, alpha: CGFloat = 1.0) {
-        let v = Int("000000" + hex, radix: 16) ?? 0
-        let r = CGFloat(v / Int(powf(256, 2)) % 256) / 255
-        let g = CGFloat(v / Int(powf(256, 1)) % 256) / 255
-        let b = CGFloat(v / Int(powf(256, 0)) % 256) / 255
-        self.init(red: r, green: g, blue: b, alpha: min(max(alpha, 0), 1))
-    }
-}
-
 class View {
     var nameData: (key: String, value: String) = (key: "", value: "")
     var transitionTypeKey: String
@@ -404,9 +394,21 @@ views.enumerated().forEach { data in
         __NSRectFill(viewRect)
         let viewTextAttributes: [NSAttributedString.Key: Any] = [
             .foregroundColor: settings.viewObjectTextColor,
-            .font: NSFont.systemFont(ofSize: settings.viewObjectTextFontSize),
+            .font: NSFont.systemFont(ofSize: settings.viewObjectTextFontSize)
         ]
         view.nameData.value.draw(in: viewRect, withAttributes: viewTextAttributes)
+        
+        // TODO: あとで試す
+        /*
+        let hoge = NSAttributedString(string: view.nameData.value, attributes: viewTextAttributes)
+        
+        let hoge2 = hoge.boundingRect(with: NSSize(width: settings.viewObjectSize.width,
+                                                   height: CGFloat.greatestFiniteMagnitude),
+                                      options: [.usesLineFragmentOrigin, .usesFontLeading])
+        
+        print("@@@ \(view.nameData.value) :: \(hoge2)")
+         */
+        
         // 枠線
         let borderPath = NSBezierPath(rect: viewRect)
         borderPath.lineWidth = 1.0

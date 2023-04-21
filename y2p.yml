@@ -22,7 +22,7 @@ settings:
 
 views:
   - Splash:
-      name: "スプラッシュ"
+      name: "スプラッシュスプラッシュスプラッシュスプラッシュスプラッシュスプラッシュ"
       views:
        - Hoge:
           name: "ほげ"
