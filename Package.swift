@@ -15,12 +15,23 @@ let package = Package(
         .executableTarget(
             name: "y2p",
             dependencies: [
+                .target(name: "y2pCli")
+            ]
+        ),
+        .target(
+            name: "y2pCli",
+            dependencies: [
+                .target(name: "Utility"),
+                .target(name: "Data"),
                 .product(name: "Yaml", package: "YamlSwift"),
-                .target(name: "Utility")
             ]
         ),
         .target(
             name: "Utility",
+            dependencies: []
+        ),
+        .target(
+            name: "Data",
             dependencies: []
         ),
         .testTarget(
