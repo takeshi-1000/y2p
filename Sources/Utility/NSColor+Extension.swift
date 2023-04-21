@@ -5,10 +5,10 @@
 //  Created by 小森武史 on 2023/04/21.
 //
 
-import Foundation
 import Cocoa
+import Foundation
 
-extension NSColor {
+public extension NSColor {
     convenience init(hex: String, alpha: CGFloat = 1.0) {
         let v = Int("000000" + hex, radix: 16) ?? 0
         let r = CGFloat(v / Int(powf(256, 2)) % 256) / 255
