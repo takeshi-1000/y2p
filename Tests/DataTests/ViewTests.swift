@@ -10,27 +10,29 @@ final class ViewTests: XCTestCase {
                                    views: [])
     
     func test_init() {
-        let nameData: (key: String, value: String) = ("SplashView", "スプラッシュ")
-        let transitionTypeKey: String = "push"
-        let contentColor: String = "FFFFFF"
-        let borderColor: String = "000000"
-        let index: Int = 4
-        let views: [View] = [mockViewData, mockViewData, mockViewData]
-        
-        let actual = View(nameData: nameData,
-                          transitionTypeKey: transitionTypeKey,
-                          contentColor: contentColor,
-                          borderColor: borderColor,
-                          index: index,
-                          views: views)
-        
-        XCTAssertEqual(actual.nameData.key, nameData.key)
-        XCTAssertEqual(actual.nameData.value, nameData.value)
-        XCTAssertEqual(actual.transitionTypeKey, transitionTypeKey)
-        XCTAssertEqual(actual.contentColor, contentColor)
-        XCTAssertEqual(actual.borderColor, borderColor)
-        XCTAssertEqual(actual.index, index)
-        XCTAssertEqual(actual.views.count, views.count)
+        XCTContext.runActivity(named: "初期化時に適切に値をセットできているかの確認") { _ in
+            let nameData: (key: String, value: String) = ("SplashView", "スプラッシュ")
+            let transitionTypeKey: String = "push"
+            let contentColor: String = "FFFFFF"
+            let borderColor: String = "000000"
+            let index: Int = 4
+            let views: [View] = [mockViewData, mockViewData, mockViewData]
+            
+            let actual = View(nameData: nameData,
+                              transitionTypeKey: transitionTypeKey,
+                              contentColor: contentColor,
+                              borderColor: borderColor,
+                              index: index,
+                              views: views)
+            
+            XCTAssertEqual(actual.nameData.key, nameData.key)
+            XCTAssertEqual(actual.nameData.value, nameData.value)
+            XCTAssertEqual(actual.transitionTypeKey, transitionTypeKey)
+            XCTAssertEqual(actual.contentColor, contentColor)
+            XCTAssertEqual(actual.borderColor, borderColor)
+            XCTAssertEqual(actual.index, index)
+            XCTAssertEqual(actual.views.count, views.count)
+        }
     }
     
     func test_updateRect() {
