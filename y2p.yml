@@ -8,7 +8,7 @@ settings:
       color: "ef1609"
   defaultTransitionType: push
   object:
-   borderColor: .black
+   borderColor: "000000"
    contentColor: "FFFFFF"
    textColor: "000000"
    verticalMargin: 16
