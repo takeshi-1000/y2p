@@ -36,6 +36,23 @@ let package = Package(
         ),
         .testTarget(
             name: "y2pTests",
-            dependencies: ["y2p"]),
+            dependencies: [
+                .target(name: "y2p")
+            ]),
+        .testTarget(
+            name: "y2pCliTests",
+            dependencies: [
+                .target(name: "y2pCli")
+            ]),
+        .testTarget(
+            name: "UtilityTests",
+            dependencies: [
+                .target(name: "Utility")
+            ]),
+        .testTarget(
+            name: "DataTests",
+            dependencies: [
+                .target(name: "Data")
+            ]),
     ]
 )

@@ -1,7 +1,7 @@
 import XCTest
-@testable import y2p
+@testable import Utility
 
-final class y2pTests: XCTestCase {
+final class NSColorExtensionTests: XCTestCase {
     func testExample() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct
