@@ -1,12 +1,4 @@
-//
-//  NSColor+Extension.swift
-//  y2p
-//
-//  Created by 小森武史 on 2023/04/21.
-//
-
 import Cocoa
-import Foundation
 
 public extension NSColor {
     convenience init(hex: String, alpha: CGFloat = 1.0) {
