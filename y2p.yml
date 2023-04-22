@@ -6,7 +6,7 @@ settings:
       color: "800080"
    - alert:
       color: "ef1609"
-  defaulttransitionType: push
+  defaultTransitionType: push
   object:
    borderColor: .black
    contentColor: "FFFFFF"

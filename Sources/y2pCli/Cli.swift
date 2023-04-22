@@ -119,29 +119,29 @@ public class Cli {
             return _views
         }
 
-        func createSettings(originalSettings: Settings, settingsInfoList: [Yaml : Yaml]) -> Settings {
-            var _settings = originalSettings
+        func createSettings(settingsInfoList: [Yaml : Yaml]) -> Settings {
+            let _settings = Settings()
                 
             settingsInfoList.forEach { settings in
                 
                 if case .string("margin") = settings.key,
                    case .int(let margin) = settings.value {
-                    _settings.margin = Double(margin)
+                    _settings.updateMargin(Double(margin))
                 }
                 
                 if case .string("imageName") = settings.key,
                    case .string(let imageName) = settings.value {
-                    _settings.imageName = imageName
+                    _settings.updateImageName(imageName)
                 }
                 
                 if case .string("slashWidth") = settings.key,
                    case .int(let slashWidth) = settings.value {
-                    _settings.slashWidth = Double(slashWidth)
+                    _settings.updateSlashWidth(Double(slashWidth))
                 }
                 
                 if case .string("transitionTypeList") = settings.key,
                    case .array(let transitionTypeList) = settings.value {
-                    var _transitionTypeList: [Settings.TransitionType] = []
+                    var _transitionTypeList: [TransitionType] = []
                     
                     transitionTypeList.forEach { yaml in
                         if case .dictionary(let transitionTypeInfoList) = yaml {
@@ -162,7 +162,7 @@ public class Cli {
                                     }
                                 }
                                 _transitionTypeList.append(
-                                    Settings.TransitionType(
+                                    TransitionType(
                                         typeStr: _transitionTypeTypeStr,
                                         colorStr: _transitionTypeColorStr
                                     )
@@ -171,12 +171,12 @@ public class Cli {
                         }
                     }
                     
-                    _settings.transitionTypeList = _transitionTypeList
+                    _settings.updateTransitionTypeList(_transitionTypeList)
                 }
                 
-                if case .string("defaulttransitionType") = settings.key,
+                if case .string("defaultTransitionType") = settings.key,
                    case .string(let defaulttransitionTypeKey) = settings.value {
-                    _settings.defaulttransitionTypeKey = defaulttransitionTypeKey
+                    _settings.updateDefaultTransitionTypeKey(defaulttransitionTypeKey)
                 }
                 
                 if case .string("object") = settings.key,
@@ -185,33 +185,38 @@ public class Cli {
                     objectInfoDictionaryArray.forEach { objectInfoDic in
                         if case .string("verticalMargin") = objectInfoDic.key,
                            case .int(let verticalMargin) = objectInfoDic.value {
-                            _settings.viewVerticalMargin = Double(verticalMargin)
+                            _settings.updateViewVerticalMargin(Double(verticalMargin))
                         }
                         if case .string("horizontalMargin") = objectInfoDic.key,
                            case .int(let horizontalMargin) = objectInfoDic.value {
-                            _settings.viewHorizontalMargin = Double(horizontalMargin)
+                            _settings.updateViewHorizontalMargin(Double(horizontalMargin))
                         }
                         if case .string("contentColor") = objectInfoDic.key,
                            case .string(let contentColorHexCode) = objectInfoDic.value {
-                            _settings.viewObjectColor = NSColor(hex: contentColorHexCode)
+                            _settings.updateViewObjectColor(NSColor(hex: contentColorHexCode))
                         }
                         if case .string("textColor") = objectInfoDic.key,
                            case .string(let textColorHexCode) = objectInfoDic.value {
-                            _settings.viewObjectTextColor = NSColor(hex: textColorHexCode)
+                            _settings.updateViewObjectTextColor(NSColor(hex: textColorHexCode))
                         }
                         if case .string("size") = objectInfoDic.key,
                            case .dictionary(let sizeDictionaries) = objectInfoDic.value {
                             
                             sizeDictionaries.forEach { sizeDic in
+                                var _size: NSSize = _settings.viewObjectSize
+                                
                                 if case .string("width") = sizeDic.key,
                                    case .int(let width) = sizeDic.value {
-                                    _settings.viewObjectSize.width = Double(width)
+                                    _size.width = Double(width)
+                                    
                                 }
                                 
                                 if case .string("height") = sizeDic.key,
                                    case .int(let height) = sizeDic.value {
-                                    _settings.viewObjectSize.height = Double(height)
+                                    _size.height = Double(height)
                                 }
+                                
+                                _settings.updateViewObjectSize(_size)
                             }
                         }
                     }
@@ -244,7 +249,7 @@ public class Cli {
                 }
                 
                 if dictionary.key == .string("settings"), case .dictionary(let settingsDictionary) = dictionary.value {
-                    settings = createSettings(originalSettings: settings, settingsInfoList: settingsDictionary)
+                    settings = createSettings(settingsInfoList: settingsDictionary)
                 }
                 
                 startIndex = dictionaries.index(after: startIndex)
@@ -392,7 +397,7 @@ public class Cli {
                         
                         let filteredtransitionTypeKey = _view.transitionTypeKey.isEmpty == false
                                                              ? _view.transitionTypeKey
-                                                             : settings.defaulttransitionTypeKey
+                                                             : settings.defaultTransitionTypeKey
                         
                         if let defaultContext = settings.transitionTypeList
                             .first(where: { $0.typeStr == filteredtransitionTypeKey }) {
