@@ -380,13 +380,13 @@ public class Cli {
                 }
                 borderPath.stroke()
                 // view情報にNSRectセット
-                view.cgrect = viewRect
+                view.updateRect(viewRect)
             }
             func setSlashForViewViews(baseView: View) {
                 baseView.views.enumerated().forEach { data in
                     let _view: View = data.element
-                    let startPoint = NSPoint(x: baseView.cgrect.maxX, y: baseView.cgrect.minY + (settings.viewObjectSize.height / 2))
-                    let endPoint = NSPoint(x: _view.cgrect.minX, y: _view.cgrect.minY + (settings.viewObjectSize.height / 2))
+                    let startPoint = NSPoint(x: baseView.rect.maxX, y: baseView.rect.minY + (settings.viewObjectSize.height / 2))
+                    let endPoint = NSPoint(x: _view.rect.minX, y: _view.rect.minY + (settings.viewObjectSize.height / 2))
                     
                     let slashColor: NSColor = {
                         

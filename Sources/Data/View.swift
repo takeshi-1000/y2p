@@ -1,13 +1,15 @@
 import Cocoa
 
 public class View {
-    public var nameData: (key: String, value: String) = (key: "", value: "")
-    public var transitionTypeKey: String
-    public var contentColor: String = ""
-    public var borderColor: String = ""
-    public var index: Int = 0
-    public var views: [View]
-    public var cgrect: NSRect = .zero
+    public let nameData: (key: String, value: String)
+    public let transitionTypeKey: String
+    public let contentColor: String
+    public let borderColor: String
+    public let index: Int
+    public let views: [View]
+    
+    public var rect: NSRect { _rect }
+    private var _rect: NSRect = .zero
     
     public init(nameData: (key: String, value: String),
          transitionTypeKey: String,
@@ -21,5 +23,9 @@ public class View {
         self.borderColor = borderColor
         self.index = index
         self.views = views
+    }
+    
+    public func updateRect(_ rect: NSRect) {
+        _rect = rect
     }
 }
