@@ -256,9 +256,9 @@ public class Cli {
         }
 
         // 水平方向にどれくらい深くなるか
-        var maxHorizontalDeepCount = createMaxHorizontalCount(index: 0, viewsArray: views)
+        let maxHorizontalDeepCount = createMaxHorizontalCount(index: 0, viewsArray: views)
         // 垂直方向にどれくらい深くなるか
-        var maxVerticalDeepCount = createMaxVerticalCount(viewsArray: views)
+        let maxVerticalDeepCount = createMaxVerticalCount(viewsArray: views)
 
         let viewObjectSize = settings.viewObjectSize
         let viewObjectVerticalMargin: Double = settings.viewVerticalMargin

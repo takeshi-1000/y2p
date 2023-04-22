@@ -17,7 +17,11 @@ public struct Settings {
     public struct TransitionType {
         public var typeStr: String = ""
         public var colorStr: String = ""
-        public init(typeStr: String, colorStr: String) {}
+        
+        public init(typeStr: String, colorStr: String) {
+            self.typeStr = typeStr
+            self.colorStr = colorStr
+        }
     }
     
     public init() {}
