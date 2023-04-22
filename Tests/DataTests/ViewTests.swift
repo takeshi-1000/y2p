@@ -33,6 +33,13 @@ final class ViewTests: XCTestCase {
             XCTAssertEqual(actual.index, index)
             XCTAssertEqual(actual.views.count, views.count)
         }
+        
+        XCTContext.runActivity(named: "view.rectのデフォルト値の確認") { _ in
+            let actual = mockViewData
+            let expexted: NSRect = .zero
+            
+            XCTAssertEqual(actual.rect, expexted)
+        }
     }
     
     func test_updateRect() {
