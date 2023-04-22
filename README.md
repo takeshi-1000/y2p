@@ -2,7 +2,7 @@
 
 # y2p
 
-This is Cli application which provides screen trantision diagram like below image.
+This is Cli application which generate screen trantision diagram based on some yml file.
 
 <img width="889" alt="test" src="https://user-images.githubusercontent.com/16571394/233756870-0ea48565-1b16-43e4-8384-1d8a95f052ce.jpg">
 
