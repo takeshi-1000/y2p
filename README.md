@@ -13,4 +13,4 @@ This is Cli application which generate screen trantision diagram based on some y
 1. git clone this repository
 2. cd this repository
 3. swift build
-4. ./.build/debug/y2p
+4. ./.build/debug/y2p (When executing this command, you need to have the "y2p.yml" file in the directory where the command is being executed.)
