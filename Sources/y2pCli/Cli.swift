@@ -76,170 +76,6 @@ public class Cli {
             return indexList.max() ?? index
         }
 
-        func createViews(index: Int, viewsArray: [Yaml]) -> [View] {
-            var _views: [View] = []
-            
-            viewsArray.forEach { viewData in
-                var _nameKey: String = ""
-                var _nameValue: String = ""
-                var _transitionTypeKey: String = ""
-                var _contentColor: String = ""
-                var _borderColor: String = ""
-                var _childviews: [View] = []
-                
-                if case .dictionary(let viewsDataDictionaries) = viewData {
-                    viewsDataDictionaries.forEach { viewsDataDictionary in
-                        if case .string(let viewNameKey) = viewsDataDictionary.key,
-                           case .dictionary(let viewInfoList) = viewsDataDictionary.value {
-                            _nameKey = viewNameKey
-                            
-                            viewInfoList.forEach { viewInfo in
-                                if case .string("name") = viewInfo.key,
-                                   case .string(let viewNameValue) = viewInfo.value {
-                                    _nameValue = viewNameValue
-                                }
-                                if case .string("transitionType") = viewInfo.key,
-                                   case .string(let transitionTypeKey) = viewInfo.value {
-                                    _transitionTypeKey = transitionTypeKey
-                                }
-                                if case .string("contentColor") = viewInfo.key,
-                                   case .string(let contentColor) = viewInfo.value {
-                                    _contentColor = contentColor
-                                }
-                                if case .string("borderColor") = viewInfo.key,
-                                   case .string(let borderColor) = viewInfo.value {
-                                    _borderColor = borderColor
-                                }
-                                
-                                if case .string("views") = viewInfo.key,
-                                   case .array(let childViews) = viewInfo.value {
-                                    _childviews = createViews(index: index + 1, viewsArray: childViews)
-                                }
-                            }
-                        }
-                    }
-                }
-                
-                _views.append(
-                    View(nameData: (key: _nameKey, value: _nameValue),
-                         transitionTypeKey: _transitionTypeKey,
-                         contentColor: _contentColor,
-                         borderColor: _borderColor,
-                         index: index,
-                         views: _childviews)
-                )
-            }
-            
-            return _views
-        }
-
-        func createSettings(settingsInfoList: [Yaml : Yaml]) -> Settings {
-            let _settings = Settings()
-                
-            settingsInfoList.forEach { settings in
-                
-                if case .string("margin") = settings.key,
-                   case .int(let margin) = settings.value {
-                    _settings.updateMargin(Double(margin))
-                }
-                
-                if case .string("imageName") = settings.key,
-                   case .string(let imageName) = settings.value {
-                    _settings.updateImageName(imageName)
-                }
-                
-                if case .string("slashWidth") = settings.key,
-                   case .int(let slashWidth) = settings.value {
-                    _settings.updateSlashWidth(Double(slashWidth))
-                }
-                
-                if case .string("transitionTypeList") = settings.key,
-                   case .array(let transitionTypeList) = settings.value {
-                    var _transitionTypeList: [TransitionType] = []
-                    
-                    transitionTypeList.forEach { yaml in
-                        if case .dictionary(let transitionTypeInfoList) = yaml {
-                            
-                            transitionTypeInfoList.forEach { transitionTypeInfoData in
-                                var _transitionTypeTypeStr: String = ""
-                                var _transitionTypeColorStr: String = ""
-                                
-                                if case .string(let type) = transitionTypeInfoData.key {
-                                    _transitionTypeTypeStr = type
-                                }
-                                if case .dictionary(let transitionTypeInfoDic) = transitionTypeInfoData.value {
-                                    transitionTypeInfoDic.forEach { transitionTypeInfo in
-                                        if case .string("color") = transitionTypeInfo.key,
-                                           case .string(let colorStr) = transitionTypeInfo.value {
-                                            _transitionTypeColorStr = colorStr
-                                        }
-                                    }
-                                }
-                                _transitionTypeList.append(
-                                    TransitionType(
-                                        typeStr: _transitionTypeTypeStr,
-                                        colorStr: _transitionTypeColorStr
-                                    )
-                                )
-                            }
-                        }
-                    }
-                    
-                    _settings.updateTransitionTypeList(_transitionTypeList)
-                }
-                
-                if case .string("defaultTransitionType") = settings.key,
-                   case .string(let defaulttransitionTypeKey) = settings.value {
-                    _settings.updateDefaultTransitionTypeKey(defaulttransitionTypeKey)
-                }
-                
-                if case .string("object") = settings.key,
-                   case .dictionary(let objectInfoDictionaryArray) = settings.value {
-                    
-                    objectInfoDictionaryArray.forEach { objectInfoDic in
-                        if case .string("verticalMargin") = objectInfoDic.key,
-                           case .int(let verticalMargin) = objectInfoDic.value {
-                            _settings.updateViewVerticalMargin(Double(verticalMargin))
-                        }
-                        if case .string("horizontalMargin") = objectInfoDic.key,
-                           case .int(let horizontalMargin) = objectInfoDic.value {
-                            _settings.updateViewHorizontalMargin(Double(horizontalMargin))
-                        }
-                        if case .string("contentColor") = objectInfoDic.key,
-                           case .string(let contentColorHexCode) = objectInfoDic.value {
-                            _settings.updateViewObjectColor(NSColor(hex: contentColorHexCode))
-                        }
-                        if case .string("textColor") = objectInfoDic.key,
-                           case .string(let textColorHexCode) = objectInfoDic.value {
-                            _settings.updateViewObjectTextColor(NSColor(hex: textColorHexCode))
-                        }
-                        if case .string("size") = objectInfoDic.key,
-                           case .dictionary(let sizeDictionaries) = objectInfoDic.value {
-                            
-                            sizeDictionaries.forEach { sizeDic in
-                                var _size: NSSize = _settings.viewObjectSize
-                                
-                                if case .string("width") = sizeDic.key,
-                                   case .int(let width) = sizeDic.value {
-                                    _size.width = Double(width)
-                                    
-                                }
-                                
-                                if case .string("height") = sizeDic.key,
-                                   case .int(let height) = sizeDic.value {
-                                    _size.height = Double(height)
-                                }
-                                
-                                _settings.updateViewObjectSize(_size)
-                            }
-                        }
-                    }
-                }
-            }
-                
-            return _settings
-        }
-
         let fileURL = URL(fileURLWithPath: "y2p.yml")
         do {
             let contents = try String(contentsOf: fileURL, encoding: .utf8)
@@ -259,11 +95,11 @@ public class Cli {
                 let dictionary = dictionaries[startIndex]
                 
                 if dictionary.key == .string("views"), case .array(let viewsArray) = dictionary.value {
-                    views = createViews(index: 0, viewsArray: viewsArray)
+                    views = ViewsGenerator.generate(index: 0, viewsArray: viewsArray)
                 }
                 
                 if dictionary.key == .string("settings"), case .dictionary(let settingsDictionary) = dictionary.value {
-                    settings = createSettings(settingsInfoList: settingsDictionary)
+                    settings = SettingsGenerator.generate(settingsInfoList: settingsDictionary)
                 }
                 
                 startIndex = dictionaries.index(after: startIndex)
