@@ -50,6 +50,20 @@ public class Cli {
             return count
         }
 
+        /*
+         e.g 下記のように、水平方向にどれだけ深いかを算出するためのロジック
+         ========
+         0 1 2 3 4 5
+           1 2 3
+           1
+         0 1 2 3
+               3 4 6 7 → 7が最も深い
+               3
+         0
+         0 1 2 3 4
+               3
+         ========
+         */
         func createMaxHorizontalCount(index: Int, viewsArray: [View]) -> Int {
             var indexList: [Int] = [index + 1]
             

@@ -21,7 +21,7 @@ final class NSColorExtensionTests: XCTestCase {
         }
         
         XCTContext.runActivity(named: "hexが正しくrgbに変換できているかの確認") { _ in
-            
+            // TODO: 
         }
     }
 }
