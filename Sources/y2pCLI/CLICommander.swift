@@ -50,32 +50,6 @@ public class CLICommander {
             return count
         }
 
-        /*
-         e.g 下記のように、水平方向にどれだけ深いかを算出するためのロジック
-         ========
-         0 1 2 3 4 5
-           1 2 3
-           1
-         0 1 2 3
-               3 4 6 7 → 7が最も深い
-               3
-         0
-         0 1 2 3 4
-               3
-         ========
-         */
-        func createMaxHorizontalCount(index: Int, viewsArray: [View]) -> Int {
-            var indexList: [Int] = [index + 1]
-            
-            viewsArray.forEach { view in
-                if view.views.count > 0 {
-                    indexList.append(createMaxHorizontalCount(index: index + 1, viewsArray: view.views))
-                }
-            }
-            
-            return indexList.max() ?? index
-        }
-
         let fileURL = URL(fileURLWithPath: "y2p.yml")
         do {
             let contents = try String(contentsOf: fileURL, encoding: .utf8)
@@ -110,7 +84,6 @@ public class CLICommander {
             // TODO: 終了コード
         }
 
-        let maxHorizontalDeepCount = createMaxHorizontalCount(index: 0, viewsArray: views)
         let maxVerticalDeepCount = createMaxVerticalCount(viewsArray: views)
 
         let viewObjectSize = settings.viewObjectSize
@@ -118,7 +91,9 @@ public class CLICommander {
         let viewObjectHorizontalMargin: Double = settings.viewHorizontalMargin
         let contentMargin: Double = settings.margin
 
-        let contentWidth = viewObjectSize.width * Double(maxHorizontalDeepCount) + viewObjectHorizontalMargin * Double(maxHorizontalDeepCount - 1)
+        let imageWidthCalaculator = ImageWidthCalculator(viewObjectSizeWidth: viewObjectSize.width,
+                                                         viewObjectHorizontalMargin: viewObjectHorizontalMargin)
+        let contentWidth = imageWidthCalaculator.calculate(index: 0, viewsArray: views)
         let contentHeight = viewObjectSize.height * Double(maxVerticalDeepCount) + viewObjectVerticalMargin * Double(maxVerticalDeepCount - 1)
         let imageWidth = contentWidth + (contentMargin * 2)
         let imageHeight = contentHeight + (contentMargin * 2)
