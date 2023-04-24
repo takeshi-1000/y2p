@@ -1,15 +1,15 @@
 import Data
 
-public class ImageHeightCalculator {
+class ImageHeightCalculator {
     private let viewObjectSizeHeight: Double
     private let viewObjectVerticalMargin: Double
     
-    public init(viewObjectSizeHeight: Double, viewObjectVerticalMargin: Double) {
+    init(viewObjectSizeHeight: Double, viewObjectVerticalMargin: Double) {
         self.viewObjectSizeHeight = viewObjectSizeHeight
         self.viewObjectVerticalMargin = viewObjectVerticalMargin
     }
     
-    public func calculate(views: [View]) -> Double {
+    func calculate(views: [View]) -> Double {
         let maxCount = ImageHeightCalculator.calculateMaxVerticalCount(views: views)
         
         let maxViewObjectSizeHeightTotal: Double = viewObjectSizeHeight * Double(maxCount)
@@ -30,7 +30,7 @@ public class ImageHeightCalculator {
      0       → ここまでで7
      ========
      */
-    public static func calculateMaxVerticalCount(views: [View]) -> Int {
+    static func calculateMaxVerticalCount(views: [View]) -> Int {
         var count: Int = 0
         
         views.forEach { view in

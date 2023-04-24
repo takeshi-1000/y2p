@@ -1,15 +1,15 @@
 import Data
 
-public class ImageWidthCalculator {
+class ImageWidthCalculator {
     private let viewObjectSizeWidth: Double
     private let viewObjectHorizontalMargin: Double
     
-    public init(viewObjectSizeWidth: Double, viewObjectHorizontalMargin: Double) {
+    init(viewObjectSizeWidth: Double, viewObjectHorizontalMargin: Double) {
         self.viewObjectSizeWidth = viewObjectSizeWidth
         self.viewObjectHorizontalMargin = viewObjectHorizontalMargin
     }
     
-    public func calculate(index: Int, views: [View]) -> Double {
+    func calculate(index: Int, views: [View]) -> Double {
         let maxCount = calculateMaxHorizontalCount(index: index, views: views)
         
         let maxViewObjectSizeWidthTotal: Double = viewObjectSizeWidth * Double(maxCount)

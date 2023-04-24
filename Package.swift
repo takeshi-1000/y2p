@@ -22,7 +22,7 @@ let package = Package(
             name: "y2pCLI",
             dependencies: [
                 .target(name: "YamlParserKit"),
-                .target(name: "Utility"),
+                .target(name: "ImageGenKit"),
                 .target(name: "Data"),
             ]
         ),
@@ -32,6 +32,13 @@ let package = Package(
                 .target(name: "Utility"),
                 .target(name: "Data"),
                 .product(name: "Yaml", package: "YamlSwift"),
+            ]
+        ),
+        .target(
+            name: "ImageGenKit",
+            dependencies: [
+                .target(name: "Utility"),
+                .target(name: "Data"),
             ]
         ),
         .target(
