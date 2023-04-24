@@ -8,48 +8,6 @@ public class CLICommander {
         var views: [View] = []
         var settings: Settings = .init()
 
-        /*
-         e.g 下記のように、垂直方向にどれだけ深いかを算出するためのロジック
-         ========
-         0 1 2 3
-           1 2 3
-           1     → ここまでで3
-         0 1 2 3
-               3
-               3 → ここまでで6
-         0       → ここまでで7
-         ========
-         */
-        func createMaxVerticalCount(viewsArray: [View]) -> Int {
-            var count: Int = 0
-            
-            viewsArray.forEach { viewArrayItem in
-                var viewsTotalCountList: [Int] = [1] // ここを通過する時点で1つは存在するので
-                
-                calcTotalCountEveryViews(viewArrayItem.views)
-                
-                func calcTotalCountEveryViews(_ views: [View]) {
-                    var _count = 0
-                    var _nextViews: [View] = []
-                    
-                    views.forEach { view in
-                        _count += view.views.count
-                        _nextViews.append(contentsOf: view.views)
-                    }
-                    
-                    viewsTotalCountList.append(_count)
-                    
-                    if _nextViews.isEmpty == false {
-                        calcTotalCountEveryViews(_nextViews)
-                    }
-                }
-
-                count += viewsTotalCountList.max() ?? 1
-            }
-            
-            return count
-        }
-
         let fileURL = URL(fileURLWithPath: "y2p.yml")
         do {
             let contents = try String(contentsOf: fileURL, encoding: .utf8)
@@ -84,17 +42,17 @@ public class CLICommander {
             // TODO: 終了コード
         }
 
-        let maxVerticalDeepCount = createMaxVerticalCount(viewsArray: views)
-
         let viewObjectSize = settings.viewObjectSize
         let viewObjectVerticalMargin: Double = settings.viewVerticalMargin
         let viewObjectHorizontalMargin: Double = settings.viewHorizontalMargin
         let contentMargin: Double = settings.margin
 
-        let imageWidthCalaculator = ImageWidthCalculator(viewObjectSizeWidth: viewObjectSize.width,
+        let imageWidthCalculator = ImageWidthCalculator(viewObjectSizeWidth: viewObjectSize.width,
                                                          viewObjectHorizontalMargin: viewObjectHorizontalMargin)
-        let contentWidth = imageWidthCalaculator.calculate(index: 0, viewsArray: views)
-        let contentHeight = viewObjectSize.height * Double(maxVerticalDeepCount) + viewObjectVerticalMargin * Double(maxVerticalDeepCount - 1)
+        let imageHeightCalculator = ImageHeightCalculator(viewObjectSizeHeight: viewObjectSize.height,
+                                                          viewObjectVerticalMargin: viewObjectVerticalMargin)
+        let contentWidth = imageWidthCalculator.calculate(index: 0, views: views)
+        let contentHeight = imageHeightCalculator.calculate(views: views)
         let imageWidth = contentWidth + (contentMargin * 2)
         let imageHeight = contentHeight + (contentMargin * 2)
         let imageSize = NSSize(width: imageWidth,
@@ -132,7 +90,8 @@ public class CLICommander {
             let preViewMaxCount: Int = {
                 if index != 0 {
                     let views = views[0...(index - 1)].map { $0 }
-                    return createMaxVerticalCount(viewsArray: views)
+                    // TODO: ここが浮いているのでもう少し改善したい
+                    return ImageHeightCalculator.calculateMaxVerticalCount(views: views)
                 } else {
                     return 0
                 }

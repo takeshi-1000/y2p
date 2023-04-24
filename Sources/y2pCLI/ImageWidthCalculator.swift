@@ -9,8 +9,8 @@ public class ImageWidthCalculator {
         self.viewObjectHorizontalMargin = viewObjectHorizontalMargin
     }
     
-    public func calculate(index: Int, viewsArray: [View]) -> Double {
-        let maxCount = calculateMaxHorizontalCount(index: index, viewsArray: viewsArray)
+    public func calculate(index: Int, views: [View]) -> Double {
+        let maxCount = calculateMaxHorizontalCount(index: index, views: views)
         
         let maxViewObjectSizeWidthTotal: Double = viewObjectSizeWidth * Double(maxCount)
         let viewObjectHorizontalMarginTotal: Double = viewObjectHorizontalMargin * Double(maxCount - 1)
@@ -33,12 +33,12 @@ public class ImageWidthCalculator {
            3 4 5
      ========================================
      */
-    func calculateMaxHorizontalCount(index: Int, viewsArray: [View]) -> Int {
+    func calculateMaxHorizontalCount(index: Int, views: [View]) -> Int {
         var indexList: [Int] = [index + 1]
         
-        viewsArray.forEach { view in
+        views.forEach { view in
             if view.views.count > 0 {
-                indexList.append(calculateMaxHorizontalCount(index: index + 1, viewsArray: view.views))
+                indexList.append(calculateMaxHorizontalCount(index: index + 1, views: view.views))
             }
         }
         
