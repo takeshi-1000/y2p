@@ -1,46 +1,16 @@
 import Data
 import Utility
 import Cocoa
-import Yaml
+import YamlParserKit
 
 public class CLICommander {
     public static func command() throws {
-        var views: [View] = []
-        var settings: Settings = .init()
-
         let fileURL = URL(fileURLWithPath: "y2p.yml")
-        do {
-            let contents = try String(contentsOf: fileURL, encoding: .utf8)
-            let value = try Yaml.load(contents)
-            
-            let dictionaries: ([Yaml : Yaml]) = {
-                if case .dictionary(let dictionaries) = value {
-                    return dictionaries
-                }
-                return ([:])
-            }()
-            
-            var startIndex = dictionaries.startIndex
-            
-            while dictionaries.endIndex > startIndex {
-                
-                let dictionary = dictionaries[startIndex]
-                
-                if dictionary.key == .string("views"), case .array(let viewsArray) = dictionary.value {
-                    views = ViewsGenerator.generate(index: 0, viewsArray: viewsArray)
-                }
-                
-                if dictionary.key == .string("settings"), case .dictionary(let settingsDictionary) = dictionary.value {
-                    settings = SettingsGenerator.generate(settingsInfoList: settingsDictionary)
-                }
-                
-                startIndex = dictionaries.index(after: startIndex)
-            }
-            
-        } catch {
-            print("Could not read file: \(error)")
-            // TODO: 終了コード
-        }
+        let yamlParser = YamlParser()
+        try yamlParser.parse(fileURL: fileURL)
+        
+        let views: [View] = yamlParser.views
+        let settings: Settings = yamlParser.settings
 
         let viewObjectSize = settings.viewObjectSize
         let viewObjectVerticalMargin: Double = settings.viewVerticalMargin
@@ -90,7 +60,7 @@ public class CLICommander {
             let preViewMaxCount: Int = {
                 if index != 0 {
                     let views = views[0...(index - 1)].map { $0 }
-                    // TODO: ここが浮いているのでもう少し改善したい
+                    // TODO: ここが浮いているのでもう少し改善したい。設置したViewListのうち最も高いものを算出すればできそうな気がする
                     return ImageHeightCalculator.calculateMaxVerticalCount(views: views)
                 } else {
                     return 0

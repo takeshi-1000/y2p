@@ -3,8 +3,8 @@ import Data
 import Cocoa
 
 /// yml parser for `settings`
-public class SettingsGenerator {
-    public static func generate(settingsInfoList: [Yaml : Yaml]) -> Settings {
+class SettingsGenerator {
+    static func generate(settingsInfoList: [Yaml : Yaml]) -> Settings {
         let _settings = Settings()
             
         settingsInfoList.forEach { settings in

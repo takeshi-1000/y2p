@@ -3,8 +3,8 @@ import Data
 import Cocoa
 
 /// yml parser for `views`
-public class ViewsGenerator {
-    public static func generate(index: Int, viewsArray: [Yaml]) -> [View] {
+class ViewsGenerator {
+    static func generate(index: Int, viewsArray: [Yaml]) -> [View] {
         var _views: [View] = []
         
         viewsArray.forEach { viewData in
