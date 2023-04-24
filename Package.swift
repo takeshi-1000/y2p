@@ -15,11 +15,11 @@ let package = Package(
         .executableTarget(
             name: "y2p",
             dependencies: [
-                .target(name: "y2pCli")
+                .target(name: "y2pCLI")
             ]
         ),
         .target(
-            name: "y2pCli",
+            name: "y2pCLI",
             dependencies: [
                 .target(name: "Utility"),
                 .target(name: "Data"),
@@ -40,9 +40,9 @@ let package = Package(
                 .target(name: "y2p")
             ]),
         .testTarget(
-            name: "y2pCliTests",
+            name: "y2pCLITests",
             dependencies: [
-                .target(name: "y2pCli")
+                .target(name: "y2pCLI")
             ]),
         .testTarget(
             name: "UtilityTests",

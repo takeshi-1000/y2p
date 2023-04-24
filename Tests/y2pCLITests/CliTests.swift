@@ -1,7 +1,7 @@
 import XCTest
-@testable import y2pCli
+@testable import y2pCLI
 
-final class y2pCliTests: XCTestCase {
+final class y2pCLITests: XCTestCase {
     func testExample() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct

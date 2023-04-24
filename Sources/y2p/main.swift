@@ -1,7 +1,7 @@
-import y2pCli
+import y2pCLI
 
 do {
-    try Cli.execute()
+    try CLICommander.command()
     print("Success created!")
 } catch {
     print("Fail")

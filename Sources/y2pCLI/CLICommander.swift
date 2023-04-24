@@ -3,8 +3,8 @@ import Utility
 import Cocoa
 import Yaml
 
-public class Cli {
-    public static func execute() throws {
+public class CLICommander {
+    public static func command() throws {
         var views: [View] = []
         var settings: Settings = .init()
 
@@ -110,9 +110,7 @@ public class Cli {
             // TODO: 終了コード
         }
 
-        // 水平方向にどれくらい深くなるか
         let maxHorizontalDeepCount = createMaxHorizontalCount(index: 0, viewsArray: views)
-        // 垂直方向にどれくらい深くなるか
         let maxVerticalDeepCount = createMaxVerticalCount(viewsArray: views)
 
         let viewObjectSize = settings.viewObjectSize
