@@ -3,8 +3,8 @@ import Foundation
 import YamlParserKit
 import ImageGenKit
 
-public class CLICommander {
-    public static func command() throws {        
+public class CLI {
+    public static func execute() throws {        
         let fileURL: URL = {
             if let index = CommandLine.arguments.firstIndex(of: "-fileName") {
                 let fileNameStrIndex = CommandLine.arguments.index(after: index)
