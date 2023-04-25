@@ -1,0 +1,11 @@
+name: y2pCI
+on: [push, pull_request]
+jobs:
+  run:
+    runs-on: macos-13
+    steps:
+    - uses: actions/checkout@master
+    - name: Build
+      run: swift build
+    - name: Test
+      run: swift test
