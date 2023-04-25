@@ -1,8 +1,9 @@
 import Yaml
 import Data
 import Cocoa
+import Utility
 
-/// yml parser for `settings`
+/// yaml parser for `settings`
 class SettingsGenerator {
     static func generate(settingsInfoList: [Yaml : Yaml]) -> Settings {
         let _settings = Settings()

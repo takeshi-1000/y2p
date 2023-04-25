@@ -4,8 +4,16 @@ import YamlParserKit
 import ImageGenKit
 
 public class CLICommander {
-    public static func command() throws {
-        let fileURL = URL(fileURLWithPath: "y2p.yml")
+    public static func command() throws {        
+        let fileURL: URL = {
+            if let index = CommandLine.arguments.firstIndex(of: "-fileName") {
+                let fileNameStrIndex = CommandLine.arguments.index(after: index)
+                return URL(fileURLWithPath: CommandLine.arguments[fileNameStrIndex])
+            } else {
+                return URL(fileURLWithPath: "y2p.yaml")
+            }
+        }()
+        
         let yamlParser = YamlParser()
         try yamlParser.parse(fileURL: fileURL)
         

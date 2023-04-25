@@ -35,6 +35,9 @@ views:
               name: "ほげ40"
            - Hoge5:
               name: "ほげ50"
+              views:
+               - Hoge51:
+                  name: "ほげ51"
            - Hoge6:
               name: "ほげ60"
            - Hoge7:

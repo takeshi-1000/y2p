@@ -2,7 +2,7 @@ import Yaml
 import Data
 import Cocoa
 
-/// yml parser for `views`
+/// yaml parser for `views`
 class ViewsGenerator {
     static func generate(index: Int, viewsArray: [Yaml]) -> [View] {
         var _views: [View] = []
