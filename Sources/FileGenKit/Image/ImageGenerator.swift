@@ -17,10 +17,10 @@ public class ImageGenerator {
         let viewObjectHorizontalMargin: Double = settings.viewHorizontalMargin
         let contentMargin: Double = settings.margin
 
-        let imageWidthCalculator = ImageWidthCalculator(viewObjectSizeWidth: viewObjectSize.width,
-                                                         viewObjectHorizontalMargin: viewObjectHorizontalMargin)
-        let imageHeightCalculator = ImageHeightCalculator(viewObjectSizeHeight: viewObjectSize.height,
-                                                          viewObjectVerticalMargin: viewObjectVerticalMargin)
+        let imageWidthCalculator = FileWidthCalculator(viewObjectSizeWidth: viewObjectSize.width,
+                                                       viewObjectHorizontalMargin: viewObjectHorizontalMargin)
+        let imageHeightCalculator = FileHeightCalculator(viewObjectSizeHeight: viewObjectSize.height,
+                                                         viewObjectVerticalMargin: viewObjectVerticalMargin)
         let contentWidth = imageWidthCalculator.calculate(index: 0, views: views)
         let contentHeight = imageHeightCalculator.calculate(views: views)
         let imageWidth = contentWidth + (contentMargin * 2)

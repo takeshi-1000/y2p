@@ -1,8 +1,7 @@
 import Data
 import Foundation
 import YamlParserKit
-import ImageGenKit
-import SVGGenKit
+import FileGenKit
 
 public class CLI {
     public static func execute() throws {

@@ -27,7 +27,7 @@ class ViewsPainter {
                 if index != 0 {
                     let views = views[0...(index - 1)].map { $0 }
                     // TODO: ここが浮いているのでもう少し改善したい。設置したViewListのうち最も高いものを算出すればできそうな気がする
-                    return ImageHeightCalculator.calculateMaxVerticalCount(views: views)
+                    return FileHeightCalculator.calculateMaxVerticalCount(views: views)
                 } else {
                     return 0
                 }

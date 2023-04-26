@@ -1,6 +1,6 @@
 import Data
 
-class ImageHeightCalculator {
+class FileHeightCalculator {
     private let viewObjectSizeHeight: Double
     private let viewObjectVerticalMargin: Double
     
@@ -10,7 +10,7 @@ class ImageHeightCalculator {
     }
     
     func calculate(views: [View]) -> Double {
-        let maxCount = ImageHeightCalculator.calculateMaxVerticalCount(views: views)
+        let maxCount = FileHeightCalculator.calculateMaxVerticalCount(views: views)
         
         let maxViewObjectSizeHeightTotal: Double = viewObjectSizeHeight * Double(maxCount)
         let viewObjectVerticalMarginTotal: Double = viewObjectVerticalMargin * Double(maxCount - 1)

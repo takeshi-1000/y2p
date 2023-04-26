@@ -1,6 +1,6 @@
 import Data
 
-class ImageWidthCalculator {
+class FileWidthCalculator {
     private let viewObjectSizeWidth: Double
     private let viewObjectHorizontalMargin: Double
     

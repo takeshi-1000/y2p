@@ -22,8 +22,7 @@ let package = Package(
             name: "y2pCLI",
             dependencies: [
                 .target(name: "YamlParserKit"),
-                .target(name: "ImageGenKit"),
-                .target(name: "SVGGenKit"),
+                .target(name: "FileGenKit"),
                 .target(name: "Data"),
             ]
         ),
@@ -36,15 +35,9 @@ let package = Package(
             ]
         ),
         .target(
-            name: "ImageGenKit",
+            name: "FileGenKit",
             dependencies: [
                 .target(name: "Utility"),
-                .target(name: "Data"),
-            ]
-        ),
-        .target(
-            name: "SVGGenKit",
-            dependencies: [
                 .target(name: "Data"),
             ]
         ),
