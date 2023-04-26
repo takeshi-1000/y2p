@@ -9,7 +9,11 @@ public class SVGGenerator {
         self.settings = settings
     }
     
-    public func generate() throws {
-        
+    public func generate() throws -> String {
+        return """
+<svg width="200" height="200">
+  <rect x="0" y="0" width="200" height="200" fill="#FF0000" />
+</svg>
+"""
     }
 }

@@ -26,9 +26,9 @@ public class CLI {
             try? imageData?.write(to: URL(fileURLWithPath: settings.imageName))
         case .svg:
             let svgGenerator = SVGGenerator(views: views, settings: settings)
-            // TODO: SVG出力
-            let _ = try svgGenerator.generate()
-            break
+            let svgStr = try svgGenerator.generate()
+            // TODO: "transition.svg" を動的にする
+            try svgStr.write(to: URL(fileURLWithPath: "transition.svg"), atomically: true, encoding: .utf8)
         }
     }
 }
