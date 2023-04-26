@@ -2,11 +2,11 @@ settings:
   transitionTypeList:
    - push:
       color: "000000"
+      isDefault: true
    - modal:
       color: "800080"
    - alert:
       color: "ef1609"
-  defaultTransitionType: push
   object:
    borderColor: "000000"
    contentColor: "FFFFFF"

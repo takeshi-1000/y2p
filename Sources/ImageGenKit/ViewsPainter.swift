@@ -110,10 +110,11 @@ class ViewsPainter {
                     let endPoint = NSPoint(x: _view.rect.minX, y: _view.rect.minY + (settings.viewObjectSize.height / 2))
                     
                     let slashColor: NSColor = {
-                        
+                        let defaultTransitionTypeKey = settings.transitionTypeList
+                            .first { $0.isDefault }?.typeStr ?? settings.transitionTypeList.first?.typeStr
                         let filteredtransitionTypeKey = _view.transitionTypeKey.isEmpty == false
                                                              ? _view.transitionTypeKey
-                                                             : settings.defaultTransitionTypeKey
+                                                             : defaultTransitionTypeKey
                         
                         if let defaultContext = settings.transitionTypeList
                             .first(where: { $0.typeStr == filteredtransitionTypeKey }) {

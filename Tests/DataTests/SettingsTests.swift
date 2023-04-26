@@ -68,13 +68,6 @@ final class SettingsTests: XCTestCase {
             XCTAssertEqual(actual, expected)
         }
         
-        XCTContext.runActivity(named: "settings.defaultTransitionTypeKeyのデフォルト値の確認") { _ in
-            let actual = settings.defaultTransitionTypeKey
-            let expected = ""
-            
-            XCTAssertEqual(actual, expected)
-        }
-        
         XCTContext.runActivity(named: "settings.transitionTypeListのデフォルト値の確認") { _ in
             let actual = settings.transitionTypeList
             let expectedCount = 0
@@ -243,23 +236,6 @@ final class SettingsTests: XCTestCase {
         }
     }
     
-    func test_updateDefaultTransitionTypeKey() {
-        XCTContext.runActivity(named: "updateDefaultTransitionTypeKey適用前") { _ in
-            // test_initSettingsで検証済み
-        }
-        
-        XCTContext.runActivity(named: "updateDefaultTransitionTypeKey適用後") { _ in
-            let settings = Settings()
-            let inputTransionKey = "modal"
-            settings.updateDefaultTransitionTypeKey(inputTransionKey)
-            
-            let actual = settings.defaultTransitionTypeKey
-            let expected = inputTransionKey
-                        
-            XCTAssertEqual(actual, expected)
-        }
-    }
-    
     func test_updateTransitionTypeList() {
         XCTContext.runActivity(named: "updateTransitionTypeList適用前") { _ in
             // test_initSettingsで検証済み
@@ -268,9 +244,9 @@ final class SettingsTests: XCTestCase {
         XCTContext.runActivity(named: "updateTransitionTypeList適用後") { _ in
             let settings = Settings()
             let inputTransionTypeList = [
-                TransitionType(typeStr: "hoge", colorStr: "000011"),
-                TransitionType(typeStr: "fuga", colorStr: "000012"),
-                TransitionType(typeStr: "bar", colorStr: "000013")
+                TransitionType(typeStr: "hoge", colorStr: "000011", isDefault: true),
+                TransitionType(typeStr: "fuga", colorStr: "000012", isDefault: false),
+                TransitionType(typeStr: "bar", colorStr: "000013", isDefault: true)
             ]
             
             settings.updateTransitionTypeList(inputTransionTypeList)
@@ -280,10 +256,13 @@ final class SettingsTests: XCTestCase {
                         
             XCTAssertEqual(actual[0].typeStr, expected[0].typeStr)
             XCTAssertEqual(actual[0].colorStr, expected[0].colorStr)
+            XCTAssertEqual(actual[0].isDefault, expected[0].isDefault)
             XCTAssertEqual(actual[1].typeStr, expected[1].typeStr)
             XCTAssertEqual(actual[1].colorStr, expected[1].colorStr)
+            XCTAssertEqual(actual[1].isDefault, expected[1].isDefault)
             XCTAssertEqual(actual[2].typeStr, expected[2].typeStr)
             XCTAssertEqual(actual[2].colorStr, expected[2].colorStr)
+            XCTAssertEqual(actual[2].isDefault, expected[2].isDefault)
         }
     }
     
@@ -308,10 +287,12 @@ final class SettingsTests: XCTestCase {
         XCTContext.runActivity(named: "初期化時に適切に値をセットできているかの確認") { _ in
             let typeStr = "push"
             let colorStr = "FFFFFF"
-            let actual = TransitionType(typeStr: typeStr, colorStr: colorStr)
+            let isDefault = true
+            let actual = TransitionType(typeStr: typeStr, colorStr: colorStr, isDefault: isDefault)
             
             XCTAssertEqual(actual.typeStr, typeStr)
             XCTAssertEqual(actual.colorStr, colorStr)
+            XCTAssertEqual(actual.isDefault, isDefault)
         }
     }
 }

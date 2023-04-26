@@ -35,6 +35,7 @@ class SettingsGenerator {
                         transitionTypeInfoList.forEach { transitionTypeInfoData in
                             var _transitionTypeTypeStr: String = ""
                             var _transitionTypeColorStr: String = ""
+                            var _transitionTypeIsDefault: Bool = false
                             
                             if case .string(let type) = transitionTypeInfoData.key {
                                 _transitionTypeTypeStr = type
@@ -45,12 +46,18 @@ class SettingsGenerator {
                                        case .string(let colorStr) = transitionTypeInfo.value {
                                         _transitionTypeColorStr = colorStr
                                     }
+                                    
+                                    if case .string("isDefault") = transitionTypeInfo.key,
+                                       case .bool(let isDefault) = transitionTypeInfo.value {
+                                        _transitionTypeIsDefault = isDefault
+                                    }
                                 }
                             }
                             _transitionTypeList.append(
                                 TransitionType(
                                     typeStr: _transitionTypeTypeStr,
-                                    colorStr: _transitionTypeColorStr
+                                    colorStr: _transitionTypeColorStr,
+                                    isDefault: _transitionTypeIsDefault
                                 )
                             )
                         }
@@ -58,11 +65,6 @@ class SettingsGenerator {
                 }
                 
                 _settings.updateTransitionTypeList(_transitionTypeList)
-            }
-            
-            if case .string("defaultTransitionType") = settings.key,
-               case .string(let defaulttransitionTypeKey) = settings.value {
-                _settings.updateDefaultTransitionTypeKey(defaulttransitionTypeKey)
             }
             
             if case .string("object") = settings.key,

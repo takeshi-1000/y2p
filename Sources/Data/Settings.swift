@@ -28,9 +28,6 @@ public class Settings {
     public var imageName: String { _imageName }
     private var _imageName: String = "transition.png"
     
-    public var defaultTransitionTypeKey: String { _defaultTransitionTypeKey }
-    private var _defaultTransitionTypeKey: String = ""
-    
     public var transitionTypeList: [TransitionType] { _transitionTypeList }
     private var _transitionTypeList: [TransitionType] = []
     
@@ -75,10 +72,6 @@ public class Settings {
         _imageName = imageName
     }
     
-    public func updateDefaultTransitionTypeKey(_ defaultTransitionTypeKey: String) {
-        _defaultTransitionTypeKey = defaultTransitionTypeKey
-    }
-    
     public func updateTransitionTypeList(_ transitionTypeList: [TransitionType]) {
         _transitionTypeList = transitionTypeList
     }
@@ -91,10 +84,12 @@ public class Settings {
 public struct TransitionType {
     public let typeStr: String
     public let colorStr: String
+    public let isDefault: Bool
     
-    public init(typeStr: String, colorStr: String) {
+    public init(typeStr: String, colorStr: String, isDefault: Bool) {
         self.typeStr = typeStr
         self.colorStr = colorStr
+        self.isDefault = isDefault
     }
 }
 
