@@ -25,9 +25,6 @@ public class Settings {
     public var margin: Double { _margin }
     private var _margin: Double = 16
     
-    public var imageName: String { _imageName }
-    private var _imageName: String = "transition.png"
-    
     public var transitionTypeList: [TransitionType] { _transitionTypeList }
     private var _transitionTypeList: [TransitionType] = []
     
@@ -66,10 +63,6 @@ public class Settings {
     
     public func updateMargin(_ margin: Double) {
         _margin = margin
-    }
-    
-    public func updateImageName(_ imageName: String) {
-        _imageName = imageName
     }
     
     public func updateTransitionTypeList(_ transitionTypeList: [TransitionType]) {

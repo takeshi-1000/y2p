@@ -61,13 +61,6 @@ final class SettingsTests: XCTestCase {
             XCTAssertEqual(actual, expected)
         }
         
-        XCTContext.runActivity(named: "settings.imageNameのデフォルト値の確認") { _ in
-            let actual = settings.imageName
-            let expected = "transition.png"
-            
-            XCTAssertEqual(actual, expected)
-        }
-        
         XCTContext.runActivity(named: "settings.transitionTypeListのデフォルト値の確認") { _ in
             let actual = settings.transitionTypeList
             let expectedCount = 0
@@ -214,23 +207,6 @@ final class SettingsTests: XCTestCase {
             
             let actual = settings.margin
             let expected = inputMargin
-                        
-            XCTAssertEqual(actual, expected)
-        }
-    }
-    
-    func test_updateImageName() {
-        XCTContext.runActivity(named: "updateImageName適用前") { _ in
-            // test_initSettingsで検証済み
-        }
-        
-        XCTContext.runActivity(named: "updateImageName適用後") { _ in
-            let settings = Settings()
-            let inputImageName = "hogeHoge.png"
-            settings.updateImageName(inputImageName)
-            
-            let actual = settings.imageName
-            let expected = inputImageName
                         
             XCTAssertEqual(actual, expected)
         }

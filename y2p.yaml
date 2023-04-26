@@ -17,7 +17,6 @@ settings:
     width: 100
     height: 50
   margin: 16
-  imageName: "test.png"
   slashWidth: 3
 
 views:

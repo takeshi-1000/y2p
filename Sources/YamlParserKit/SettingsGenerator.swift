@@ -15,11 +15,6 @@ class SettingsGenerator {
                 _settings.updateMargin(Double(margin))
             }
             
-            if case .string("imageName") = settings.key,
-               case .string(let imageName) = settings.value {
-                _settings.updateImageName(imageName)
-            }
-            
             if case .string("slashWidth") = settings.key,
                case .int(let slashWidth) = settings.value {
                 _settings.updateSlashWidth(Double(slashWidth))
