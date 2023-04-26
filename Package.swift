@@ -23,6 +23,7 @@ let package = Package(
             dependencies: [
                 .target(name: "YamlParserKit"),
                 .target(name: "ImageGenKit"),
+                .target(name: "SVGGenKit"),
                 .target(name: "Data"),
             ]
         ),
@@ -38,6 +39,12 @@ let package = Package(
             name: "ImageGenKit",
             dependencies: [
                 .target(name: "Utility"),
+                .target(name: "Data"),
+            ]
+        ),
+        .target(
+            name: "SVGGenKit",
+            dependencies: [
                 .target(name: "Data"),
             ]
         ),
