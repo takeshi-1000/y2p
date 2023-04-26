@@ -22,9 +22,11 @@ settings:
 views:
   - Splash:
       name: "スプラッシュスプラッシュスプラッシュスプラッシュスプラッシュスプラッシュ"
+      url: "https://www.google.com"
       views:
        - Hoge:
           name: "ほげ"
+          url: "https://www.youtube.com"
           transitionType: modal
        - Hoge2:
           name: "ほげ2"
@@ -101,6 +103,7 @@ views:
                            name: "ほげ10"
                         - Hoge11:
                            name: "ほげ11"
+                           url: "https://www.amazon.co.jp"
                         - Hoge12:
                            name: "ほげ12"
                         - Hoge13:
