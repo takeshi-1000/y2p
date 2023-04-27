@@ -13,14 +13,8 @@ public class ImageGenerator: FileGeneratable {
     }
     
     public func generate() throws -> Data? {
-        let imageWidthCalculator = FileWidthCalculator(margin: margin,
-                                                       viewObjectSizeWidth: viewObjectSize.width,
-                                                       viewObjectHorizontalMargin: viewObjectHorizontalMargin)
-        let imageHeightCalculator = FileHeightCalculator(margin: margin,
-                                                         viewObjectSizeHeight: viewObjectSize.height,
-                                                         viewObjectVerticalMargin: viewObjectVerticalMargin)
-        let contentWidth = imageWidthCalculator.calculate(index: 0, views: views)
-        let contentHeight = imageHeightCalculator.calculate(views: views)
+        let contentWidth = calculateWidth()
+        let contentHeight = calculateHeight()
         
         let imageSize = NSSize(width: contentWidth, height: contentHeight)
 
