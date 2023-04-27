@@ -2,31 +2,27 @@ import Data
 import Utility
 import Cocoa
 
-public class ImageGenerator {
-    private let views: [View]
-    private let settings: Settings
+public class ImageGenerator: FileGeneratable {
+    typealias Content = Data
+    let views: [View]
+    let settings: Settings
     
-    public init(views: [View], settings: Settings) {
+    required public init(views: [View], settings: Settings) {
         self.views = views
         self.settings = settings
     }
     
     public func generate() throws -> Data? {
-        let viewObjectSize = settings.viewObjectSize
-        let viewObjectVerticalMargin: Double = settings.viewVerticalMargin
-        let viewObjectHorizontalMargin: Double = settings.viewHorizontalMargin
-        let contentMargin: Double = settings.margin
-
-        let imageWidthCalculator = FileWidthCalculator(viewObjectSizeWidth: viewObjectSize.width,
+        let imageWidthCalculator = FileWidthCalculator(margin: margin,
+                                                       viewObjectSizeWidth: viewObjectSize.width,
                                                        viewObjectHorizontalMargin: viewObjectHorizontalMargin)
-        let imageHeightCalculator = FileHeightCalculator(viewObjectSizeHeight: viewObjectSize.height,
+        let imageHeightCalculator = FileHeightCalculator(margin: margin,
+                                                         viewObjectSizeHeight: viewObjectSize.height,
                                                          viewObjectVerticalMargin: viewObjectVerticalMargin)
         let contentWidth = imageWidthCalculator.calculate(index: 0, views: views)
         let contentHeight = imageHeightCalculator.calculate(views: views)
-        let imageWidth = contentWidth + (contentMargin * 2)
-        let imageHeight = contentHeight + (contentMargin * 2)
-        let imageSize = NSSize(width: imageWidth,
-                               height: imageHeight)
+        
+        let imageSize = NSSize(width: contentWidth, height: contentHeight)
 
         // 画像の背景色
         let backgroundColor = NSColor.white
@@ -52,7 +48,9 @@ public class ImageGenerator {
         backgroundColor.setFill()
         __NSRectFill(NSRect(x: 0, y: 0, width: imageSize.width, height: imageSize.height))
 
-        let viewsPainter = ViewsPainter(views: views, settings: settings, imageHeight: imageHeight)
+        let viewsPainter = ViewsPainter(views: views,
+                                        settings: settings,
+                                        imageHeight: contentHeight)
         viewsPainter.paint()
 
         NSGraphicsContext.restoreGraphicsState()

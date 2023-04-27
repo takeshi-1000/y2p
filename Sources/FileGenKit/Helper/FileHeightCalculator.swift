@@ -1,10 +1,12 @@
 import Data
 
 class FileHeightCalculator {
+    private let margin: Double
     private let viewObjectSizeHeight: Double
     private let viewObjectVerticalMargin: Double
     
-    init(viewObjectSizeHeight: Double, viewObjectVerticalMargin: Double) {
+    init(margin: Double, viewObjectSizeHeight: Double, viewObjectVerticalMargin: Double) {
+        self.margin = margin
         self.viewObjectSizeHeight = viewObjectSizeHeight
         self.viewObjectVerticalMargin = viewObjectVerticalMargin
     }
@@ -14,8 +16,9 @@ class FileHeightCalculator {
         
         let maxViewObjectSizeHeightTotal: Double = viewObjectSizeHeight * Double(maxCount)
         let viewObjectVerticalMarginTotal: Double = viewObjectVerticalMargin * Double(maxCount - 1)
+        let verticalMargin: Double = margin * 2
         
-        return maxViewObjectSizeHeightTotal + viewObjectVerticalMarginTotal
+        return maxViewObjectSizeHeightTotal + viewObjectVerticalMarginTotal + verticalMargin
     }
     
     /*
