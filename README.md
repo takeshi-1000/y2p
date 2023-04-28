@@ -6,7 +6,8 @@ This is CLI application which generate screen trantision diagram based on some y
 
 <img width="889" alt="test" src="https://user-images.githubusercontent.com/16571394/233756870-0ea48565-1b16-43e4-8384-1d8a95f052ce.jpg">
 
-<img width="889" alt="test" src="https://user-images.githubusercontent.com/16571394/233756890-b838b1e0-9103-480a-b3d5-64d5ee3c9bfa.png">
+You can check the actual output images or SVGs from the Sample folder.
+https://github.com/takeshi-1000/y2p/tree/main/Sample
 
 ## How to use
 
