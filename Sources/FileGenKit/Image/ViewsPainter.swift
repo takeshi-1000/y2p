@@ -27,7 +27,7 @@ class ViewsPainter {
                 if index != 0 {
                     let views = views[0...(index - 1)].map { $0 }
                     // TODO: ここが浮いているのでもう少し改善したい。設置したViewListのうち最も高いものを算出すればできそうな気がする
-                    return ImageHeightCalculator.calculateMaxVerticalCount(views: views)
+                    return FileHeightCalculator.calculateMaxVerticalCount(views: views)
                 } else {
                     return 0
                 }
@@ -68,13 +68,13 @@ class ViewsPainter {
                                              width: viewObjectSize.width,
                                              height: viewObjectSize.height)
                 if view.contentColor.isEmpty {
-                    settings.viewObjectColor.setFill()
+                    NSColor(hex: settings.viewObjectColorStr).setFill()
                 } else {
                     NSColor(hex: view.contentColor).setFill()
                 }
                 __NSRectFill(viewRect)
                 let viewTextAttributes: [NSAttributedString.Key: Any] = [
-                    .foregroundColor: settings.viewObjectTextColor,
+                    .foregroundColor: NSColor(hex: settings.viewObjectTextColorStr),
                     .font: NSFont.systemFont(ofSize: settings.viewObjectTextFontSize)
                 ]
                 view.nameData.value.draw(in: viewRect, withAttributes: viewTextAttributes)
@@ -94,7 +94,7 @@ class ViewsPainter {
                 let borderPath = NSBezierPath(rect: viewRect)
                 borderPath.lineWidth = 1.0
                 if view.borderColor.isEmpty {
-                    settings.viewObjectBorderColor.setStroke()
+                    NSColor(hex: settings.viewObjectBorderColorStr).setStroke()
                 } else {
                     NSColor(hex: view.borderColor).setStroke()
                 }
@@ -136,7 +136,7 @@ class ViewsPainter {
                 let path = NSBezierPath()
                 path.move(to: startPoint)
                 path.line(to: endPoint)
-                path.lineWidth = settings.slashWidth
+                path.lineWidth = settings.lineWidth
                 color.setStroke()
                 path.stroke()
             }

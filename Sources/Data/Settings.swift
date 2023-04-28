@@ -4,14 +4,14 @@ public class Settings {
     public var viewObjectSize: NSSize { _viewObjectSize }
     private var _viewObjectSize: NSSize = NSSize(width: 100, height: 50)
     
-    public var viewObjectColor: NSColor { _viewObjectColor }
-    private var _viewObjectColor: NSColor = NSColor.white
+    public var viewObjectColorStr: String { _viewObjectColorStr }
+    private var _viewObjectColorStr: String = "FFFFFF" // white
     
-    public var viewObjectBorderColor: NSColor { _viewObjectBorderColor }
-    private var _viewObjectBorderColor: NSColor = NSColor.black
+    public var viewObjectBorderColorStr: String { _viewObjectBorderColorStr }
+    private var _viewObjectBorderColorStr: String = "000000" // black
     
-    public var viewObjectTextColor: NSColor { _viewObjectTextColor }
-    private var _viewObjectTextColor: NSColor = NSColor.black
+    public var viewObjectTextColorStr: String { _viewObjectTextColorStr }
+    private var _viewObjectTextColorStr: String = "000000" // black
     
     public var viewObjectTextFontSize: Double { _viewObjectTextFontSize }
     private var _viewObjectTextFontSize: Double = 20
@@ -25,14 +25,11 @@ public class Settings {
     public var margin: Double { _margin }
     private var _margin: Double = 16
     
-    public var imageName: String { _imageName }
-    private var _imageName: String = "transition.png"
-    
     public var transitionTypeList: [TransitionType] { _transitionTypeList }
     private var _transitionTypeList: [TransitionType] = []
     
-    public var slashWidth: Double { _slashWidth }
-    private var _slashWidth: Double = 1
+    public var lineWidth: Double { _lineWidth }
+    private var _lineWidth: Double = 1
     
     public init() {}
     
@@ -40,16 +37,16 @@ public class Settings {
         _viewObjectSize = viewObjectSize
     }
     
-    public func updateViewObjectColor(_ viewObjectColor: NSColor) {
-        _viewObjectColor = viewObjectColor
+    public func updateViewObjectColorStr(_ viewObjectColorStr: String) {
+        _viewObjectColorStr = viewObjectColorStr
     }
     
-    public func updateViewObjectBorderColor(_ viewObjectBorderColor: NSColor) {
-        _viewObjectBorderColor = viewObjectBorderColor
+    public func updateViewObjectBorderColorStr(_ viewObjectBorderColorStr: String) {
+        _viewObjectBorderColorStr = viewObjectBorderColorStr
     }
     
-    public func updateViewObjectTextColor(_ viewObjectTextColor: NSColor) {
-        _viewObjectTextColor = viewObjectTextColor
+    public func updateViewObjectTextColorStr(_ viewObjectTextColorStr: String) {
+        _viewObjectTextColorStr = viewObjectTextColorStr
     }
     
     public func updateViewObjectTextFontSize(_ viewObjectTextFontSize: Double) {
@@ -68,16 +65,12 @@ public class Settings {
         _margin = margin
     }
     
-    public func updateImageName(_ imageName: String) {
-        _imageName = imageName
-    }
-    
     public func updateTransitionTypeList(_ transitionTypeList: [TransitionType]) {
         _transitionTypeList = transitionTypeList
     }
     
-    public func updateSlashWidth(_ slashWidth: Double) {
-        _slashWidth = slashWidth
+    public func updateLineWidth(_ lineWidth: Double) {
+        _lineWidth = lineWidth
     }
 }
 

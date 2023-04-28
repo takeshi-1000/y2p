@@ -15,14 +15,9 @@ class SettingsGenerator {
                 _settings.updateMargin(Double(margin))
             }
             
-            if case .string("imageName") = settings.key,
-               case .string(let imageName) = settings.value {
-                _settings.updateImageName(imageName)
-            }
-            
-            if case .string("slashWidth") = settings.key,
-               case .int(let slashWidth) = settings.value {
-                _settings.updateSlashWidth(Double(slashWidth))
+            if case .string("lineWidth") = settings.key,
+               case .int(let lineWidth) = settings.value {
+                _settings.updateLineWidth(Double(lineWidth))
             }
             
             if case .string("transitionTypeList") = settings.key,
@@ -81,11 +76,11 @@ class SettingsGenerator {
                     }
                     if case .string("contentColor") = objectInfoDic.key,
                        case .string(let contentColorHexCode) = objectInfoDic.value {
-                        _settings.updateViewObjectColor(NSColor(hex: contentColorHexCode))
+                        _settings.updateViewObjectColorStr(contentColorHexCode)
                     }
                     if case .string("textColor") = objectInfoDic.key,
                        case .string(let textColorHexCode) = objectInfoDic.value {
-                        _settings.updateViewObjectTextColor(NSColor(hex: textColorHexCode))
+                        _settings.updateViewObjectTextColorStr(textColorHexCode)
                     }
                     if case .string("size") = objectInfoDic.key,
                        case .dictionary(let sizeDictionaries) = objectInfoDic.value {

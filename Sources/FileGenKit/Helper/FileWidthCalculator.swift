@@ -1,10 +1,12 @@
 import Data
 
-class ImageWidthCalculator {
+class FileWidthCalculator {
+    private let margin: Double
     private let viewObjectSizeWidth: Double
     private let viewObjectHorizontalMargin: Double
     
-    init(viewObjectSizeWidth: Double, viewObjectHorizontalMargin: Double) {
+    init(margin: Double, viewObjectSizeWidth: Double, viewObjectHorizontalMargin: Double) {
+        self.margin = margin
         self.viewObjectSizeWidth = viewObjectSizeWidth
         self.viewObjectHorizontalMargin = viewObjectHorizontalMargin
     }
@@ -14,8 +16,9 @@ class ImageWidthCalculator {
         
         let maxViewObjectSizeWidthTotal: Double = viewObjectSizeWidth * Double(maxCount)
         let viewObjectHorizontalMarginTotal: Double = viewObjectHorizontalMargin * Double(maxCount - 1)
+        let horizontalMargin: Double = margin * 2
         
-        return maxViewObjectSizeWidthTotal + viewObjectHorizontalMarginTotal
+        return maxViewObjectSizeWidthTotal + viewObjectHorizontalMarginTotal + horizontalMargin
     }
     
     /*

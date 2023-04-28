@@ -10,6 +10,7 @@ class ViewsGenerator {
         viewsArray.forEach { viewData in
             var _nameKey: String = ""
             var _nameValue: String = ""
+            var _urlStr: String = ""
             var _transitionTypeKey: String = ""
             var _contentColor: String = ""
             var _borderColor: String = ""
@@ -25,6 +26,10 @@ class ViewsGenerator {
                             if case .string("name") = viewInfo.key,
                                case .string(let viewNameValue) = viewInfo.value {
                                 _nameValue = viewNameValue
+                            }
+                            if case .string("url") = viewInfo.key,
+                               case .string(let urlStr) = viewInfo.value {
+                                _urlStr = urlStr
                             }
                             if case .string("transitionType") = viewInfo.key,
                                case .string(let transitionTypeKey) = viewInfo.value {
@@ -50,6 +55,7 @@ class ViewsGenerator {
             
             _views.append(
                 View(nameData: (key: _nameKey, value: _nameValue),
+                     urlStr: _urlStr,
                      transitionTypeKey: _transitionTypeKey,
                      contentColor: _contentColor,
                      borderColor: _borderColor,

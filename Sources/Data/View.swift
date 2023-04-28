@@ -2,6 +2,7 @@ import Cocoa
 
 public class View {
     public let nameData: (key: String, value: String)
+    public let urlStr: String
     public let transitionTypeKey: String
     public let contentColor: String
     public let borderColor: String
@@ -12,12 +13,14 @@ public class View {
     private var _rect: NSRect = .zero
     
     public init(nameData: (key: String, value: String),
-         transitionTypeKey: String,
-         contentColor: String,
-         borderColor: String,
-         index: Int,
-         views: [View]) {
+                urlStr: String,
+                transitionTypeKey: String,
+                contentColor: String,
+                borderColor: String,
+                index: Int,
+                views: [View]) {
         self.nameData = nameData
+        self.urlStr = urlStr
         self.transitionTypeKey = transitionTypeKey
         self.contentColor = contentColor
         self.borderColor = borderColor
