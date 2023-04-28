@@ -15,4 +15,9 @@ This is CLI application which generate screen trantision diagram based on some y
 - swift build
 - ./.build/debug/y2p
   - When executing this command, you need to have the "y2p.yaml" file in the directory where the command is being executed.
-  - With the -fileName option, you can execute the command using a file name of your preference. (e.g `./.build/debug/y2p -fileName test.yaml`)
+  
+## Options
+
+- `-fileName`: specific yaml file which you like (e.g `./.build/debug/y2p -fileName test.yaml`)
+- `-o`: output fileName, default is `transition.png`. Also this option determines output format (svg or image) (e.g `./.build/debug/y2p -o test.svg`)
+  
