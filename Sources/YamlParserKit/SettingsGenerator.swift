@@ -76,7 +76,7 @@ class SettingsGenerator {
                     }
                     if case .string("contentColor") = objectInfoDic.key,
                        case .string(let contentColorHexCode) = objectInfoDic.value {
-                        _settings.updateViewObjectColor(NSColor(hex: contentColorHexCode))
+                        _settings.updateViewObjectColorStr(contentColorHexCode)
                     }
                     if case .string("textColor") = objectInfoDic.key,
                        case .string(let textColorHexCode) = objectInfoDic.value {

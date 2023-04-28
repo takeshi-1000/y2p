@@ -4,8 +4,8 @@ public class Settings {
     public var viewObjectSize: NSSize { _viewObjectSize }
     private var _viewObjectSize: NSSize = NSSize(width: 100, height: 50)
     
-    public var viewObjectColor: NSColor { _viewObjectColor }
-    private var _viewObjectColor: NSColor = NSColor.white
+    public var viewObjectColorStr: String { _viewObjectColorStr }
+    private var _viewObjectColorStr: String = "FFFFFF" //white
     
     public var viewObjectBorderColor: NSColor { _viewObjectBorderColor }
     private var _viewObjectBorderColor: NSColor = NSColor.black
@@ -37,8 +37,8 @@ public class Settings {
         _viewObjectSize = viewObjectSize
     }
     
-    public func updateViewObjectColor(_ viewObjectColor: NSColor) {
-        _viewObjectColor = viewObjectColor
+    public func updateViewObjectColorStr(_ viewObjectColorStr: String) {
+        _viewObjectColorStr = viewObjectColorStr
     }
     
     public func updateViewObjectBorderColor(_ viewObjectBorderColor: NSColor) {
