@@ -28,8 +28,8 @@ public class Settings {
     public var transitionTypeList: [TransitionType] { _transitionTypeList }
     private var _transitionTypeList: [TransitionType] = []
     
-    public var slashWidth: Double { _slashWidth }
-    private var _slashWidth: Double = 1
+    public var lineWidth: Double { _lineWidth }
+    private var _lineWidth: Double = 1
     
     public init() {}
     
@@ -69,8 +69,8 @@ public class Settings {
         _transitionTypeList = transitionTypeList
     }
     
-    public func updateSlashWidth(_ slashWidth: Double) {
-        _slashWidth = slashWidth
+    public func updateLineWidth(_ lineWidth: Double) {
+        _lineWidth = lineWidth
     }
 }
 

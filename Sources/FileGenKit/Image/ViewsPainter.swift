@@ -136,7 +136,7 @@ class ViewsPainter {
                 let path = NSBezierPath()
                 path.move(to: startPoint)
                 path.line(to: endPoint)
-                path.lineWidth = settings.slashWidth
+                path.lineWidth = settings.lineWidth
                 color.setStroke()
                 path.stroke()
             }

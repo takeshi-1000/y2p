@@ -65,6 +65,12 @@ class SVGObjectGenerator {
             }
             
             func generateRect(x: Double, y: Double, view: View) {
+                // view.rectを使用してlineのrectが算出されることに注意
+                view.updateRect(.init(x: x,
+                                      y: y,
+                                      width: viewObjectSize.width,
+                                      height: viewObjectSize.height))
+                
                 let fillColorStr: String = view.contentColor.isEmpty == false
                  ? view.contentColor
                  : settings.viewObjectColorStr
@@ -119,7 +125,7 @@ class SVGObjectGenerator {
                               x2: endPoint.x,
                               y2: endPoint.y,
                               stroke: lineColor,
-                              strokeWidth: settings.slashWidth)
+                              strokeWidth: settings.lineWidth)
                     )
                                 
                     if _view.views.count > 0 {

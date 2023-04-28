@@ -68,8 +68,8 @@ final class SettingsTests: XCTestCase {
             XCTAssertEqual(actual.count, expectedCount)
         }
         
-        XCTContext.runActivity(named: "settings.slashWidthのデフォルト値の確認") { _ in
-            let actual = settings.slashWidth
+        XCTContext.runActivity(named: "settings.lineWidthのデフォルト値の確認") { _ in
+            let actual = settings.lineWidth
             let expected: Double = 1
             
             XCTAssertEqual(actual, expected)
@@ -242,17 +242,17 @@ final class SettingsTests: XCTestCase {
         }
     }
     
-    func test_updateSlashWidth() {
-        XCTContext.runActivity(named: "updateSlashWidth適用前") { _ in
+    func test_updateLineWidth() {
+        XCTContext.runActivity(named: "updateLineWidth適用前") { _ in
             // test_initSettingsで検証済み
         }
         
-        XCTContext.runActivity(named: "updateSlashWidth適用後") { _ in
+        XCTContext.runActivity(named: "updateLineWidth適用後") { _ in
             let settings = Settings()
             let inputWidth: Double = 4
-            settings.updateSlashWidth(inputWidth)
+            settings.updateLineWidth(inputWidth)
             
-            let actual = settings.slashWidth
+            let actual = settings.lineWidth
             let expected = inputWidth
                         
             XCTAssertEqual(actual, expected)

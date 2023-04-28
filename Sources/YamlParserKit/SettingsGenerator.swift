@@ -15,9 +15,9 @@ class SettingsGenerator {
                 _settings.updateMargin(Double(margin))
             }
             
-            if case .string("slashWidth") = settings.key,
-               case .int(let slashWidth) = settings.value {
-                _settings.updateSlashWidth(Double(slashWidth))
+            if case .string("lineWidth") = settings.key,
+               case .int(let lineWidth) = settings.value {
+                _settings.updateLineWidth(Double(lineWidth))
             }
             
             if case .string("transitionTypeList") = settings.key,
