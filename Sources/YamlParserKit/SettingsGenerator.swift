@@ -80,7 +80,7 @@ class SettingsGenerator {
                     }
                     if case .string("textColor") = objectInfoDic.key,
                        case .string(let textColorHexCode) = objectInfoDic.value {
-                        _settings.updateViewObjectTextColor(NSColor(hex: textColorHexCode))
+                        _settings.updateViewObjectTextColorStr(textColorHexCode)
                     }
                     if case .string("size") = objectInfoDic.key,
                        case .dictionary(let sizeDictionaries) = objectInfoDic.value {

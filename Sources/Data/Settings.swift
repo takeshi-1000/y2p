@@ -5,13 +5,13 @@ public class Settings {
     private var _viewObjectSize: NSSize = NSSize(width: 100, height: 50)
     
     public var viewObjectColorStr: String { _viewObjectColorStr }
-    private var _viewObjectColorStr: String = "FFFFFF" //white
+    private var _viewObjectColorStr: String = "FFFFFF" // white
     
-    public var viewObjectBorderColor: NSColor { _viewObjectBorderColor }
-    private var _viewObjectBorderColor: NSColor = NSColor.black
+    public var viewObjectBorderColorStr: String { _viewObjectBorderColorStr }
+    private var _viewObjectBorderColorStr: String = "000000" // black
     
-    public var viewObjectTextColor: NSColor { _viewObjectTextColor }
-    private var _viewObjectTextColor: NSColor = NSColor.black
+    public var viewObjectTextColorStr: String { _viewObjectTextColorStr }
+    private var _viewObjectTextColorStr: String = "000000" // black
     
     public var viewObjectTextFontSize: Double { _viewObjectTextFontSize }
     private var _viewObjectTextFontSize: Double = 20
@@ -41,12 +41,12 @@ public class Settings {
         _viewObjectColorStr = viewObjectColorStr
     }
     
-    public func updateViewObjectBorderColor(_ viewObjectBorderColor: NSColor) {
-        _viewObjectBorderColor = viewObjectBorderColor
+    public func updateViewObjectBorderColorStr(_ viewObjectBorderColorStr: String) {
+        _viewObjectBorderColorStr = viewObjectBorderColorStr
     }
     
-    public func updateViewObjectTextColor(_ viewObjectTextColor: NSColor) {
-        _viewObjectTextColor = viewObjectTextColor
+    public func updateViewObjectTextColorStr(_ viewObjectTextColorStr: String) {
+        _viewObjectTextColorStr = viewObjectTextColorStr
     }
     
     public func updateViewObjectTextFontSize(_ viewObjectTextFontSize: Double) {

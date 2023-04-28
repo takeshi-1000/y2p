@@ -74,7 +74,7 @@ class ViewsPainter {
                 }
                 __NSRectFill(viewRect)
                 let viewTextAttributes: [NSAttributedString.Key: Any] = [
-                    .foregroundColor: settings.viewObjectTextColor,
+                    .foregroundColor: NSColor(hex: settings.viewObjectTextColorStr),
                     .font: NSFont.systemFont(ofSize: settings.viewObjectTextFontSize)
                 ]
                 view.nameData.value.draw(in: viewRect, withAttributes: viewTextAttributes)
@@ -94,7 +94,7 @@ class ViewsPainter {
                 let borderPath = NSBezierPath(rect: viewRect)
                 borderPath.lineWidth = 1.0
                 if view.borderColor.isEmpty {
-                    settings.viewObjectBorderColor.setStroke()
+                    NSColor(hex: settings.viewObjectBorderColorStr).setStroke()
                 } else {
                     NSColor(hex: view.borderColor).setStroke()
                 }

@@ -1,21 +1,19 @@
 import Data
 import Cocoa
 
-/// this class has two function, which first is to calculate every view position,
-/// and second is to generate line view object list
-class ViewPositionCalculator {
+class SVGObjectGenerator {
     private let views: [View]
     private let settings: Settings
     
-    var lineViews: [LineView] {  _lineViews }
-    private var _lineViews: [LineView] = []
+    var svgObjectList: [SVGObjectType] {  _svgObjectList }
+    private var _svgObjectList: [SVGObjectType] = []
     
     init(views: [View], settings: Settings) {
         self.views = views
         self.settings = settings
     }
     
-    func calculate() {
+    func generate() {
         let margin: Double = settings.margin
         let viewVerticalMargin: Double = settings.viewVerticalMargin
         let viewHorizontalMargin: Double = settings.viewHorizontalMargin
@@ -37,15 +35,15 @@ class ViewPositionCalculator {
             }()
             
             let viewY = margin + (Double(preViewMaxCount) * (viewVerticalMargin + viewObjectSize.height))
-            configureViewPosition(x: margin, y: viewY, view: view)
+            generateRect(x: margin, y: viewY, view: view)
             
             // 第二階層以降
-            configureViewsPosition(view.views, baseViewY: viewY)
+            generateRectsFromViews(view.views, baseViewY: viewY)
             
             // 斜線
-            configureLineViewsPosition(baseView: view)
+            generateLinesFromViews(baseView: view)
             
-            func configureViewsPosition(_ views: [View], baseViewY: Double) {
+            func generateRectsFromViews(_ views: [View], baseViewY: Double) {
                 var nextViews: [View] = []
                 views.enumerated().forEach { data in
                     let _view: View = data.element
@@ -54,7 +52,7 @@ class ViewPositionCalculator {
                     let x: Double = (Double(_view.index) * (viewHorizontalMargin + viewObjectSize.width)) + margin
                     let y: Double = Double(_viewOffSet) * (viewVerticalMargin + viewObjectSize.height) + baseViewY
                     
-                    configureViewPosition(x: x, y: y, view: _view)
+                    generateRect(x: x, y: y, view: _view)
                     
                     if _view.views.count > 0 {
                         nextViews.append(contentsOf: _view.views)
@@ -62,19 +60,39 @@ class ViewPositionCalculator {
                 }
                 
                 if nextViews.isEmpty == false {
-                    configureViewsPosition(nextViews, baseViewY: baseViewY)
+                    generateRectsFromViews(nextViews, baseViewY: baseViewY)
                 }
             }
             
-            func configureViewPosition(x: Double, y: Double, view: View) {
-                let viewRect: NSRect = .init(x: x,
-                                             y: y,
-                                             width: viewObjectSize.width,
-                                             height: viewObjectSize.height)
-                view.updateRect(viewRect)
+            func generateRect(x: Double, y: Double, view: View) {
+                let fillColorStr: String = view.contentColor.isEmpty == false
+                 ? view.contentColor
+                 : settings.viewObjectColorStr
+                let strokeColorStr: String = view.borderColor.isEmpty == false
+                 ? view.borderColor
+                 : settings.viewObjectBorderColorStr
+                
+                let rectSvg: SVGObjectType = .rect(x: x,
+                                                   y: y,
+                                                   width: viewObjectSize.width,
+                                                   height: viewObjectSize.height,
+                                                   fill: fillColorStr,
+                                                   stroke: strokeColorStr)
+                let textSvg: SVGObjectType = .text(x: x + 5,
+                                                   y: y + 20,
+                                                   fontSize: settings.viewObjectTextFontSize,
+                                                   fill: settings.viewObjectTextColorStr,
+                                                   value: view.nameData.key)
+                
+                if view.urlStr.isEmpty == false {
+                    _svgObjectList.append(.url(urlStr: view.urlStr, rect: rectSvg, text: textSvg))
+                } else {
+                    _svgObjectList.append(rectSvg)
+                    _svgObjectList.append(textSvg)
+                }
             }
             
-            func configureLineViewsPosition(baseView: View) {
+            func generateLinesFromViews(baseView: View) {
                 baseView.views.enumerated().forEach { data in
                     let _view: View = data.element
                     let startPoint = NSPoint(x: baseView.rect.maxX, y: baseView.rect.minY + (settings.viewObjectSize.height / 2))
@@ -95,14 +113,17 @@ class ViewPositionCalculator {
                         }
                     }()
                     
-                    _lineViews.append(
-                        LineView(startPoint: startPoint,
-                                 endPoint: endPoint,
-                                 colorStr: lineColor)
+                    _svgObjectList.append(
+                        .line(x1: startPoint.x,
+                              y1: startPoint.y,
+                              x2: endPoint.x,
+                              y2: endPoint.y,
+                              stroke: lineColor,
+                              strokeWidth: settings.slashWidth)
                     )
-                                        
+                                
                     if _view.views.count > 0 {
-                        configureLineViewsPosition(baseView: _view)
+                        generateLinesFromViews(baseView: _view)
                     }
                 }
             }

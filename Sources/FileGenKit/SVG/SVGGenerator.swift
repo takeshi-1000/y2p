@@ -15,45 +15,11 @@ public class SVGGenerator: FileGeneratable {
         let contentWidth = calculateWidth()
         let contentHeight = calculateHeight()
         
-        let viewPositionCalculator = ViewPositionCalculator(views: views, settings: settings)
-        viewPositionCalculator.calculate()
+        let svgObjectGenerator = SVGObjectGenerator(views: views, settings: settings)
+        svgObjectGenerator.generate()
         
-        let lineViews = viewPositionCalculator.lineViews
-        var svgObjectList: [SVGObjectType] = [.svg(width: contentWidth, height: contentHeight)]
-        
-        parseViewsToSVGObject(views: views)
-                
-        func parseViewsToSVGObject(views: [View]) {
-            views.forEach { view in
-                let fillColor = view.contentColor.isEmpty == false
-                  ? view.contentColor
-                  : settings.viewObjectColorStr
-
-                svgObjectList.append(
-                    .rect(x: view.rect.origin.x,
-                          y: view.rect.origin.y,
-                          width: view.rect.width,
-                          height: view.rect.height,
-                          fill: fillColor,
-                          stroke: "000000")
-                )
-                
-                if view.views.isEmpty == false {
-                    parseViewsToSVGObject(views: view.views)
-                }
-            }
-        }
-                
-        lineViews.forEach { lineView in
-            svgObjectList.append(
-                .line(x1: lineView.startPoint.x,
-                      y1: lineView.startPoint.y,
-                      x2: lineView.endPoint.x,
-                      y2: lineView.endPoint.y,
-                      stroke: lineView.colorStr,
-                      strokeWidth: settings.slashWidth)
-            )
-        }
+        var svgObjectList: [SVGObjectType] = svgObjectGenerator.svgObjectList
+        svgObjectList.insert(.svg(width: contentWidth, height: contentHeight), at: 0)
         
         var svgStr = """
         """
@@ -68,7 +34,7 @@ public class SVGGenerator: FileGeneratable {
                 svgStr += "\n"
             case .rect(x: let x, y: let y, width: let width, height: let height, fill: let fill, stroke: let stroke):
                 svgStr += """
- <rect x="\(Int(x))" y="\(y)" width="\(width)" height="\(height)" fill="#\(fill)" stroke="#\(stroke)" />
+ <rect x="\(x)" y="\(y)" width="\(width)" height="\(height)" fill="#\(fill)" stroke="#\(stroke)" />
 """
                 svgStr += "\n"
             case .line(x1: let x1, y1: let y1, x2: let x2, y2: let y2, stroke: let stroke, strokeWidth: let strokeWidth):
@@ -76,7 +42,49 @@ public class SVGGenerator: FileGeneratable {
  <line x1="\(x1)" y1="\(y1)" x2="\(x2)" y2="\(y2)" stroke="#\(stroke)" stroke-width="\(strokeWidth)" />
 """
                 svgStr += "\n"
-            case .text: break
+            case .text(x: let x, y: let y, fontSize: let fontSize, fill: let fill, value: let value):
+                svgStr += """
+ <text x="\(x)" y="\(y)" font-size="\(fontSize)" fill="#\(fill)">\(value)</text>
+"""
+                svgStr += "\n"
+            case .url(urlStr: let urlStr, rect: let svgRect, text: let svgText):
+                var _svgStr = ""
+                
+                // URL
+                _svgStr += """
+ <a href="\(urlStr)">
+"""
+                _svgStr += "\n"
+                
+                // Rect
+                if case .rect(x: let x,
+                              y: let y,
+                              width: let width,
+                              height: let height,
+                              fill: let fill,
+                              stroke: let stroke) = svgRect {
+                    _svgStr += """
+  <rect x="\(x)" y="\(y)" width="\(width)" height="\(height)" fill="#\(fill)" stroke="#\(stroke)" />
+"""
+                    _svgStr += "\n"
+                }
+                
+                // Text
+                if case .text(x: let x,
+                              y: let y,
+                              fontSize: let fontSize,
+                              fill: _,
+                              value: let value) = svgText {
+                    _svgStr += """
+  <text x="\(x)" y="\(y)" font-size="\(fontSize)" fill="blue">\(value)</text>
+"""
+                    _svgStr += "\n"
+                }
+                _svgStr += """
+ </a>
+"""
+                svgStr += _svgStr
+                svgStr += "\n"
             }
         }
         
