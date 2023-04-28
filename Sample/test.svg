@@ -1,0 +1,115 @@
+<svg width="1132.0" height="1204.0" viewBox="0 0 1132.0 1204.0" xmlns="http://www.w3.org/2000/svg">
+ <a href="https://www.google.com">
+  <rect x="16.0" y="16.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
+  <text x="21.0" y="36.0" font-size="20.0" fill="blue">Splash</text>
+ </a>
+ <a href="https://www.youtube.com">
+  <rect x="216.0" y="16.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
+  <text x="221.0" y="36.0" font-size="20.0" fill="blue">Hoge</text>
+ </a>
+ <rect x="216.0" y="82.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
+ <text x="221.0" y="102.0" font-size="20.0" fill="#000000">Hoge2</text>
+ <rect x="216.0" y="148.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
+ <text x="221.0" y="168.0" font-size="20.0" fill="#000000">Hoge3</text>
+ <rect x="416.0" y="16.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
+ <text x="421.0" y="36.0" font-size="20.0" fill="#000000">Hoge4</text>
+ <rect x="416.0" y="82.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
+ <text x="421.0" y="102.0" font-size="20.0" fill="#000000">Hoge5</text>
+ <rect x="416.0" y="148.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
+ <text x="421.0" y="168.0" font-size="20.0" fill="#000000">Hoge6</text>
+ <rect x="416.0" y="214.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
+ <text x="421.0" y="234.0" font-size="20.0" fill="#000000">Hoge7</text>
+ <rect x="416.0" y="280.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
+ <text x="421.0" y="300.0" font-size="20.0" fill="#000000">Hoge4</text>
+ <rect x="416.0" y="346.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
+ <text x="421.0" y="366.0" font-size="20.0" fill="#000000">Hoge5</text>
+ <rect x="616.0" y="16.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
+ <text x="621.0" y="36.0" font-size="20.0" fill="#000000">Hoge51</text>
+ <rect x="616.0" y="82.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
+ <text x="621.0" y="102.0" font-size="20.0" fill="#000000">Hoge8</text>
+ <line x1="116.0" y1="41.0" x2="216.0" y2="41.0" stroke="#800080" stroke-width="1.0" />
+ <line x1="116.0" y1="41.0" x2="216.0" y2="107.0" stroke="#800080" stroke-width="1.0" />
+ <line x1="316.0" y1="107.0" x2="416.0" y2="41.0" stroke="#000000" stroke-width="1.0" />
+ <line x1="316.0" y1="107.0" x2="416.0" y2="107.0" stroke="#000000" stroke-width="1.0" />
+ <line x1="516.0" y1="107.0" x2="616.0" y2="41.0" stroke="#000000" stroke-width="1.0" />
+ <line x1="316.0" y1="107.0" x2="416.0" y2="173.0" stroke="#000000" stroke-width="1.0" />
+ <line x1="316.0" y1="107.0" x2="416.0" y2="239.0" stroke="#000000" stroke-width="1.0" />
+ <line x1="516.0" y1="239.0" x2="616.0" y2="107.0" stroke="#000000" stroke-width="1.0" />
+ <line x1="116.0" y1="41.0" x2="216.0" y2="173.0" stroke="#800080" stroke-width="1.0" />
+ <line x1="316.0" y1="173.0" x2="416.0" y2="305.0" stroke="#000000" stroke-width="1.0" />
+ <line x1="316.0" y1="173.0" x2="416.0" y2="371.0" stroke="#000000" stroke-width="1.0" />
+ <rect x="16.0" y="412.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
+ <text x="21.0" y="432.0" font-size="20.0" fill="#000000">LoginTop</text>
+ <rect x="216.0" y="412.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
+ <text x="221.0" y="432.0" font-size="20.0" fill="#000000">Hoge0</text>
+ <rect x="216.0" y="478.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
+ <text x="221.0" y="498.0" font-size="20.0" fill="#000000">Hoge</text>
+ <rect x="216.0" y="544.0" width="100.0" height="50.0" fill="#00BFFF" stroke="#000000" />
+ <text x="221.0" y="564.0" font-size="20.0" fill="#000000">Hoge2</text>
+ <rect x="216.0" y="610.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
+ <text x="221.0" y="630.0" font-size="20.0" fill="#000000">Hoge3</text>
+ <rect x="416.0" y="412.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
+ <text x="421.0" y="432.0" font-size="20.0" fill="#000000">Hoge24</text>
+ <rect x="416.0" y="478.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
+ <text x="421.0" y="498.0" font-size="20.0" fill="#000000">Hoge25</text>
+ <rect x="416.0" y="544.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
+ <text x="421.0" y="564.0" font-size="20.0" fill="#000000">Hoge4</text>
+ <rect x="416.0" y="610.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
+ <text x="421.0" y="630.0" font-size="20.0" fill="#000000">Hoge5</text>
+ <rect x="616.0" y="412.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
+ <text x="621.0" y="432.0" font-size="20.0" fill="#000000">Hoge400</text>
+ <rect x="616.0" y="478.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
+ <text x="621.0" y="498.0" font-size="20.0" fill="#000000">Hoge401</text>
+ <rect x="616.0" y="544.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
+ <text x="621.0" y="564.0" font-size="20.0" fill="#000000">Hoge4</text>
+ <rect x="616.0" y="610.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
+ <text x="621.0" y="630.0" font-size="20.0" fill="#000000">Hoge5</text>
+ <rect x="816.0" y="412.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
+ <text x="821.0" y="432.0" font-size="20.0" fill="#000000">Hoge6</text>
+ <rect x="1016.0" y="412.0" width="100.0" height="50.0" fill="#00BFFF" stroke="#000000" />
+ <text x="1021.0" y="432.0" font-size="20.0" fill="#000000">Hoge7</text>
+ <rect x="1016.0" y="478.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
+ <text x="1021.0" y="498.0" font-size="20.0" fill="#000000">Hoge8</text>
+ <rect x="1016.0" y="544.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
+ <text x="1021.0" y="564.0" font-size="20.0" fill="#000000">Hoge9</text>
+ <rect x="1016.0" y="610.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
+ <text x="1021.0" y="630.0" font-size="20.0" fill="#000000">Hoge10</text>
+ <a href="https://www.amazon.co.jp">
+  <rect x="1016.0" y="676.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
+  <text x="1021.0" y="696.0" font-size="20.0" fill="blue">Hoge11</text>
+ </a>
+ <rect x="1016.0" y="742.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
+ <text x="1021.0" y="762.0" font-size="20.0" fill="#000000">Hoge12</text>
+ <rect x="1016.0" y="808.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
+ <text x="1021.0" y="828.0" font-size="20.0" fill="#000000">Hoge13</text>
+ <line x1="116.0" y1="437.0" x2="216.0" y2="437.0" stroke="#000000" stroke-width="1.0" />
+ <line x1="116.0" y1="437.0" x2="216.0" y2="503.0" stroke="#000000" stroke-width="1.0" />
+ <line x1="116.0" y1="437.0" x2="216.0" y2="569.0" stroke="#000000" stroke-width="1.0" />
+ <line x1="316.0" y1="569.0" x2="416.0" y2="437.0" stroke="#000000" stroke-width="1.0" />
+ <line x1="516.0" y1="437.0" x2="616.0" y2="437.0" stroke="#000000" stroke-width="1.0" />
+ <line x1="516.0" y1="437.0" x2="616.0" y2="503.0" stroke="#000000" stroke-width="1.0" />
+ <line x1="316.0" y1="569.0" x2="416.0" y2="503.0" stroke="#000000" stroke-width="1.0" />
+ <line x1="116.0" y1="437.0" x2="216.0" y2="635.0" stroke="#000000" stroke-width="1.0" />
+ <line x1="316.0" y1="635.0" x2="416.0" y2="569.0" stroke="#000000" stroke-width="1.0" />
+ <line x1="316.0" y1="635.0" x2="416.0" y2="635.0" stroke="#000000" stroke-width="1.0" />
+ <line x1="516.0" y1="635.0" x2="616.0" y2="569.0" stroke="#000000" stroke-width="1.0" />
+ <line x1="716.0" y1="569.0" x2="816.0" y2="437.0" stroke="#800080" stroke-width="1.0" />
+ <line x1="916.0" y1="437.0" x2="1016.0" y2="437.0" stroke="#ef1609" stroke-width="1.0" />
+ <line x1="916.0" y1="437.0" x2="1016.0" y2="503.0" stroke="#ef1609" stroke-width="1.0" />
+ <line x1="916.0" y1="437.0" x2="1016.0" y2="569.0" stroke="#000000" stroke-width="1.0" />
+ <line x1="916.0" y1="437.0" x2="1016.0" y2="635.0" stroke="#000000" stroke-width="1.0" />
+ <line x1="916.0" y1="437.0" x2="1016.0" y2="701.0" stroke="#000000" stroke-width="1.0" />
+ <line x1="916.0" y1="437.0" x2="1016.0" y2="767.0" stroke="#000000" stroke-width="1.0" />
+ <line x1="916.0" y1="437.0" x2="1016.0" y2="833.0" stroke="#000000" stroke-width="1.0" />
+ <line x1="516.0" y1="635.0" x2="616.0" y2="635.0" stroke="#000000" stroke-width="1.0" />
+ <rect x="16.0" y="874.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
+ <text x="21.0" y="894.0" font-size="20.0" fill="#000000">LoginMail</text>
+ <rect x="16.0" y="940.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#E81022" />
+ <text x="21.0" y="960.0" font-size="20.0" fill="#000000">Top</text>
+ <rect x="16.0" y="1006.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
+ <text x="21.0" y="1026.0" font-size="20.0" fill="#000000">Detail</text>
+ <rect x="16.0" y="1072.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
+ <text x="21.0" y="1092.0" font-size="20.0" fill="#000000">Setting</text>
+ <rect x="16.0" y="1138.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
+ <text x="21.0" y="1158.0" font-size="20.0" fill="#000000">Setting2</text>
+</svg>
