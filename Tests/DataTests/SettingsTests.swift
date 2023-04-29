@@ -12,23 +12,23 @@ final class SettingsTests: XCTestCase {
             XCTAssertEqual(actual, expected)
         }
         
-        XCTContext.runActivity(named: "settings.viewObjectColorのデフォルト値の確認") { _ in
-            let actual = settings.viewObjectColor
-            let expected = NSColor.white
+        XCTContext.runActivity(named: "settings.viewObjectColorStrのデフォルト値の確認") { _ in
+            let actual = settings.viewObjectColorStr
+            let expected = "FFFFFF"
             
             XCTAssertEqual(actual, expected)
         }
         
-        XCTContext.runActivity(named: "settings.viewObjectBorderColorのデフォルト値の確認") { _ in
-            let actual = settings.viewObjectBorderColor
-            let expected = NSColor.black
+        XCTContext.runActivity(named: "settings.viewObjectBorderColorStrのデフォルト値の確認") { _ in
+            let actual = settings.viewObjectBorderColorStr
+            let expected = "000000"
             
             XCTAssertEqual(actual, expected)
         }
         
-        XCTContext.runActivity(named: "settings.viewObjectTextColorのデフォルト値の確認") { _ in
-            let actual = settings.viewObjectTextColor
-            let expected = NSColor.black
+        XCTContext.runActivity(named: "settings.viewObjectTextColorStrのデフォルト値の確認") { _ in
+            let actual = settings.viewObjectTextColorStr
+            let expected = "000000"
             
             XCTAssertEqual(actual, expected)
         }
@@ -94,16 +94,16 @@ final class SettingsTests: XCTestCase {
     }
     
     func test_updateViewObjectColor() {
-        XCTContext.runActivity(named: "updateViewObjectColor適用前") { _ in
+        XCTContext.runActivity(named: "updateViewObjectColorStr適用前") { _ in
             // test_initSettingsで検証済み
         }
         
-        XCTContext.runActivity(named: "updateViewObjectColor適用後") { _ in
+        XCTContext.runActivity(named: "updateViewObjectColorStr適用後") { _ in
             let settings = Settings()
-            let inputColor = NSColor.red
-            settings.updateViewObjectColor(inputColor)
+            let inputColor = "008000"
+            settings.updateViewObjectColorStr(inputColor)
             
-            let actual = settings.viewObjectColor
+            let actual = settings.viewObjectColorStr
             let expected = inputColor
                         
             XCTAssertEqual(actual, expected)
@@ -111,16 +111,16 @@ final class SettingsTests: XCTestCase {
     }
     
     func test_updateViewObjectBorderColor() {
-        XCTContext.runActivity(named: "updateViewObjectBorderColor適用前") { _ in
+        XCTContext.runActivity(named: "updateViewObjectBorderColorStr適用前") { _ in
             // test_initSettingsで検証済み
         }
         
-        XCTContext.runActivity(named: "updateViewObjectBorderColor適用後") { _ in
+        XCTContext.runActivity(named: "updateViewObjectBorderColorStr適用後") { _ in
             let settings = Settings()
-            let inputColor = NSColor.green
-            settings.updateViewObjectBorderColor(inputColor)
+            let inputColor = "008000"
+            settings.updateViewObjectBorderColorStr(inputColor)
             
-            let actual = settings.viewObjectBorderColor
+            let actual = settings.viewObjectBorderColorStr
             let expected = inputColor
                         
             XCTAssertEqual(actual, expected)
@@ -128,16 +128,16 @@ final class SettingsTests: XCTestCase {
     }
     
     func test_updateViewObjectTextColor() {
-        XCTContext.runActivity(named: "updateViewObjectTextColor適用前") { _ in
+        XCTContext.runActivity(named: "updateViewObjectTextColorStr適用前") { _ in
             // test_initSettingsで検証済み
         }
         
-        XCTContext.runActivity(named: "updateViewObjectTextColor適用後") { _ in
+        XCTContext.runActivity(named: "updateViewObjectTextColorStr適用後") { _ in
             let settings = Settings()
-            let inputColor = NSColor.blue
-            settings.updateViewObjectTextColor(inputColor)
+            let inputColor = "008000"
+            settings.updateViewObjectTextColorStr(inputColor)
             
-            let actual = settings.viewObjectTextColor
+            let actual = settings.viewObjectTextColorStr
             let expected = inputColor
                         
             XCTAssertEqual(actual, expected)
