@@ -1,5 +1,5 @@
 name: y2pCI
-on: []
+on: [push]
 jobs:
   run:
     runs-on: macos-13
