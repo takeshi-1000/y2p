@@ -13,13 +13,13 @@ class CommandLineArgParser {
     private var _mode: CLIMode = .image
     
     func parse(arguments: [String]) {
-        if let fileNameOptionIndex = CommandLine.arguments.firstIndex(of: "-fileName") {
-            let fileNameStrIndex = CommandLine.arguments.index(after: fileNameOptionIndex)
+        if let fileNameOptionIndex = arguments.firstIndex(of: "-fileName") {
+            let fileNameStrIndex = arguments.index(after: fileNameOptionIndex)
             _yamlfileNameStr = arguments[fileNameStrIndex]
         }
         
-        if let fileNameObjectOptionIndex = CommandLine.arguments.firstIndex(of: "-o") {
-            let fileNameObjectStrIndex = CommandLine.arguments.index(after: fileNameObjectOptionIndex)
+        if let fileNameObjectOptionIndex = arguments.firstIndex(of: "-o") {
+            let fileNameObjectStrIndex = arguments.index(after: fileNameObjectOptionIndex)
             _fileNameStr = arguments[fileNameObjectStrIndex]
             
             if _fileNameStr.hasSuffix(".svg") {
