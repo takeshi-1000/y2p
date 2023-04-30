@@ -15,7 +15,7 @@ public class CLI {
         // parse yaml
         let yamlParser = YamlParser()
         try yamlParser.parse(fileURL: URL(fileURLWithPath: yamlFileNameStr))
-        let views: [View] = yamlParser.views
+        let views: [View] = yamlParser.views2
         let settings: Settings = yamlParser.settings
         
         // generate some file
@@ -23,7 +23,6 @@ public class CLI {
         case .image:
             let imageGenerator = ImageGenerator(views: views, settings: settings)
             let imageData = try imageGenerator.generate()
-            
             try? imageData?.write(to: URL(fileURLWithPath: fileNameStr))
         case .svg:
             let svgGenerator = SVGGenerator(views: views, settings: settings)

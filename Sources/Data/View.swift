@@ -6,8 +6,13 @@ public class View {
     public let transitionTypeKey: String
     public let contentColor: String
     public let borderColor: String
-    public let index: Int
-    public let views: [View]
+    public var index: Int { _index }
+    private var _index: Int = 0
+    public let isRoot: Bool
+//    public let views: [View]
+    
+    public var views: [View] { _views }
+    private var _views: [View] = []
     
     public var rect: NSRect { _rect }
     private var _rect: NSRect = .zero
@@ -18,17 +23,27 @@ public class View {
                 contentColor: String,
                 borderColor: String,
                 index: Int,
+                isRoot: Bool,
                 views: [View]) {
         self.nameData = nameData
         self.urlStr = urlStr
         self.transitionTypeKey = transitionTypeKey
         self.contentColor = contentColor
         self.borderColor = borderColor
-        self.index = index
-        self.views = views
+        self._index = index
+        self.isRoot = isRoot
+        self._views = views
     }
     
     public func updateRect(_ rect: NSRect) {
         _rect = rect
+    }
+    
+    public func updateViews(_ views: [View]) {
+        _views = views
+    }
+    
+    public func updateIndex(_ index: Int) {
+        _index = index
     }
 }

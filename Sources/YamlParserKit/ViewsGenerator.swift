@@ -60,6 +60,7 @@ class ViewsGenerator {
                      contentColor: _contentColor,
                      borderColor: _borderColor,
                      index: index,
+                     isRoot: false,
                      views: _childviews)
             )
         }

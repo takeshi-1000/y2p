@@ -11,6 +11,7 @@ settings:
    borderColor: "000000"
    contentColor: "FFFFFF"
    textColor: "000000"
+   fontSize: 13
    verticalMargin: 16
    horizontalMargin: 100
    size:
@@ -18,6 +19,109 @@ settings:
     height: 50
   margin: 16
   lineWidth: 1
+  
+views2:
+ Splash:
+  name: "スプラッシュ"
+  url: "https://www.google.com"
+  isRoot: true
+  views:
+   - Hoge1
+   - Hoge2
+ Hoge1:
+  name: "ほげ１"
+  url: ""
+  views:
+   - Hoge10
+   - Hoge11
+   - Hoge12
+   - Hoge13
+ Hoge10:
+  name: "ほげ10"
+  url: ""
+  views:
+   - Hoge101
+   - Hoge102
+   - Hoge103
+ Hoge101:
+  name: "ほげ101"
+  url: ""
+ Hoge102:
+  name: "ほげ102"
+  url: ""
+ Hoge103:
+  name: "ほげ103"
+  url: ""
+ Hoge11:
+  name: "ほげ11"
+  url: ""
+  views:
+   - Hoge111
+ Hoge111:
+  name: "ほげ111"
+  url: ""
+ Hoge12:
+  name: "ほげ12"
+  url: ""
+  views:
+   - Hoge121
+   - Hoge122
+   - Hoge123
+ Hoge121:
+  name: "ほげ121"
+  url: ""
+ Hoge122:
+  name: "ほげ122"
+  url: ""
+ Hoge123:
+  name: "ほげ122"
+  url: ""
+ Hoge13:
+  name: "ほげ13"
+  url: ""
+  views:
+   - Hoge130
+ Hoge130:
+  name: "ほげ130"
+  url: ""
+  views:
+   - Hoge1300
+   - Hoge1301
+ Hoge1300:
+  name: "ほげ1300"
+  url: ""
+  views:
+   - Hoge13000
+ Hoge13000:
+  name: "ほげ13000"
+  url: ""
+  views:
+   - Hoge130001
+ Hoge130001:
+  name: "ほげ130001"
+  url: ""
+  views:
+   - Hoge1300010
+ Hoge1300010:
+  name: "ほげ1300010"
+  url: ""
+ Hoge1301:
+  name: "ほげ1301"
+  url: ""
+
+# Hoge2
+ Hoge2:
+  name: "ほげ2"
+  url: ""
+  views:
+   - Hoge20
+   - Hoge21
+ Hoge20:
+  name: "ほげ20"
+  url: ""
+ Hoge21:
+  name: "ほげ21"
+  url: ""
 
 views:
   - Splash:
