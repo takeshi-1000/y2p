@@ -65,11 +65,10 @@ class Views2Generator {
                 if case .string("views") = viewInfo.key,
                    case .array(let childViews) = viewInfo.value {
                     
-                    // DoorTopの時に毎回childViewsを見なくて良い
-                    // keyとして送られる
-                    // そのkeyがまず何箇所のViewsであるか
-                    // その後、そのkeyに遷移先があるか
-                    // それでそうだった時、そのkeyの遷移先を切り出してnestedViewsに追加する
+                    // 毎回childViewsを見なくて良い
+                    // (a)keyがviewsとして何箇所使われているか
+                    // (b)そのkeyのviewの遷移先があるか
+                    // (a)と(b)だった場合、そのkeyの遷移先を切り出してnestedViewsに追加する
                     // すでにnestedViewに追加されている場合は追加しない
                     
                     if shouldSeparate(key: key), index != 0 {
