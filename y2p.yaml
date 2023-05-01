@@ -20,7 +20,7 @@ settings:
   margin: 16
   lineWidth: 1
   
-views2:
+views:
  Splash:
   name: "スプラッシュ"
   url: "https://www.google.com"
@@ -122,106 +122,3 @@ views2:
  Hoge21:
   name: "ほげ21"
   url: ""
-
-views:
-  - Splash:
-      name: "スプラッシュスプラッシュスプラッシュスプラッシュスプラッシュスプラッシュ"
-      url: "https://www.google.com"
-      views:
-       - Hoge:
-          name: "ほげ"
-          url: "https://www.youtube.com"
-          transitionType: modal
-       - Hoge2:
-          name: "ほげ2"
-          transitionType: modal
-          views:
-           - Hoge4:
-              name: "ほげ40"
-           - Hoge5:
-              name: "ほげ50"
-              views:
-               - Hoge51:
-                  name: "ほげ51"
-           - Hoge6:
-              name: "ほげ60"
-           - Hoge7:
-              name: "ほげ70"
-              views:
-               - Hoge8:
-                  name: "ほげ80"
-       - Hoge3:
-          name: "ほげ3"
-          transitionType: modal
-          views:
-           - Hoge4:
-              name: "ほげ41"
-           - Hoge5:
-              name: "ほげ51"
-  - LoginTop:
-      name: "ログイントップ"
-      transitionType: modal
-      views:
-       - Hoge0:
-          name: "ほげ"
-       - Hoge:
-          name: "ほげ"
-       - Hoge2:
-          name: "ほげ2"
-          contentColor: "00BFFF"
-          views:
-           - Hoge24:
-              name: "ほげ24"
-              views:
-               - Hoge400:
-                  name: "ほげ400"
-               - Hoge401:
-                  name: "ほげ401"
-           - Hoge25:
-              name: "ほげ25"
-       - Hoge3:
-          name: "ほげ3"
-          views:
-           - Hoge4:
-              name: "ほげ34"
-           - Hoge5:
-              name: "ほげ35"
-              views:
-               - Hoge4:
-                  name: "ほげ4"
-                  views:
-                   - Hoge6:
-                      name: "ほげ6"
-                      transitionType: modal
-                      views:
-                        - Hoge7:
-                           name: "ほげ7"
-                           transitionType: alert
-                           contentColor: "00BFFF"
-                        - Hoge8:
-                           name: "ほげ8"
-                           transitionType: alert
-                        - Hoge9:
-                           name: "ほげ9"
-                        - Hoge10:
-                           name: "ほげ10"
-                        - Hoge11:
-                           name: "ほげ11"
-                           url: "https://www.amazon.co.jp"
-                        - Hoge12:
-                           name: "ほげ12"
-                        - Hoge13:
-                           name: "ほげ13"
-               - Hoge5:
-                  name: "ほげ5"
-  - LoginMail:
-      name: "ログインメール"
-  - Top:
-      name: "トップ"
-      borderColor: "E81022"
-  - Detail:
-      name: "詳細"
-  - Setting:
-      name: "設定"
-  - Setting2:
-      name: "設定2"

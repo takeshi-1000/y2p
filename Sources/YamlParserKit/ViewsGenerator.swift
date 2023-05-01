@@ -1,70 +1,157 @@
 import Yaml
 import Data
-import Cocoa
 
-/// yaml parser for `views`
 class ViewsGenerator {
-    static func generate(index: Int, viewsArray: [Yaml]) -> [View] {
-        var _views: [View] = []
+    
+    static func generate(viewsDicList: [Yaml : Yaml]) -> [View] {
         
-        viewsArray.forEach { viewData in
-            var _nameKey: String = ""
+        var nestedViews: [View] = []
+        
+        viewsDicList.forEach { viewsDic in
+            if case .string(let nameKey) = viewsDic.key,
+               case .dictionary(let viewInfoList) = viewsDic.value {
+
+                viewInfoList.forEach { viewInfo in
+                    if case .string("isRoot") = viewInfo.key,
+                       case .bool(let isRoot) = viewInfo.value {
+                        if isRoot {
+                            nestedViews.append(
+                                generateView(key: nameKey, infoList: viewInfoList, index: 0)
+                            )
+                        }
+                    }
+                }
+            }
+        }
+        
+        // separateしたViewの方が先に生成されるのでリバースする
+        return nestedViews.reversed()
+        
+        func generateView(key: String, infoList: [Yaml : Yaml], index: Int) -> View {
             var _nameValue: String = ""
             var _urlStr: String = ""
             var _transitionTypeKey: String = ""
             var _contentColor: String = ""
             var _borderColor: String = ""
-            var _childviews: [View] = []
+            var _isRoot: Bool = false
+            var _viewsKeys: [String] = []
             
-            if case .dictionary(let viewsDataDictionaries) = viewData {
-                viewsDataDictionaries.forEach { viewsDataDictionary in
-                    if case .string(let viewNameKey) = viewsDataDictionary.key,
-                       case .dictionary(let viewInfoList) = viewsDataDictionary.value {
-                        _nameKey = viewNameKey
-                        
-                        viewInfoList.forEach { viewInfo in
-                            if case .string("name") = viewInfo.key,
-                               case .string(let viewNameValue) = viewInfo.value {
-                                _nameValue = viewNameValue
-                            }
-                            if case .string("url") = viewInfo.key,
-                               case .string(let urlStr) = viewInfo.value {
-                                _urlStr = urlStr
-                            }
-                            if case .string("transitionType") = viewInfo.key,
-                               case .string(let transitionTypeKey) = viewInfo.value {
-                                _transitionTypeKey = transitionTypeKey
-                            }
-                            if case .string("contentColor") = viewInfo.key,
-                               case .string(let contentColor) = viewInfo.value {
-                                _contentColor = contentColor
-                            }
-                            if case .string("borderColor") = viewInfo.key,
-                               case .string(let borderColor) = viewInfo.value {
-                                _borderColor = borderColor
-                            }
-                            
-                            if case .string("views") = viewInfo.key,
-                               case .array(let childViews) = viewInfo.value {
-                                _childviews = generate(index: index + 1, viewsArray: childViews)
+            infoList.forEach { viewInfo in
+                if case .string("name") = viewInfo.key,
+                   case .string(let viewNameValue) = viewInfo.value {
+                    _nameValue = viewNameValue
+                }
+                if case .string("url") = viewInfo.key,
+                   case .string(let urlStr) = viewInfo.value {
+                    _urlStr = urlStr
+                }
+                if case .string("transitionType") = viewInfo.key,
+                   case .string(let transitionTypeKey) = viewInfo.value {
+                    _transitionTypeKey = transitionTypeKey
+                }
+                if case .string("contentColor") = viewInfo.key,
+                   case .string(let contentColor) = viewInfo.value {
+                    _contentColor = contentColor
+                }
+                if case .string("borderColor") = viewInfo.key,
+                   case .string(let borderColor) = viewInfo.value {
+                    _borderColor = borderColor
+                }
+                if case .string("isRoot") = viewInfo.key,
+                   case .bool(let isRoot) = viewInfo.value {
+                    _isRoot = isRoot
+                }
+                
+                if case .string("views") = viewInfo.key,
+                   case .array(let childViews) = viewInfo.value {
+                    
+                    // 毎回childViewsを見なくて良い
+                    // (a)keyがviewsとして何箇所使われているか
+                    // (b)そのkeyのviewの遷移先があるか
+                    // (a)と(b)だった場合、そのkeyの遷移先を切り出してnestedViewsに追加する
+                    // すでにnestedViewに追加されている場合は追加しない
+                    
+                    if shouldSeparate(key: key), index != 0 {
+                        if nestedViews.first(where: { $0.nameData.key == key }) == nil {
+                            nestedViews.append(
+                                generateView(key: key,
+                                             infoList: getInfoListTargetView(key: key),
+                                             index: 0)
+                            )
+                        }
+                    } else {
+                        childViews.forEach { childViewKey in
+                            if case .string(let childViewKey) = childViewKey {
+                                _viewsKeys.append(childViewKey)
                             }
                         }
                     }
                 }
             }
             
-            _views.append(
-                View(nameData: (key: _nameKey, value: _nameValue),
-                     urlStr: _urlStr,
-                     transitionTypeKey: _transitionTypeKey,
-                     contentColor: _contentColor,
-                     borderColor: _borderColor,
-                     index: index,
-                     isRoot: false,
-                     views: _childviews)
-            )
+            return View(nameData: (key: key, value: _nameValue),
+                        urlStr: _urlStr,
+                        transitionTypeKey: _transitionTypeKey,
+                        contentColor: _contentColor,
+                        borderColor: _borderColor,
+                        index: index,
+                        isRoot: _isRoot,
+                        views: generateViews(index: index, viewKeys: _viewsKeys))
         }
         
-        return _views
+        func generateViews(index: Int, viewKeys: [String]) -> [View] {
+            var _views: [View] = []
+            
+            viewKeys.forEach { viewKey in
+                viewsDicList.forEach { viewsDic in
+                    if case .string(viewKey) = viewsDic.key,
+                       case .dictionary(let viewInfoList) = viewsDic.value {
+                        _views.append(
+                            generateView(key: viewKey, infoList: viewInfoList, index: index + 1)
+                        )
+                    }
+                }
+            }
+            return _views
+        }
+        
+        func shouldSeparate(key: String) -> Bool {
+            var transionCount = 0
+            
+            for viewsDic in viewsDicList {
+                // 余計なループを無くす
+                if transionCount > 1 {
+                    break
+                }
+                
+                if case .string = viewsDic.key,
+                   case .dictionary(let viewInfoList) = viewsDic.value {
+
+                    viewInfoList.forEach { viewInfo in
+                        if case .string("views") = viewInfo.key,
+                           case .array(let array) = viewInfo.value {
+                            
+                            array.forEach { arrayItem in
+                                if case .string(key) = arrayItem {
+                                    transionCount += 1
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            
+            return transionCount > 1
+        }
+        
+        func getInfoListTargetView(key: String) -> [Yaml : Yaml] {
+            for viewsDic in viewsDicList {
+                if case .string(key) = viewsDic.key,
+                   case .dictionary(let viewInfoList) = viewsDic.value {
+                    return viewInfoList
+                }
+            }
+            return [:]
+        }
     }
 }

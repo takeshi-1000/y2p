@@ -15,7 +15,7 @@ public class CLI {
         // parse yaml
         let yamlParser = YamlParser()
         try yamlParser.parse(fileURL: URL(fileURLWithPath: yamlFileNameStr))
-        let views: [View] = yamlParser.views2
+        let views: [View] = yamlParser.views
         let settings: Settings = yamlParser.settings
         
         // generate some file
