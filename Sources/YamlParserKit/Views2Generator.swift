@@ -16,17 +16,18 @@ class Views2Generator {
                        case .bool(let isRoot) = viewInfo.value {
                         if isRoot {
                             nestedViews.append(
-                                createView(key: nameKey, infoList: viewInfoList, index: 0)
+                                generateView(key: nameKey, infoList: viewInfoList, index: 0)
                             )
                         }
                     }
                 }
             }
         }
-                
-        return nestedViews
         
-        func createView(key: String, infoList: [Yaml : Yaml], index: Int) -> View {
+        // separateしたViewの方が先に生成されるのでリバースする
+        return nestedViews.reversed()
+        
+        func generateView(key: String, infoList: [Yaml : Yaml], index: Int) -> View {
             var _nameValue: String = ""
             var _urlStr: String = ""
             var _transitionTypeKey: String = ""
@@ -63,9 +64,27 @@ class Views2Generator {
                 
                 if case .string("views") = viewInfo.key,
                    case .array(let childViews) = viewInfo.value {
-                    childViews.forEach { childViewKey in
-                        if case .string(let childViewKey) = childViewKey {
-                            _viewsKeys.append(childViewKey)
+                    
+                    // DoorTopの時に毎回childViewsを見なくて良い
+                    // keyとして送られる
+                    // そのkeyがまず何箇所のViewsであるか
+                    // その後、そのkeyに遷移先があるか
+                    // それでそうだった時、そのkeyの遷移先を切り出してnestedViewsに追加する
+                    // すでにnestedViewに追加されている場合は追加しない
+                    
+                    if shouldSeparate(key: key), index != 0 {
+                        if nestedViews.first(where: { $0.nameData.key == key }) == nil {
+                            nestedViews.append(
+                                generateView(key: key,
+                                             infoList: getInfoListTargetView(key: key),
+                                             index: 0)
+                            )
+                        }
+                    } else {
+                        childViews.forEach { childViewKey in
+                            if case .string(let childViewKey) = childViewKey {
+                                _viewsKeys.append(childViewKey)
+                            }
                         }
                     }
                 }
@@ -78,23 +97,62 @@ class Views2Generator {
                         borderColor: _borderColor,
                         index: index,
                         isRoot: _isRoot,
-                        views: calcViews(viewKeys: _viewsKeys))
+                        views: generateViews(index: index, viewKeys: _viewsKeys))
+        }
+        
+        func generateViews(index: Int, viewKeys: [String]) -> [View] {
+            var _views: [View] = []
             
-            func calcViews(viewKeys: [String]) -> [View] {
-                var _views: [View] = []
+            viewKeys.forEach { viewKey in
+                viewsDicList.forEach { viewsDic in
+                    if case .string(viewKey) = viewsDic.key,
+                       case .dictionary(let viewInfoList) = viewsDic.value {
+                        _views.append(
+                            generateView(key: viewKey, infoList: viewInfoList, index: index + 1)
+                        )
+                    }
+                }
+            }
+            return _views
+        }
+        
+        func shouldSeparate(key: String) -> Bool {
+            var transionCount = 0
+            
+            for viewsDic in viewsDicList {
+                // 余計なループを無くす
+                if transionCount > 1 {
+                    break
+                }
                 
-                viewKeys.forEach { viewKey in
-                    viewsDicList.forEach { viewsDic in
-                        if case .string(viewKey) = viewsDic.key,
-                           case .dictionary(let viewInfoList) = viewsDic.value {
-                            _views.append(
-                                createView(key: viewKey, infoList: viewInfoList, index: index + 1)
-                            )
+                if case .string = viewsDic.key,
+                   case .dictionary(let viewInfoList) = viewsDic.value {
+
+                    viewInfoList.forEach { viewInfo in
+                        if case .string("views") = viewInfo.key,
+                           case .array(let array) = viewInfo.value {
+                            
+                            array.forEach { arrayItem in
+                                if case .string(key) = arrayItem {
+                                    transionCount += 1
+                                }
+                            }
                         }
                     }
                 }
-                return _views
             }
+            
+            return transionCount > 1
+        }
+        
+        func getInfoListTargetView(key: String) -> [Yaml : Yaml] {
+            for viewsDic in viewsDicList {
+                if case .string(key) = viewsDic.key,
+                   case .dictionary(let viewInfoList) = viewsDic.value {
+                    return viewInfoList
+                }
+            }
+            return [:]
         }
     }
 }
