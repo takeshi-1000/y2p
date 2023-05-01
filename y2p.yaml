@@ -67,6 +67,7 @@ views:
    - Hoge121
    - Hoge122
    - Hoge123
+   - Hoge1300
  Hoge121:
   name: "ほげ121"
   url: ""

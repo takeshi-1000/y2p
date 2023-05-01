@@ -6,6 +6,8 @@ public class SVGGenerator: FileGeneratable {
     let views: [View]
     let settings: Settings
     
+    private var shouldDump: Bool = false
+    
     required public init(views: [View], settings: Settings) {
         self.views = views
         self.settings = settings
@@ -88,13 +90,22 @@ public class SVGGenerator: FileGeneratable {
             }
         }
         
-        svgStr += "</svg>"
-                
-        print("====== svg text ======")
+        if shouldDump {
+            svgStr += "</svg>"
+                    
+            print("====== svg text ======")
+            
+            print(svgStr)
+            
+            print("======================")
+        }
         
-        print(svgStr)
-        
-        print("======================")
         return svgStr
+    }
+}
+
+extension SVGGenerator {
+    public func updateShouldDump(_ shouldDump: Bool) {
+        self.shouldDump = shouldDump
     }
 }

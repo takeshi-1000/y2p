@@ -3,7 +3,7 @@ import Data
 
 class ViewsGenerator {
     
-    static func generate(viewsDicList: [Yaml : Yaml]) -> [View] {
+    static func generate(viewsDicList: [Yaml : Yaml], emitAll: Bool) -> [View] {
         
         var nestedViews: [View] = []
         
@@ -71,7 +71,7 @@ class ViewsGenerator {
                     // (a)と(b)だった場合、そのkeyの遷移先を切り出してnestedViewsに追加する
                     // すでにnestedViewに追加されている場合は追加しない
                     
-                    if shouldSeparate(key: key), index != 0 {
+                    if shouldSeparate(key: key), index != 0, emitAll == false {
                         if nestedViews.first(where: { $0.nameData.key == key }) == nil {
                             nestedViews.append(
                                 generateView(key: key,
