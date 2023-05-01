@@ -90,9 +90,9 @@ public class SVGGenerator: FileGeneratable {
             }
         }
         
+        svgStr += "</svg>"
+        
         if shouldDump {
-            svgStr += "</svg>"
-                    
             print("====== svg text ======")
             
             print(svgStr)
