@@ -21,4 +21,15 @@ https://github.com/takeshi-1000/y2p/tree/main/Sample
 
 - `-fileName`: specific yaml file which you like (e.g `./.build/debug/y2p -fileName test.yaml`)
 - `-o`: output fileName, default is `transition.png`. Also this option determines output format (svg or image) (e.g `./.build/debug/y2p -o test.svg`)
+- `-d` or `-dump`: dump svg text (this is only for svg, and now even if you add this option, svg file is created)
+- `-emitAll`: Include overlapping transitions in the output. default is false
   
+## Attributions
+
+This tool is powered by:
+
+- [YamlSwift](https://github.com/behrang/YamlSwift)
+
+Inspiration for this tool came from:
+
+- [XcodeGen](https://github.com/yonaskolb/XcodeGen)
