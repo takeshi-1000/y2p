@@ -25,6 +25,8 @@ views:
   name: "スプラッシュ"
   url: "https://www.google.com"
   isRoot: true
+  contentColor: "D5E8D4"
+  borderColor: "82B366"
   views:
    - Hoge1
    - Hoge2
@@ -91,6 +93,8 @@ views:
  Hoge1300:
   name: "ほげ1300"
   url: ""
+  contentColor: "FFE6CC"
+  borderColor: "D79B00"
   views:
    - Hoge13000
  Hoge13000:
