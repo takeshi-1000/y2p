@@ -7,6 +7,9 @@ do {
     print("⚡️Fail⚡️")
     if let errorStr = ErrorHandler.handle(error) {
         print(errorStr)
+    } else {
+        // TODO: 
+        print(error)
     }
 }
 

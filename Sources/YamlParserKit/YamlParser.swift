@@ -35,7 +35,7 @@ public class YamlParser {
             }
             
             if dictionary.key == .string("views2"), case .dictionary(let viewsDicList) = dictionary.value {
-                _views2 = Views2Generator.generate2(index: 0, viewsDicList: viewsDicList)
+                _views2 = Views2Generator.generate2(viewsDicList: viewsDicList)
             }
             
             if dictionary.key == .string("settings"), case .dictionary(let settingsDictionary) = dictionary.value {
