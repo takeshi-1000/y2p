@@ -6,13 +6,9 @@ public class View {
     public let transitionTypeKey: String
     public let contentColor: String
     public let borderColor: String
-    public var index: Int { _index }
-    private var _index: Int = 0
+    public let index: Int
     public let isRoot: Bool
-//    public let views: [View]
-    
-    public var views: [View] { _views }
-    private var _views: [View] = []
+    public let views: [View]
     
     public var rect: NSRect { _rect }
     private var _rect: NSRect = .zero
@@ -30,20 +26,12 @@ public class View {
         self.transitionTypeKey = transitionTypeKey
         self.contentColor = contentColor
         self.borderColor = borderColor
-        self._index = index
+        self.index = index
         self.isRoot = isRoot
-        self._views = views
+        self.views = views
     }
     
     public func updateRect(_ rect: NSRect) {
         _rect = rect
-    }
-    
-    public func updateViews(_ views: [View]) {
-        _views = views
-    }
-    
-    public func updateIndex(_ index: Int) {
-        _index = index
     }
 }
