@@ -15,7 +15,8 @@ class ColumnViewsGenerator {
         }
         generateColumnViews(baseView: rootView,
                             baseViewColumnNumber: 0,
-                            baseViewlineNumber: 0)
+                            baseViewlineNumber: 0,
+                            transitionData: (sourceViewKey: "", number: 0))
     }
     
     func generateColumnViewsListForSeparatedView(views: [View]) {
@@ -26,14 +27,19 @@ class ColumnViewsGenerator {
                 let lineNumber = columnViewsMaxLineNumber + 1
                 generateColumnViews(baseView: separatedView,
                                     baseViewColumnNumber: 0,
-                                    baseViewlineNumber: lineNumber)
+                                    baseViewlineNumber: lineNumber,
+                                    transitionData: (sourceViewKey: "", number: 0))
             }
         }
     }
     
-    func generateColumnViews(baseView: View, baseViewColumnNumber: Int, baseViewlineNumber: Int) {
+    func generateColumnViews(baseView: View,
+                             baseViewColumnNumber: Int,
+                             baseViewlineNumber: Int,
+                             transitionData: (sourceViewKey: String, number: Int)) {
         appendViewToColumnViews(columnNumber: baseViewColumnNumber,
                                 lineNumber: baseViewlineNumber,
+                                transitionData: transitionData,
                                 view: baseView)
         
         let nextColumnNumber = baseViewColumnNumber + 1
@@ -45,36 +51,45 @@ class ColumnViewsGenerator {
             if _offset == 0 {
                 generateColumnViews(baseView: _view,
                                     baseViewColumnNumber: nextColumnNumber,
-                                    baseViewlineNumber: baseViewlineNumber)
+                                    baseViewlineNumber: baseViewlineNumber,
+                                    transitionData: (sourceViewKey: baseView.nameData.key, number: _offset))
             } else {
                 let filteredColumnViewsList: [ColumnViews] = _columnViewsList.filter { $0.columnNumber >= nextColumnNumber }
                 if let _columnViewsMaxLineNumber = getMaxLineNumber(columnViewsList: filteredColumnViewsList) {
                     generateColumnViews(baseView: _view,
                                         baseViewColumnNumber: nextColumnNumber,
-                                        baseViewlineNumber: _columnViewsMaxLineNumber + 1)
+                                        baseViewlineNumber: _columnViewsMaxLineNumber + 1,
+                                        transitionData: (sourceViewKey: baseView.nameData.key, number: _offset))
                 }
             }
         }
     }
     
-    func appendViewToColumnViews(columnNumber: Int, lineNumber: Int, view: View) {
+    func appendViewToColumnViews(columnNumber: Int,
+                                 lineNumber: Int,
+                                 transitionData: (sourceViewKey: String, number: Int),
+                                 view: View) {
         if let columnViews = _columnViewsList.first(where: { $0.columnNumber == columnNumber }) {
             columnViews.updateViewList(
-                lineNumber: lineNumber,
-                view: view
+                viewInfo: ColumnViewInfo(lineNumber: lineNumber,
+                                         transitionData: transitionData,
+                                         view: view)
             )
         } else {
-            _columnViewsList.append(
-                ColumnViews(columnNumber: columnNumber,
-                            viewList: [lineNumber : view])
+            let newColumnViews = ColumnViews(columnNumber: columnNumber)
+            newColumnViews.updateViewList(
+                viewInfo: ColumnViewInfo(lineNumber: lineNumber,
+                                         transitionData: transitionData,
+                                         view: view)
             )
+            _columnViewsList.append(newColumnViews)
         }
     }
     
     func getMaxLineNumber(columnViewsList: [ColumnViews]) -> Int? {
         return columnViewsList
             .reduce(into: [Int]()) { partialResult, columnViews in
-                let maxLineNumber = columnViews.viewList.sorted(by: { $0.key > $1.key }).first?.key
+                let maxLineNumber = columnViews.viewList.sorted(by: { $0.lineNumber > $1.lineNumber }).first?.lineNumber
                 if let _maxLineNumber = maxLineNumber {
                     partialResult.append(_maxLineNumber)
                 }

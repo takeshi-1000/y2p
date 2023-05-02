@@ -1,17 +1,22 @@
 import Data
 
+struct ColumnViewInfo {
+    var lineNumber: Int
+    var transitionData: (sourceViewKey: String, number: Int)
+    var view: View
+}
+
 class ColumnViews {
     public let columnNumber: Int
-    public var viewList: [Int : View] { _viewList }
+    public var viewList: [ColumnViewInfo] { _viewList }
     
-    private var _viewList: [Int : View] = [:]
+    private var _viewList: [ColumnViewInfo] = []
     
-    public init(columnNumber: Int, viewList: [Int : View] = [:]) {
+    public init(columnNumber: Int) {
         self.columnNumber = columnNumber
-        self._viewList = viewList
     }
     
-    public func updateViewList(lineNumber: Int, view: View) {
-        _viewList[lineNumber] = view
+    public func updateViewList(viewInfo: ColumnViewInfo) {
+        _viewList.append(viewInfo)
     }
 }
