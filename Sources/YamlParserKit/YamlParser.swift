@@ -11,7 +11,7 @@ public class YamlParser {
     
     public init() {}
     
-    public func parse(fileURL: URL) throws {
+    public func parse(fileURL: URL, emitAll: Bool) throws {
         let contents = try String(contentsOf: fileURL, encoding: .utf8)
         let value = try Yaml.load(contents)
         
@@ -28,8 +28,8 @@ public class YamlParser {
             
             let dictionary = dictionaries[startIndex]
             
-            if dictionary.key == .string("views"), case .array(let viewsArray) = dictionary.value {
-                _views = ViewsGenerator.generate(index: 0, viewsArray: viewsArray)
+            if dictionary.key == .string("views"), case .dictionary(let viewsDicList) = dictionary.value {
+                _views = ViewsGenerator.generate(viewsDicList: viewsDicList, emitAll: emitAll)
             }
             
             if dictionary.key == .string("settings"), case .dictionary(let settingsDictionary) = dictionary.value {

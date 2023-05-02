@@ -82,6 +82,10 @@ class SettingsGenerator {
                        case .string(let textColorHexCode) = objectInfoDic.value {
                         _settings.updateViewObjectTextColorStr(textColorHexCode)
                     }
+                    if case .string("fontSize") = objectInfoDic.key,
+                       case .int(let fontSize) = objectInfoDic.value {
+                        _settings.updateViewObjectTextFontSize(Double(fontSize))
+                    }
                     if case .string("size") = objectInfoDic.key,
                        case .dictionary(let sizeDictionaries) = objectInfoDic.value {
                         

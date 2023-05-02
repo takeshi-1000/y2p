@@ -11,10 +11,12 @@ public class CLI {
         let mode = commandLineArgParser.mode
         let yamlFileNameStr = commandLineArgParser.yamlfileNameStr
         let fileNameStr = commandLineArgParser.fileNameStr
+        let emitAll: Bool = commandLineArgParser.emitAll
+        let dumpSVG: Bool = commandLineArgParser.dumpSVG
         
         // parse yaml
         let yamlParser = YamlParser()
-        try yamlParser.parse(fileURL: URL(fileURLWithPath: yamlFileNameStr))
+        try yamlParser.parse(fileURL: URL(fileURLWithPath: yamlFileNameStr), emitAll: emitAll)
         let views: [View] = yamlParser.views
         let settings: Settings = yamlParser.settings
         
@@ -23,10 +25,10 @@ public class CLI {
         case .image:
             let imageGenerator = ImageGenerator(views: views, settings: settings)
             let imageData = try imageGenerator.generate()
-            
             try? imageData?.write(to: URL(fileURLWithPath: fileNameStr))
         case .svg:
             let svgGenerator = SVGGenerator(views: views, settings: settings)
+            svgGenerator.updateShouldDump(dumpSVG)
             let svgStr = try svgGenerator.generate()
             try svgStr?.write(to: URL(fileURLWithPath: fileNameStr), atomically: true, encoding: .utf8)
         }

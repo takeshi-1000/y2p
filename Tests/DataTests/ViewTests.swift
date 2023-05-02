@@ -8,6 +8,7 @@ final class ViewTests: XCTestCase {
                                    contentColor: "123456",
                                    borderColor: "654321",
                                    index: 0,
+                                   isRoot: false,
                                    views: [])
     
     func test_init() {
@@ -18,6 +19,7 @@ final class ViewTests: XCTestCase {
             let contentColor: String = "FFFFFF"
             let borderColor: String = "000000"
             let index: Int = 4
+            let isRoot: Bool = true
             let views: [View] = [mockViewData, mockViewData, mockViewData]
             
             let actual = View(nameData: nameData,
@@ -26,6 +28,7 @@ final class ViewTests: XCTestCase {
                               contentColor: contentColor,
                               borderColor: borderColor,
                               index: index,
+                              isRoot: isRoot,
                               views: views)
             
             XCTAssertEqual(actual.nameData.key, nameData.key)
@@ -35,6 +38,7 @@ final class ViewTests: XCTestCase {
             XCTAssertEqual(actual.contentColor, contentColor)
             XCTAssertEqual(actual.borderColor, borderColor)
             XCTAssertEqual(actual.index, index)
+            XCTAssertEqual(actual.isRoot, isRoot)
             XCTAssertEqual(actual.views.count, views.count)
         }
         

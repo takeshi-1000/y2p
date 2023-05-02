@@ -50,10 +50,15 @@ class FileHeightCalculator {
                     _nextViews.append(contentsOf: _view.views)
                 }
                 
-                viewsTotalCountList.append(_count)
-                
-                if _nextViews.isEmpty == false {
-                    calcTotalCountEveryViews(_nextViews)
+                // この辺ロジック調べられてない
+                if _count == 0 {
+                    viewsTotalCountList.append(views.count)
+                } else {
+                    viewsTotalCountList.append(_count)
+                    
+                    if _nextViews.isEmpty == false {
+                        calcTotalCountEveryViews(_nextViews)
+                    }
                 }
             }
 

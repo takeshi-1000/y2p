@@ -7,6 +7,7 @@ public class View {
     public let contentColor: String
     public let borderColor: String
     public let index: Int
+    public let isRoot: Bool
     public let views: [View]
     
     public var rect: NSRect { _rect }
@@ -18,6 +19,7 @@ public class View {
                 contentColor: String,
                 borderColor: String,
                 index: Int,
+                isRoot: Bool,
                 views: [View]) {
         self.nameData = nameData
         self.urlStr = urlStr
@@ -25,6 +27,7 @@ public class View {
         self.contentColor = contentColor
         self.borderColor = borderColor
         self.index = index
+        self.isRoot = isRoot
         self.views = views
     }
     

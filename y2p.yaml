@@ -11,6 +11,7 @@ settings:
    borderColor: "000000"
    contentColor: "FFFFFF"
    textColor: "000000"
+   fontSize: 13
    verticalMargin: 16
    horizontalMargin: 100
    size:
@@ -18,106 +19,111 @@ settings:
     height: 50
   margin: 16
   lineWidth: 1
-
+  
 views:
-  - Splash:
-      name: "スプラッシュスプラッシュスプラッシュスプラッシュスプラッシュスプラッシュ"
-      url: "https://www.google.com"
-      views:
-       - Hoge:
-          name: "ほげ"
-          url: "https://www.youtube.com"
-          transitionType: modal
-       - Hoge2:
-          name: "ほげ2"
-          transitionType: modal
-          views:
-           - Hoge4:
-              name: "ほげ40"
-           - Hoge5:
-              name: "ほげ50"
-              views:
-               - Hoge51:
-                  name: "ほげ51"
-           - Hoge6:
-              name: "ほげ60"
-           - Hoge7:
-              name: "ほげ70"
-              views:
-               - Hoge8:
-                  name: "ほげ80"
-       - Hoge3:
-          name: "ほげ3"
-          transitionType: modal
-          views:
-           - Hoge4:
-              name: "ほげ41"
-           - Hoge5:
-              name: "ほげ51"
-  - LoginTop:
-      name: "ログイントップ"
-      transitionType: modal
-      views:
-       - Hoge0:
-          name: "ほげ"
-       - Hoge:
-          name: "ほげ"
-       - Hoge2:
-          name: "ほげ2"
-          contentColor: "00BFFF"
-          views:
-           - Hoge24:
-              name: "ほげ24"
-              views:
-               - Hoge400:
-                  name: "ほげ400"
-               - Hoge401:
-                  name: "ほげ401"
-           - Hoge25:
-              name: "ほげ25"
-       - Hoge3:
-          name: "ほげ3"
-          views:
-           - Hoge4:
-              name: "ほげ34"
-           - Hoge5:
-              name: "ほげ35"
-              views:
-               - Hoge4:
-                  name: "ほげ4"
-                  views:
-                   - Hoge6:
-                      name: "ほげ6"
-                      transitionType: modal
-                      views:
-                        - Hoge7:
-                           name: "ほげ7"
-                           transitionType: alert
-                           contentColor: "00BFFF"
-                        - Hoge8:
-                           name: "ほげ8"
-                           transitionType: alert
-                        - Hoge9:
-                           name: "ほげ9"
-                        - Hoge10:
-                           name: "ほげ10"
-                        - Hoge11:
-                           name: "ほげ11"
-                           url: "https://www.amazon.co.jp"
-                        - Hoge12:
-                           name: "ほげ12"
-                        - Hoge13:
-                           name: "ほげ13"
-               - Hoge5:
-                  name: "ほげ5"
-  - LoginMail:
-      name: "ログインメール"
-  - Top:
-      name: "トップ"
-      borderColor: "E81022"
-  - Detail:
-      name: "詳細"
-  - Setting:
-      name: "設定"
-  - Setting2:
-      name: "設定2"
+ Splash:
+  name: "スプラッシュ"
+  url: "https://www.google.com"
+  isRoot: true
+  contentColor: "D5E8D4"
+  borderColor: "82B366"
+  views:
+   - Hoge1
+   - Hoge2
+ Hoge1:
+  name: "ほげ１"
+  url: ""
+  views:
+   - Hoge10
+   - Hoge11
+   - Hoge12
+   - Hoge13
+ Hoge10:
+  name: "ほげ10"
+  url: ""
+  views:
+   - Hoge101
+   - Hoge102
+   - Hoge103
+ Hoge101:
+  name: "ほげ101"
+  url: ""
+ Hoge102:
+  name: "ほげ102"
+  url: ""
+ Hoge103:
+  name: "ほげ103"
+  url: ""
+ Hoge11:
+  name: "ほげ11"
+  url: ""
+  views:
+   - Hoge111
+ Hoge111:
+  name: "ほげ111"
+  url: ""
+ Hoge12:
+  name: "ほげ12"
+  url: ""
+  views:
+   - Hoge121
+   - Hoge122
+   - Hoge123
+   - Hoge1300
+ Hoge121:
+  name: "ほげ121"
+  url: ""
+ Hoge122:
+  name: "ほげ122"
+  url: ""
+ Hoge123:
+  name: "ほげ122"
+  url: ""
+ Hoge13:
+  name: "ほげ13"
+  url: ""
+  views:
+   - Hoge130
+ Hoge130:
+  name: "ほげ130"
+  url: ""
+  views:
+   - Hoge1300
+   - Hoge1301
+ Hoge1300:
+  name: "ほげ1300"
+  url: ""
+  contentColor: "FFE6CC"
+  borderColor: "D79B00"
+  views:
+   - Hoge13000
+ Hoge13000:
+  name: "ほげ13000"
+  url: ""
+  views:
+   - Hoge130001
+ Hoge130001:
+  name: "ほげ130001"
+  url: ""
+  views:
+   - Hoge1300010
+ Hoge1300010:
+  name: "ほげ1300010"
+  url: ""
+ Hoge1301:
+  name: "ほげ1301"
+  url: ""
+
+# Hoge2
+ Hoge2:
+  name: "ほげ2"
+  url: ""
+  views:
+   - Hoge20
+   - Hoge21
+ Hoge20:
+  name: "ほげ20"
+  url: ""
+ Hoge21:
+  name: "ほげ21"
+  url: ""
