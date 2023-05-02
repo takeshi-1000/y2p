@@ -1,7 +1,6 @@
 import Yaml
 import Data
 import Cocoa
-import Utility
 
 /// yaml parser for `settings`
 class SettingsGenerator {
