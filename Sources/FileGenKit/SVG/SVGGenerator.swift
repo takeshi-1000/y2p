@@ -42,6 +42,11 @@ public class SVGGenerator: FileGeneratable {
             case .svg(width: let width, height: let height):
                 svgStr += """
 <svg width="\(width)" height="\(height)" viewBox="0 0 \(width) \(height)" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+   <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6">
+     <path d="M 0 0 L 10 5 L 0 10 z" />
+   </marker>
+ </defs>
 """
                 svgStr += "\n"
             case .rect(x: let x, y: let y, width: let width, height: let height, fill: let fill, stroke: let stroke):
@@ -49,10 +54,16 @@ public class SVGGenerator: FileGeneratable {
  <rect x="\(x)" y="\(y)" width="\(width)" height="\(height)" fill="#\(fill)" stroke="#\(stroke)" />
 """
                 svgStr += "\n"
-            case .line(x1: let x1, y1: let y1, x2: let x2, y2: let y2, stroke: let stroke, strokeWidth: let strokeWidth):
-                svgStr += """
+            case .line(x1: let x1, y1: let y1, x2: let x2, y2: let y2, stroke: let stroke, strokeWidth: let strokeWidth, let isMarker):
+                if isMarker {
+                    svgStr += """
+ <line x1="\(x1)" y1="\(y1)" x2="\(x2)" y2="\(y2)" stroke="#\(stroke)" stroke-width="\(strokeWidth)" marker-end="url(#arrow)" />
+"""
+                } else {
+                    svgStr += """
  <line x1="\(x1)" y1="\(y1)" x2="\(x2)" y2="\(y2)" stroke="#\(stroke)" stroke-width="\(strokeWidth)" />
 """
+                }
                 svgStr += "\n"
             case .text(x: let x, y: let y, fontSize: let fontSize, fill: let fill, value: let value):
                 svgStr += """

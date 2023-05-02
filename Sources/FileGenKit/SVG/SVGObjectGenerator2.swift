@@ -86,7 +86,8 @@ class SVGObjectGenerator2 {
                               x2: x2,
                               y2: y,
                               stroke: "000000",
-                              strokeWidth: settings.lineWidth)
+                              strokeWidth: settings.lineWidth,
+                              isMarker: true)
                     )
                     
                     // 縦線
@@ -107,7 +108,8 @@ class SVGObjectGenerator2 {
                                       x2: x,
                                       y2: y2,
                                       stroke: "000000",
-                                      strokeWidth: settings.lineWidth)
+                                      strokeWidth: settings.lineWidth,
+                                      isMarker: false)
                                )
                            }
                     }

@@ -125,7 +125,8 @@ class SVGObjectGenerator {
                               x2: endPoint.x,
                               y2: endPoint.y,
                               stroke: lineColor,
-                              strokeWidth: settings.lineWidth)
+                              strokeWidth: settings.lineWidth,
+                              isMarker: false)
                     )
                                 
                     if _view.views.count > 0 {
