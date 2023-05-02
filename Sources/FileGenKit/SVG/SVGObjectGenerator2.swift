@@ -23,6 +23,36 @@ class SVGObjectGenerator2 {
         appendSVGLineObject()
         appendSVGRectObject()
         
+        func appendSVGObject() {
+            let sideMargin: Double = margin * 2
+            let width: Double = {
+                let objectWidth: Double = Double(columnViewsList.count) * viewObjectSize.width
+                let objectBetweenMargin: Double = Double(columnViewsList.count - 1) * viewHorizontalMargin
+                return objectWidth + objectBetweenMargin + sideMargin
+            }()
+            let height: Double = {
+                let maxLineNumber = columnViewsList
+                    .reduce(into: [Int]()) { partialResult, columnViews in
+                        let maxLineNumber = columnViews.viewList
+                            .sorted(by: { $0.lineNumber > $1.lineNumber })
+                            .first?.lineNumber
+                        if let _maxLineNumber = maxLineNumber {
+                            partialResult.append(_maxLineNumber)
+                        }
+                    }
+                    .max()
+                
+                let lineNumber = Double(maxLineNumber ?? 0) + 1 // lineNumberは0から始まるので
+                let objectHeight: Double = lineNumber * viewObjectSize.height
+                let objectBetweenMargin: Double = (lineNumber - 1) * viewVerticalMargin
+                return objectHeight + objectBetweenMargin + sideMargin
+            }()
+            
+            _svgObjectList.append(
+                .svg(width: width, height: height)
+            )
+        }
+        
         func appendSVGRectObject() {
             columnViewsList.forEach { columnViews in
                 columnViews.viewList.forEach { data in
@@ -115,36 +145,6 @@ class SVGObjectGenerator2 {
                     }
                 }
             }
-        }
-        
-        func appendSVGObject() {
-            let sideMargin: Double = margin * 2
-            let width: Double = {
-                let objectWidth: Double = Double(columnViewsList.count) * viewObjectSize.width
-                let objectBetweenMargin: Double = Double(columnViewsList.count - 1) * viewHorizontalMargin
-                return objectWidth + objectBetweenMargin + sideMargin
-            }()
-            let height: Double = {
-                let maxLineNumber = columnViewsList
-                    .reduce(into: [Int]()) { partialResult, columnViews in
-                        let maxLineNumber = columnViews.viewList
-                            .sorted(by: { $0.lineNumber > $1.lineNumber })
-                            .first?.lineNumber
-                        if let _maxLineNumber = maxLineNumber {
-                            partialResult.append(_maxLineNumber)
-                        }
-                    }
-                    .max()
-                
-                let lineNumber = Double(maxLineNumber ?? 0) + 1 // lineNumberは0から始まるので
-                let objectHeight: Double = lineNumber * viewObjectSize.height
-                let objectBetweenMargin: Double = (lineNumber - 1) * viewVerticalMargin
-                return objectHeight + objectBetweenMargin + sideMargin
-            }()
-            
-            _svgObjectList.append(
-                .svg(width: width, height: height)
-            )
         }
     }
 }

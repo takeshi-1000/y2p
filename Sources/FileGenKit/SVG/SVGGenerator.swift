@@ -14,17 +14,6 @@ public class SVGGenerator: FileGeneratable {
     }
     
     public func generate() throws -> String? {
-        /*
-        let contentWidth = calculateWidth()
-        let contentHeight = calculateHeight()
-        
-        let svgObjectGenerator = SVGObjectGenerator(views: views, settings: settings)
-        svgObjectGenerator.generate()
-        
-        var svgObjectList: [SVGObjectType] = svgObjectGenerator.svgObjectList
-        svgObjectList.insert(.svg(width: contentWidth, height: contentHeight), at: 0)
-         */
-        
         let columnViewsGenerator = ColumnViewsGenerator()
         columnViewsGenerator.generate(views: views)
         let columnViewsList = columnViewsGenerator.columnViewsList
@@ -42,6 +31,7 @@ public class SVGGenerator: FileGeneratable {
             case .svg(width: let width, height: let height):
                 svgStr += """
 <svg width="\(width)" height="\(height)" viewBox="0 0 \(width) \(height)" xmlns="http://www.w3.org/2000/svg">
+ <!-- 下記矢印の参照のための要素 -->
  <defs>
    <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6">
      <path d="M 0 0 L 10 5 L 0 10 z" />
