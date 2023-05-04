@@ -110,6 +110,8 @@ views:
  Hoge1300010:
   name: "ほげ1300010"
   url: ""
+  views:
+   - Hoge1
  Hoge1301:
   name: "ほげ1301"
   url: ""

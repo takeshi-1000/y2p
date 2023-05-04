@@ -18,9 +18,9 @@ public class SVGGenerator: FileGeneratable {
         columnViewsGenerator.generate(views: views)
         let columnViewsList = columnViewsGenerator.columnViewsList
         
-        let svgObjectGenerator2 = SVGObjectGenerator2(columnViewsList: columnViewsList, settings: settings)
-        svgObjectGenerator2.generate()
-        let svgObjectList: [SVGObjectType] = svgObjectGenerator2.svgObjectList
+        let svgObjectGenerator = SVGObjectGenerator(columnViewsList: columnViewsList, settings: settings)
+        svgObjectGenerator.generate()
+        let svgObjectList: [SVGObjectType] = svgObjectGenerator.svgObjectList
         
         var svgStr = """
         """
