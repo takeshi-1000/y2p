@@ -38,11 +38,11 @@
   <rect x="16.0" y="16.0" width="100.0" height="50.0" fill="#D5E8D4" stroke="#82B366" />
   <text x="21.0" y="36.0" font-size="13.0" fill="blue">Splash</text>
  </a>
- <rect x="16.0" y="214.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
+ <rect x="16.0" y="214.0" width="100.0" height="50.0" fill="#DAE8FC" stroke="#6C8EBF" />
  <text x="21.0" y="234.0" font-size="13.0" fill="#000000">Hoge1</text>
  <rect x="16.0" y="874.0" width="100.0" height="50.0" fill="#FFE6CC" stroke="#D79B00" />
  <text x="21.0" y="894.0" font-size="13.0" fill="#000000">Hoge1300</text>
- <rect x="216.0" y="16.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
+ <rect x="216.0" y="16.0" width="100.0" height="50.0" fill="#DAE8FC" stroke="#6C8EBF" />
  <text x="221.0" y="36.0" font-size="13.0" fill="#000000">Hoge1</text>
  <rect x="216.0" y="82.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
  <text x="221.0" y="102.0" font-size="13.0" fill="#000000">Hoge2</text>
@@ -86,6 +86,6 @@
  <text x="621.0" y="828.0" font-size="13.0" fill="#000000">Hoge1301</text>
  <rect x="616.0" y="874.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
  <text x="621.0" y="894.0" font-size="13.0" fill="#000000">Hoge1300010</text>
- <rect x="816.0" y="874.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
+ <rect x="816.0" y="874.0" width="100.0" height="50.0" fill="#DAE8FC" stroke="#6C8EBF" />
  <text x="821.0" y="894.0" font-size="13.0" fill="#000000">Hoge1</text>
 </svg>

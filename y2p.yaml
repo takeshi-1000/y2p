@@ -33,6 +33,8 @@ views:
  Hoge1:
   name: "ほげ１"
   url: ""
+  contentColor: "DAE8FC"
+  borderColor: "6C8EBF"
   views:
    - Hoge10
    - Hoge11
