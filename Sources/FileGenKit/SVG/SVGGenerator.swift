@@ -7,6 +7,7 @@ public class SVGGenerator: FileGeneratable {
     let settings: Settings
     
     private var shouldDump: Bool = false
+    private var shouldEmitSeparatedLine: Bool = false
     
     required public init(views: [View], settings: Settings) {
         self.views = views
@@ -19,7 +20,7 @@ public class SVGGenerator: FileGeneratable {
         let columnViewsList = columnViewsGenerator.columnViewsList
         
         let svgObjectGenerator = SVGObjectGenerator(columnViewsList: columnViewsList, settings: settings)
-        svgObjectGenerator.generate()
+        svgObjectGenerator.generate(shouldEmitSeparatedLine: shouldEmitSeparatedLine)
         let svgObjectList: [SVGObjectType] = svgObjectGenerator.svgObjectList
         
         var svgStr = """
@@ -118,5 +119,9 @@ public class SVGGenerator: FileGeneratable {
 extension SVGGenerator {
     public func updateShouldDump(_ shouldDump: Bool) {
         self.shouldDump = shouldDump
+    }
+    
+    public func updateShouldEmitSeparatedLine(_ shouldEmit: Bool) {
+        self.shouldEmitSeparatedLine = shouldEmit
     }
 }

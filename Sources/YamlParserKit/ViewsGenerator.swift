@@ -72,7 +72,7 @@ class ViewsGenerator {
                     // (b)そのkeyのviewの遷移先があるか
                     // (a)と(b)だった場合、そのkeyの遷移先を切り出してnestedViewsに追加する
                     // すでにnestedViewに追加されている場合は追加しない
-                    
+                    // TODO: ここのロジックきつい
                     if shouldSeparate(key: key), emitAll == false {
                         if index == 0 {
                             if separatedViewKeys.contains(where: { $0 == key }) == false {

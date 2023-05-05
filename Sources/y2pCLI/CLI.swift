@@ -29,6 +29,7 @@ public class CLI {
         case .svg:
             let svgGenerator = SVGGenerator(views: views, settings: settings)
             svgGenerator.updateShouldDump(dumpSVG)
+            svgGenerator.updateShouldEmitSeparatedLine(true)
             let svgStr = try svgGenerator.generate()
             try svgStr?.write(to: URL(fileURLWithPath: fileNameStr), atomically: true, encoding: .utf8)
         }
