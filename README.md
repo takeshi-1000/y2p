@@ -8,6 +8,8 @@ This is CLI application which generate screen trantision diagram based on some y
 
 You can check the actual output images or SVGs from the [Sample folder](https://github.com/takeshi-1000/y2p/tree/main/Sample).
 
+This tool is specifically designed for the screen transition of mobile applications, so that a diagram is generated that covers screens that are transitioned from a single root screen.
+
 ## How to use
 
 - git clone this repository
