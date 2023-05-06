@@ -61,7 +61,7 @@ public class SVGGenerator: FileGeneratable {
  <text x="\(x)" y="\(y)" font-size="\(fontSize)" fill="#\(fill)">\(value)</text>
 """
                 svgStr += "\n"
-            case .url(urlStr: let urlStr, rect: let svgRect, text: let svgText):
+            case .url(urlStr: let urlStr, rect: let svgRect, text: let svgTextList):
                 var _svgStr = ""
                 
                 // URL
@@ -84,15 +84,17 @@ public class SVGGenerator: FileGeneratable {
                 }
                 
                 // Text
-                if case .text(x: let x,
-                              y: let y,
-                              fontSize: let fontSize,
-                              fill: _,
-                              value: let value) = svgText {
-                    _svgStr += """
+                svgTextList.forEach { svgText in
+                    if case .text(x: let x,
+                                  y: let y,
+                                  fontSize: let fontSize,
+                                  fill: _,
+                                  value: let value) = svgText {
+                        _svgStr += """
   <text x="\(x)" y="\(y)" font-size="\(fontSize)" fill="blue">\(value)</text>
 """
-                    _svgStr += "\n"
+                        _svgStr += "\n"
+                    }
                 }
                 _svgStr += """
  </a>
