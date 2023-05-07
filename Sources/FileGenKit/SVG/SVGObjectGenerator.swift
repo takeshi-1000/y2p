@@ -404,13 +404,14 @@ class SVGObjectGenerator {
             let y2: Double = y1
             
             _svgObjectList.append(
-                .line(x1: x1,
-                      y1: y1,
-                      x2: x2,
-                      y2: y2,
-                      stroke: stroke,
-                      strokeWidth: 1,
-                      isMarker: true)
+                .dotLine(line: .line(x1: x1,
+                                     y1: y1,
+                                     x2: x2,
+                                     y2: y2,
+                                     stroke: stroke,
+                                     strokeWidth: 1,
+                                     isMarker: true)
+                )
             )
             
             // (2)(1)のx1から上に伸びる縦線
@@ -420,13 +421,14 @@ class SVGObjectGenerator {
             let y2_2: Double = y1
             
             _svgObjectList.append(
-                .line(x1: x1_2,
-                      y1: y1_2,
-                      x2: x2_2,
-                      y2: y2_2,
-                      stroke: stroke,
-                      strokeWidth: 1,
-                      isMarker: false)
+                .dotLine(line: .line(x1: x1_2,
+                                     y1: y1_2,
+                                     x2: x2_2,
+                                     y2: y2_2,
+                                     stroke: stroke,
+                                     strokeWidth: 1,
+                                     isMarker: false)
+                )
             )
             
             // (3)(2)のx,y1から横に伸びる、上にある線
@@ -462,13 +464,14 @@ class SVGObjectGenerator {
             let y2_3: Double = y1_3
             
             _svgObjectList.append(
-                .line(x1: x1_3,
-                      y1: y1_3,
-                      x2: x2_3,
-                      y2: y2_3,
-                      stroke: stroke,
-                      strokeWidth: 1,
-                      isMarker: false)
+                .dotLine(line: .line(x1: x1_3,
+                                     y1: y1_3,
+                                     x2: x2_3,
+                                     y2: y2_3,
+                                     stroke: stroke,
+                                     strokeWidth: 1,
+                                     isMarker: false)
+                )
             )
         }
         
@@ -491,13 +494,14 @@ class SVGObjectGenerator {
                     let y2_4: Double = y1_4
                     
                     _svgObjectList.append(
-                        .line(x1: x1_4,
-                              y1: y1_4,
-                              x2: x2_4,
-                              y2: y2_4,
-                              stroke: stroke,
-                              strokeWidth: 1,
-                              isMarker: false)
+                        .dotLine(line: .line(x1: x1_4,
+                                             y1: y1_4,
+                                             x2: x2_4,
+                                             y2: y2_4,
+                                             stroke: stroke,
+                                             strokeWidth: 1,
+                                             isMarker: false)
+                        )
                     )
                     
                     // (4-2)
@@ -509,13 +513,14 @@ class SVGObjectGenerator {
                     let y2_4_2: Double = y1_4
                     
                     _svgObjectList.append(
-                        .line(x1: x1_4_2,
-                              y1: y1_4_2,
-                              x2: x2_4_2,
-                              y2: y2_4_2,
-                              stroke: stroke,
-                              strokeWidth: 1,
-                              isMarker: false)
+                        .dotLine(line: .line(x1: x1_4_2,
+                                             y1: y1_4_2,
+                                             x2: x2_4_2,
+                                             y2: y2_4_2,
+                                             stroke: stroke,
+                                             strokeWidth: 1,
+                                             isMarker: false)
+                        )
                     )
                     
                     count += 1

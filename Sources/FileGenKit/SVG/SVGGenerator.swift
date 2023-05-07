@@ -56,6 +56,19 @@ public class SVGGenerator: FileGeneratable {
 """
                 }
                 svgStr += "\n"
+            case .dotLine(line: let line):
+                if case .line(x1: let x1, y1: let y1, x2: let x2, y2: let y2, stroke: let stroke, strokeWidth: let strokeWidth, let isMarker) = line {
+                    if isMarker {
+                        svgStr += """
+ <line x1="\(x1)" y1="\(y1)" x2="\(x2)" y2="\(y2)" stroke="#\(stroke)" stroke-width="\(strokeWidth)" marker-end="url(#arrow)" stroke-dasharray="5,5" />
+"""
+                    } else {
+                        svgStr += """
+ <line x1="\(x1)" y1="\(y1)" x2="\(x2)" y2="\(y2)" stroke="#\(stroke)" stroke-width="\(strokeWidth)" stroke-dasharray="5,5" />
+"""
+                    }
+                    svgStr += "\n"
+                }
             case .text(x: let x, y: let y, fontSize: let fontSize, fill: let fill, value: let value):
                 svgStr += """
  <text x="\(x)" y="\(y)" font-size="\(fontSize)" fill="#\(fill)">\(value)</text>
