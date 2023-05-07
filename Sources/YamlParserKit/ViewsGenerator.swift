@@ -3,7 +3,7 @@ import Data
 
 class ViewsGenerator {
     
-    static func generate(viewsDicList: [Yaml : Yaml], emitAll: Bool) -> [View] {
+    static func generate(viewsDicList: [Yaml : Yaml]) -> [View] {
         
         var nestedViews: [View] = []
         var nestedViewKeys: [String] = []
@@ -73,7 +73,7 @@ class ViewsGenerator {
                     // (a)と(b)だった場合、そのkeyの遷移先を切り出してnestedViewsに追加する
                     // すでにnestedViewに追加されている場合は追加しない
                     // TODO: ここのロジックきつい
-                    if shouldSeparate(key: key), emitAll == false {
+                    if shouldSeparate(key: key) {
                         if index == 0 {
                             if separatedViewKeys.contains(where: { $0 == key }) == false {
                                 separatedViewKeys.append(key)

@@ -23,7 +23,6 @@ This tool is specifically designed for the screen transition of mobile applicati
 - `-fileName`: specific yaml file which you like (e.g `./.build/debug/y2p -fileName test.yaml`)
 - `-o`: output fileName, default is `transition.png`. Also this option determines output format (svg or image) (e.g `./.build/debug/y2p -o test.svg`)
 - `-d` or `-dump`: dump svg text (this is only for svg, and now even if you add this option, svg file is created)
-- `-emitAll`: Include overlapping transitions in the output. default is false
   
 ## Attributions
 

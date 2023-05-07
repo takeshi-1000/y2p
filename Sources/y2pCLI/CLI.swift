@@ -11,13 +11,12 @@ public class CLI {
         let mode = commandLineArgParser.mode
         let yamlFileNameStr = commandLineArgParser.yamlfileNameStr
         let fileNameStr = commandLineArgParser.fileNameStr
-        let emitAll: Bool = commandLineArgParser.emitAll
         let dumpSVG: Bool = commandLineArgParser.dumpSVG
         let shouldAddHelperLine: Bool = commandLineArgParser.shouldAddHelperLine
         
         // parse yaml
         let yamlParser = YamlParser()
-        try yamlParser.parse(fileURL: URL(fileURLWithPath: yamlFileNameStr), emitAll: emitAll)
+        try yamlParser.parse(fileURL: URL(fileURLWithPath: yamlFileNameStr))
         let views: [View] = yamlParser.views
         let settings: Settings = yamlParser.settings
         
