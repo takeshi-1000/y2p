@@ -56,11 +56,11 @@ class SVGObjectGenerator {
                                 .count
                             
                             if columnView.columnNumber < columnViewsList.count - 1 {
-                                objectBetweenMarginTotal += Double(count) * viewHorizontalMargin/2
+                                objectBetweenMarginTotal += Double(count) * viewHorizontalMargin/4
                                 objectBetweenMarginTotal += viewHorizontalMargin
                             } else {
                                 // 外側(右)
-                                objectBetweenMarginTotal += Double(count) * viewHorizontalMargin/2
+                                objectBetweenMarginTotal += Double(count) * viewHorizontalMargin/4
                             }
                         }
                     }
@@ -189,7 +189,7 @@ class SVGObjectGenerator {
                             if columnViews.columnNumber == 1 {
                                 return beforeColumnX + viewHorizontalMargin
                             } else {
-                                return beforeColumnX + (Double(includeSeparateViewCountBefore) * viewHorizontalMargin/2) + viewHorizontalMargin
+                                return beforeColumnX + (Double(includeSeparateViewCountBefore) * viewHorizontalMargin/4) + viewHorizontalMargin
                             }
                         }()
                         let y: Double = margin + (Double(lineNumber) * (viewVerticalMargin + viewObjectSize.height)) + Double(separatedViews.count) * viewVerticalMargin/2
