@@ -1,0 +1,100 @@
+<svg width="932.0" height="1282.0" viewBox="0 0 932.0 1282.0" xmlns="http://www.w3.org/2000/svg">
+ <!-- 下記矢印の参照のための要素 -->
+ <defs>
+   <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6">
+     <path d="M 0 0 L 10 5 L 0 10 z" />
+   </marker>
+ </defs>
+ <a href="https://www.google.com">
+  <rect x="16.0" y="16.0" width="100.0" height="50.0" fill="#D5E8D4" stroke="#82B366" />
+  <text x="21.0" y="36.0" font-size="13.0" fill="blue">Splash</text>
+ </a>
+ <rect x="16.0" y="256.0" width="100.0" height="50.0" fill="#DAE8FC" stroke="#6C8EBF" />
+ <text x="21.0" y="276.0" font-size="13.0" fill="#000000">Hoge1</text>
+ <rect x="16.0" y="816.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
+ <text x="21.0" y="836.0" font-size="13.0" fill="#000000">Hoge12</text>
+ <rect x="16.0" y="1136.0" width="100.0" height="50.0" fill="#FFE6CC" stroke="#D79B00" />
+ <text x="21.0" y="1156.0" font-size="13.0" fill="#000000">Hoge1300</text>
+ <rect x="216.0" y="16.0" width="100.0" height="50.0" fill="#DAE8FC" stroke="#6C8EBF" />
+ <text x="221.0" y="36.0" font-size="13.0" fill="#000000">Hoge1</text>
+ <rect x="216.0" y="96.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
+ <text x="221.0" y="116.0" font-size="13.0" fill="#000000">Hoge2</text>
+ <rect x="216.0" y="256.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
+ <text x="221.0" y="276.0" font-size="13.0" fill="#000000">Hoge10</text>
+ <rect x="216.0" y="496.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
+ <text x="221.0" y="516.0" font-size="13.0" fill="#000000">Hoge11</text>
+ <rect x="216.0" y="576.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
+ <text x="221.0" y="596.0" font-size="13.0" fill="#000000">Hoge12</text>
+ <rect x="216.0" y="656.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
+ <text x="221.0" y="676.0" font-size="13.0" fill="#000000">Hoge13</text>
+ <rect x="216.0" y="816.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
+ <text x="221.0" y="836.0" font-size="13.0" fill="#000000">Hoge121</text>
+ <rect x="216.0" y="896.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
+ <text x="221.0" y="916.0" font-size="13.0" fill="#000000">Hoge122</text>
+ <rect x="216.0" y="976.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
+ <text x="221.0" y="996.0" font-size="13.0" fill="#000000">Hoge123</text>
+ <rect x="216.0" y="1056.0" width="100.0" height="50.0" fill="#FFE6CC" stroke="#D79B00" />
+ <text x="221.0" y="1076.0" font-size="13.0" fill="#000000">Hoge1300</text>
+ <rect x="216.0" y="1136.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
+ <text x="221.0" y="1156.0" font-size="13.0" fill="#000000">Hoge13000</text>
+ <rect x="416.0" y="96.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
+ <text x="421.0" y="116.0" font-size="13.0" fill="#000000">Hoge20</text>
+ <rect x="416.0" y="176.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
+ <text x="421.0" y="196.0" font-size="13.0" fill="#000000">Hoge21</text>
+ <rect x="416.0" y="256.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
+ <text x="421.0" y="276.0" font-size="13.0" fill="#000000">Hoge101</text>
+ <rect x="416.0" y="336.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
+ <text x="421.0" y="356.0" font-size="13.0" fill="#000000">Hoge102</text>
+ <rect x="416.0" y="416.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
+ <text x="421.0" y="436.0" font-size="13.0" fill="#000000">Hoge103</text>
+ <rect x="416.0" y="496.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
+ <text x="421.0" y="516.0" font-size="13.0" fill="#000000">Hoge111</text>
+ <rect x="416.0" y="656.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
+ <text x="421.0" y="676.0" font-size="13.0" fill="#000000">Hoge130</text>
+ <rect x="416.0" y="816.0" width="100.0" height="50.0" fill="#DAE8FC" stroke="#6C8EBF" />
+ <text x="421.0" y="836.0" font-size="13.0" fill="#000000">Hoge1</text>
+ <rect x="416.0" y="1136.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
+ <text x="421.0" y="1156.0" font-size="13.0" fill="#000000">Hoge130001</text>
+ <rect x="616.0" y="656.0" width="100.0" height="50.0" fill="#FFE6CC" stroke="#D79B00" />
+ <text x="621.0" y="676.0" font-size="13.0" fill="#000000">Hoge1300</text>
+ <rect x="616.0" y="736.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
+ <text x="621.0" y="756.0" font-size="13.0" fill="#000000">Hoge1301</text>
+ <rect x="616.0" y="1136.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
+ <text x="621.0" y="1156.0" font-size="13.0" fill="#000000">Hoge1300010</text>
+ <rect x="616.0" y="1216.0" width="100.0" height="50.0" fill="#FFFFFF" stroke="#000000" />
+ <text x="621.0" y="1236.0" font-size="13.0" fill="#000000">Hoge12</text>
+ <rect x="816.0" y="1136.0" width="100.0" height="50.0" fill="#DAE8FC" stroke="#6C8EBF" />
+ <text x="821.0" y="1156.0" font-size="13.0" fill="#000000">Hoge1</text>
+ <line x1="116.0" y1="41.0" x2="216.0" y2="41.0" stroke="#000000" stroke-width="1.0" marker-end="url(#arrow)" />
+ <line x1="166.0" y1="41.0" x2="166.0" y2="121.0" stroke="#000000" stroke-width="1.0" />
+ <line x1="166.0" y1="121.0" x2="216.0" y2="121.0" stroke="#000000" stroke-width="1.0" marker-end="url(#arrow)" />
+ <line x1="116.0" y1="281.0" x2="216.0" y2="281.0" stroke="#000000" stroke-width="1.0" marker-end="url(#arrow)" />
+ <line x1="166.0" y1="281.0" x2="166.0" y2="681.0" stroke="#000000" stroke-width="1.0" />
+ <line x1="166.0" y1="521.0" x2="216.0" y2="521.0" stroke="#000000" stroke-width="1.0" marker-end="url(#arrow)" />
+ <line x1="166.0" y1="601.0" x2="216.0" y2="601.0" stroke="#000000" stroke-width="1.0" marker-end="url(#arrow)" />
+ <line x1="166.0" y1="681.0" x2="216.0" y2="681.0" stroke="#000000" stroke-width="1.0" marker-end="url(#arrow)" />
+ <line x1="116.0" y1="841.0" x2="216.0" y2="841.0" stroke="#000000" stroke-width="1.0" marker-end="url(#arrow)" />
+ <line x1="166.0" y1="841.0" x2="166.0" y2="1081.0" stroke="#000000" stroke-width="1.0" />
+ <line x1="166.0" y1="921.0" x2="216.0" y2="921.0" stroke="#000000" stroke-width="1.0" marker-end="url(#arrow)" />
+ <line x1="166.0" y1="1001.0" x2="216.0" y2="1001.0" stroke="#000000" stroke-width="1.0" marker-end="url(#arrow)" />
+ <line x1="166.0" y1="1081.0" x2="216.0" y2="1081.0" stroke="#000000" stroke-width="1.0" marker-end="url(#arrow)" />
+ <line x1="116.0" y1="1161.0" x2="216.0" y2="1161.0" stroke="#000000" stroke-width="1.0" marker-end="url(#arrow)" />
+ <line x1="316.0" y1="121.0" x2="416.0" y2="121.0" stroke="#000000" stroke-width="1.0" marker-end="url(#arrow)" />
+ <line x1="366.0" y1="121.0" x2="366.0" y2="201.0" stroke="#000000" stroke-width="1.0" />
+ <line x1="366.0" y1="201.0" x2="416.0" y2="201.0" stroke="#000000" stroke-width="1.0" marker-end="url(#arrow)" />
+ <line x1="316.0" y1="281.0" x2="416.0" y2="281.0" stroke="#000000" stroke-width="1.0" marker-end="url(#arrow)" />
+ <line x1="366.0" y1="281.0" x2="366.0" y2="441.0" stroke="#000000" stroke-width="1.0" />
+ <line x1="366.0" y1="361.0" x2="416.0" y2="361.0" stroke="#000000" stroke-width="1.0" marker-end="url(#arrow)" />
+ <line x1="366.0" y1="441.0" x2="416.0" y2="441.0" stroke="#000000" stroke-width="1.0" marker-end="url(#arrow)" />
+ <line x1="316.0" y1="521.0" x2="416.0" y2="521.0" stroke="#000000" stroke-width="1.0" marker-end="url(#arrow)" />
+ <line x1="316.0" y1="681.0" x2="416.0" y2="681.0" stroke="#000000" stroke-width="1.0" marker-end="url(#arrow)" />
+ <line x1="316.0" y1="841.0" x2="416.0" y2="841.0" stroke="#000000" stroke-width="1.0" marker-end="url(#arrow)" />
+ <line x1="316.0" y1="1161.0" x2="416.0" y2="1161.0" stroke="#000000" stroke-width="1.0" marker-end="url(#arrow)" />
+ <line x1="516.0" y1="681.0" x2="616.0" y2="681.0" stroke="#000000" stroke-width="1.0" marker-end="url(#arrow)" />
+ <line x1="566.0" y1="681.0" x2="566.0" y2="761.0" stroke="#000000" stroke-width="1.0" />
+ <line x1="566.0" y1="761.0" x2="616.0" y2="761.0" stroke="#000000" stroke-width="1.0" marker-end="url(#arrow)" />
+ <line x1="516.0" y1="1161.0" x2="616.0" y2="1161.0" stroke="#000000" stroke-width="1.0" marker-end="url(#arrow)" />
+ <line x1="566.0" y1="1161.0" x2="566.0" y2="1241.0" stroke="#000000" stroke-width="1.0" />
+ <line x1="566.0" y1="1241.0" x2="616.0" y2="1241.0" stroke="#000000" stroke-width="1.0" marker-end="url(#arrow)" />
+ <line x1="716.0" y1="1161.0" x2="816.0" y2="1161.0" stroke="#000000" stroke-width="1.0" marker-end="url(#arrow)" />
+</svg>

@@ -29,7 +29,6 @@ let package = Package(
         .target(
             name: "YamlParserKit",
             dependencies: [
-                .target(name: "Utility"),
                 .target(name: "Data"),
                 .product(name: "Yaml", package: "YamlSwift"),
             ]
@@ -37,13 +36,8 @@ let package = Package(
         .target(
             name: "FileGenKit",
             dependencies: [
-                .target(name: "Utility"),
                 .target(name: "Data"),
             ]
-        ),
-        .target(
-            name: "Utility",
-            dependencies: []
         ),
         .target(
             name: "Data",
@@ -60,9 +54,9 @@ let package = Package(
                 .target(name: "y2pCLI")
             ]),
         .testTarget(
-            name: "UtilityTests",
+            name: "FileGenKitTests",
             dependencies: [
-                .target(name: "Utility")
+                .target(name: "FileGenKit")
             ]),
         .testTarget(
             name: "DataTests",

@@ -1,6 +1,6 @@
 import Cocoa
 
-public extension NSColor {
+extension NSColor {
     convenience init(hex: String, alpha: Double = 1.0) {
         let v = Int("000000" + hex, radix: 16) ?? 0
         let r = Double(v / Int(powf(256, 2)) % 256) / 255

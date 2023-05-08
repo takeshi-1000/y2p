@@ -6,7 +6,9 @@ This is CLI application which generate screen trantision diagram based on some y
 
 <img width="889" alt="test" src="https://user-images.githubusercontent.com/16571394/233756870-0ea48565-1b16-43e4-8384-1d8a95f052ce.jpg">
 
-You can check the actual output images or SVGs from the [Sample folder](https://github.com/takeshi-1000/y2p/tree/main/Sample).
+You can check the actual generated svgs from the [Sample folder](https://github.com/takeshi-1000/y2p/tree/main/Sample).
+
+This tool is specifically designed for the screen transition of mobile applications, so that a diagram is generated that covers screens that are transitioned from a single root screen.
 
 ## How to use
 
@@ -19,9 +21,9 @@ You can check the actual output images or SVGs from the [Sample folder](https://
 ## Options
 
 - `-fileName`: specific yaml file which you like (e.g `./.build/debug/y2p -fileName test.yaml`)
-- `-o`: output fileName, default is `transition.png`. Also this option determines output format (svg or image) (e.g `./.build/debug/y2p -o test.svg`)
+- `-o`: output fileName, default is `screen_transition_diagram.svg`. (e.g `./.build/debug/y2p -o test.svg`)
 - `-d` or `-dump`: dump svg text (this is only for svg, and now even if you add this option, svg file is created)
-- `-emitAll`: Include overlapping transitions in the output. default is false
+- `-emitHelper`: 
   
 ## Attributions
 

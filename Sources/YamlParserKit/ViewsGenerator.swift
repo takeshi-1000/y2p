@@ -3,9 +3,11 @@ import Data
 
 class ViewsGenerator {
     
-    static func generate(viewsDicList: [Yaml : Yaml], emitAll: Bool) -> [View] {
+    static func generate(viewsDicList: [Yaml : Yaml]) -> [View] {
         
         var nestedViews: [View] = []
+        var nestedViewKeys: [String] = []
+        var separatedViewKeys: [String] = []
         
         viewsDicList.forEach { viewsDic in
             if case .string(let nameKey) = viewsDic.key,
@@ -70,14 +72,26 @@ class ViewsGenerator {
                     // (b)そのkeyのviewの遷移先があるか
                     // (a)と(b)だった場合、そのkeyの遷移先を切り出してnestedViewsに追加する
                     // すでにnestedViewに追加されている場合は追加しない
-                    
-                    if shouldSeparate(key: key), index != 0, emitAll == false {
-                        if nestedViews.first(where: { $0.nameData.key == key }) == nil {
-                            nestedViews.append(
-                                generateView(key: key,
-                                             infoList: getInfoListTargetView(key: key),
-                                             index: 0)
-                            )
+                    // TODO: ここのロジックきつい
+                    if shouldSeparate(key: key) {
+                        if index == 0 {
+                            if separatedViewKeys.contains(where: { $0 == key }) == false {
+                                separatedViewKeys.append(key)
+                                childViews.forEach { childViewKey in
+                                    if case .string(let childViewKey) = childViewKey {
+                                        _viewsKeys.append(childViewKey)
+                                    }
+                                }
+                            }
+                        } else {
+                            if nestedViewKeys.contains(where: { $0 == key }) == false {
+                                nestedViewKeys.append(key)
+                                nestedViews.append(
+                                    generateView(key: key,
+                                                 infoList: getInfoListTargetView(key: key),
+                                                 index: 0)
+                                )
+                            }
                         }
                     } else {
                         childViews.forEach { childViewKey in
@@ -96,7 +110,7 @@ class ViewsGenerator {
                         borderColor: _borderColor,
                         index: index,
                         isRoot: _isRoot,
-                        views: generateViews(index: index, viewKeys: _viewsKeys))
+                        views: generateViews(index: index + 1, viewKeys: _viewsKeys))
         }
         
         func generateViews(index: Int, viewKeys: [String]) -> [View] {
@@ -107,7 +121,7 @@ class ViewsGenerator {
                     if case .string(viewKey) = viewsDic.key,
                        case .dictionary(let viewInfoList) = viewsDic.value {
                         _views.append(
-                            generateView(key: viewKey, infoList: viewInfoList, index: index + 1)
+                            generateView(key: viewKey, infoList: viewInfoList, index: index)
                         )
                     }
                 }

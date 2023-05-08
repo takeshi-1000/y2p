@@ -1,5 +1,5 @@
 import XCTest
-@testable import Utility
+@testable import FileGenKit
 
 final class NSColorExtensionTests: XCTestCase {
     func testConvenienceInit() {

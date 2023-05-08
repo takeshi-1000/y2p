@@ -1,5 +1,4 @@
 import Data
-import Utility
 import Cocoa
 
 public class ImageGenerator: FileGeneratable {
