@@ -12,7 +12,7 @@ settings:
    contentColor: "FFFFFF"
    textColor: "000000"
    fontSize: 13
-   verticalMargin: 16
+   verticalMargin: 30
    horizontalMargin: 100
    size:
     width: 100
@@ -75,6 +75,8 @@ views:
  Hoge121:
   name: "ほげ121"
   url: ""
+  views:
+   - Hoge1
  Hoge122:
   name: "ほげ122"
   url: ""
@@ -109,6 +111,7 @@ views:
   url: ""
   views:
    - Hoge1300010
+   - Hoge12
  Hoge1300010:
   name: "ほげ1300010"
   url: ""

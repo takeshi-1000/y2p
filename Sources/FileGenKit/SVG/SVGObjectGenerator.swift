@@ -395,7 +395,9 @@ class SVGObjectGenerator {
         sortSeparatedViews.enumerated().forEach { data in
             let _viewInfo = data.element
             let _offset = data.offset + 1
-            let stroke = _viewInfo.view.borderColor
+            let stroke = _viewInfo.view.borderColor.isEmpty == false
+             ? _viewInfo.view.borderColor
+             : settings.viewObjectBorderColorStr
             
             // (1)column0の左横
             let x2: Double = _viewInfo.view.rect.minX
@@ -485,7 +487,9 @@ class SVGObjectGenerator {
                         
             columnView.viewList.enumerated().forEach { data in
                 let columnViewInfo = data.element
-                let stroke = columnViewInfo.view.borderColor
+                let stroke = columnViewInfo.view.borderColor.isEmpty == false
+                 ? columnViewInfo.view.borderColor
+                 : settings.viewObjectBorderColorStr
                 
                 if separatedViews.contains(where: { $0.view.nameData.key == columnViewInfo.view.nameData.key }) {
                     let x1_4: Double = Double(columnViewInfo.view.rect.maxX)

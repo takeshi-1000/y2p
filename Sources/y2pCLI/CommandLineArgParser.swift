@@ -11,10 +11,10 @@ class CommandLineArgParser {
     var shouldAddHelperLine: Bool { _shouldAddHelperLine }
     
     private var _yamlfileNameStr: String = "y2p.yaml"
-    private var _fileNameStr: String = "transition.png"
+    private var _fileNameStr: String = "screen_transition_diagram.svg"
     /// The output format (SVG or image) is determined by the file name
     /// default file name is "transition.png", so output format is image
-    private var _mode: CLIMode = .image
+    private var _mode: CLIMode = .svg
     /// dump parameter is only for svg
     private var _dumpSVG: Bool = false
     private var _shouldAddHelperLine: Bool = false
