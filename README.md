@@ -23,7 +23,7 @@ This tool is specifically designed for the screen transition of mobile applicati
 - `-fileName`: specific yaml file which you like (e.g `./.build/debug/y2p -fileName test.yaml`)
 - `-o`: output fileName, default is `screen_transition_diagram.svg`. (e.g `./.build/debug/y2p -o test.svg`)
 - `-d` or `-dump`: dump svg text (this is only for svg, and now even if you add this option, svg file is created)
-- `-emitHelper`: 
+- `-emitHelper`: with this option, you can add guide lines to the screen transition diagram. 
   
 ## Attributions
 
