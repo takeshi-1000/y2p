@@ -110,6 +110,8 @@ class ViewsPainter {
                     let endPoint = NSPoint(x: _view.rect.minX, y: _view.rect.minY + (settings.viewObjectSize.height / 2))
                     
                     let slashColor: NSColor = {
+                        return NSColor(hex: "000000")
+                        /*
                         let defaultTransitionTypeKey = settings.transitionTypeList
                             .first { $0.isDefault }?.typeStr ?? settings.transitionTypeList.first?.typeStr
                         let filteredtransitionTypeKey = _view.transitionTypeKey.isEmpty == false
@@ -122,6 +124,7 @@ class ViewsPainter {
                         } else {
                             return NSColor(hex: "000000")
                         }
+                         */
                     }()
                     
                     paintSlash(startPoint: startPoint, endPoint: endPoint, color: slashColor)

@@ -25,9 +25,6 @@ public class Settings {
     public var margin: Double { _margin }
     private var _margin: Double = 16
     
-    public var transitionTypeList: [TransitionType] { _transitionTypeList }
-    private var _transitionTypeList: [TransitionType] = []
-    
     public var lineWidth: Double { _lineWidth }
     private var _lineWidth: Double = 1
     
@@ -65,24 +62,7 @@ public class Settings {
         _margin = margin
     }
     
-    public func updateTransitionTypeList(_ transitionTypeList: [TransitionType]) {
-        _transitionTypeList = transitionTypeList
-    }
-    
     public func updateLineWidth(_ lineWidth: Double) {
         _lineWidth = lineWidth
     }
 }
-
-public struct TransitionType {
-    public let typeStr: String
-    public let colorStr: String
-    public let isDefault: Bool
-    
-    public init(typeStr: String, colorStr: String, isDefault: Bool) {
-        self.typeStr = typeStr
-        self.colorStr = colorStr
-        self.isDefault = isDefault
-    }
-}
-

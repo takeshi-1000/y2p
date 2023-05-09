@@ -47,10 +47,6 @@ class ViewsGenerator {
                    case .string(let urlStr) = viewInfo.value {
                     _urlStr = urlStr
                 }
-                if case .string("transitionType") = viewInfo.key,
-                   case .string(let transitionTypeKey) = viewInfo.value {
-                    _transitionTypeKey = transitionTypeKey
-                }
                 if case .string("contentColor") = viewInfo.key,
                    case .string(let contentColor) = viewInfo.value {
                     _contentColor = contentColor
@@ -105,7 +101,6 @@ class ViewsGenerator {
             
             return View(nameData: (key: key, value: _nameValue),
                         urlStr: _urlStr,
-                        transitionTypeKey: _transitionTypeKey,
                         contentColor: _contentColor,
                         borderColor: _borderColor,
                         index: index,

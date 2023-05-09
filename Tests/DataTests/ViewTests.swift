@@ -4,7 +4,6 @@ import XCTest
 final class ViewTests: XCTestCase {
     let mockViewData: View = .init(nameData: (key: "ListView", value: "リスト"),
                                    urlStr: "https://www.youtube.com",
-                                   transitionTypeKey: "modal",
                                    contentColor: "123456",
                                    borderColor: "654321",
                                    index: 0,
@@ -15,7 +14,6 @@ final class ViewTests: XCTestCase {
         XCTContext.runActivity(named: "初期化時に適切に値をセットできているかの確認") { _ in
             let nameData: (key: String, value: String) = ("SplashView", "スプラッシュ")
             let urlStr = "https://www.youtube.com"
-            let transitionTypeKey: String = "push"
             let contentColor: String = "FFFFFF"
             let borderColor: String = "000000"
             let index: Int = 4
@@ -24,7 +22,6 @@ final class ViewTests: XCTestCase {
             
             let actual = View(nameData: nameData,
                               urlStr: urlStr,
-                              transitionTypeKey: transitionTypeKey,
                               contentColor: contentColor,
                               borderColor: borderColor,
                               index: index,
@@ -34,7 +31,6 @@ final class ViewTests: XCTestCase {
             XCTAssertEqual(actual.nameData.key, nameData.key)
             XCTAssertEqual(actual.nameData.value, nameData.value)
             XCTAssertEqual(actual.urlStr, urlStr)
-            XCTAssertEqual(actual.transitionTypeKey, transitionTypeKey)
             XCTAssertEqual(actual.contentColor, contentColor)
             XCTAssertEqual(actual.borderColor, borderColor)
             XCTAssertEqual(actual.index, index)

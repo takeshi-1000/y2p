@@ -3,7 +3,6 @@ import Cocoa
 public class View {
     public let nameData: (key: String, value: String)
     public let urlStr: String
-    public let transitionTypeKey: String
     public let contentColor: String
     public let borderColor: String
     public let index: Int
@@ -15,7 +14,6 @@ public class View {
     
     public init(nameData: (key: String, value: String),
                 urlStr: String,
-                transitionTypeKey: String,
                 contentColor: String,
                 borderColor: String,
                 index: Int,
@@ -23,7 +21,6 @@ public class View {
                 views: [View]) {
         self.nameData = nameData
         self.urlStr = urlStr
-        self.transitionTypeKey = transitionTypeKey
         self.contentColor = contentColor
         self.borderColor = borderColor
         self.index = index

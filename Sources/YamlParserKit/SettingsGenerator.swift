@@ -19,48 +19,6 @@ class SettingsGenerator {
                 _settings.updateLineWidth(Double(lineWidth))
             }
             
-            if case .string("transitionTypeList") = settings.key,
-               case .array(let transitionTypeList) = settings.value {
-                var _transitionTypeList: [TransitionType] = []
-                
-                transitionTypeList.forEach { yaml in
-                    if case .dictionary(let transitionTypeInfoList) = yaml {
-                        
-                        transitionTypeInfoList.forEach { transitionTypeInfoData in
-                            var _transitionTypeTypeStr: String = ""
-                            var _transitionTypeColorStr: String = ""
-                            var _transitionTypeIsDefault: Bool = false
-                            
-                            if case .string(let type) = transitionTypeInfoData.key {
-                                _transitionTypeTypeStr = type
-                            }
-                            if case .dictionary(let transitionTypeInfoDic) = transitionTypeInfoData.value {
-                                transitionTypeInfoDic.forEach { transitionTypeInfo in
-                                    if case .string("color") = transitionTypeInfo.key,
-                                       case .string(let colorStr) = transitionTypeInfo.value {
-                                        _transitionTypeColorStr = colorStr
-                                    }
-                                    
-                                    if case .string("isDefault") = transitionTypeInfo.key,
-                                       case .bool(let isDefault) = transitionTypeInfo.value {
-                                        _transitionTypeIsDefault = isDefault
-                                    }
-                                }
-                            }
-                            _transitionTypeList.append(
-                                TransitionType(
-                                    typeStr: _transitionTypeTypeStr,
-                                    colorStr: _transitionTypeColorStr,
-                                    isDefault: _transitionTypeIsDefault
-                                )
-                            )
-                        }
-                    }
-                }
-                
-                _settings.updateTransitionTypeList(_transitionTypeList)
-            }
-            
             if case .string("object") = settings.key,
                case .dictionary(let objectInfoDictionaryArray) = settings.value {
                 
