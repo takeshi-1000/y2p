@@ -17,7 +17,7 @@ class CommandLineArgParser {
     private var _mode: CLIMode = .svg
     /// dump parameter is only for svg
     private var _dumpSVG: Bool = false
-    private var _shouldAddHelperLine: Bool = false
+    private var _shouldAddHelperLine: Bool = true
     
     func parse(arguments: [String]) {
         if let fileNameOptionIndex = arguments.firstIndex(of: "-fileName") {
@@ -40,8 +40,8 @@ class CommandLineArgParser {
             _dumpSVG = true
         }
         
-        if arguments.firstIndex(of: "-emitHelper") != nil {
-            _shouldAddHelperLine = true
+        if arguments.firstIndex(of: "-noGuideLine") != nil {
+            _shouldAddHelperLine = false
         }
     }
 }

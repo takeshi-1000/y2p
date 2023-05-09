@@ -32,7 +32,6 @@ class ViewsGenerator {
         func generateView(key: String, infoList: [Yaml : Yaml], index: Int) -> View {
             var _nameValue: String = ""
             var _urlStr: String = ""
-            var _transitionTypeKey: String = ""
             var _contentColor: String = ""
             var _borderColor: String = ""
             var _isRoot: Bool = false
@@ -45,7 +44,7 @@ class ViewsGenerator {
                 }
                 if case .string("url") = viewInfo.key,
                    case .string(let urlStr) = viewInfo.value {
-                    _urlStr = urlStr
+                    _urlStr = urlStr.replacingOccurrences(of: "&", with: "&amp;")
                 }
                 if case .string("contentColor") = viewInfo.key,
                    case .string(let contentColor) = viewInfo.value {
