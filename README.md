@@ -33,3 +33,11 @@ This tool is powered by:
 Inspiration for this tool came from:
 
 - [XcodeGen](https://github.com/yonaskolb/XcodeGen)
+
+## Contributions
+
+Contributions are always welcome. Please create an issue or pull request as needed.
+
+## Licence
+
+Licensed under the MIT license
