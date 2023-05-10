@@ -28,6 +28,9 @@ public class Settings {
     public var lineWidth: Double { _lineWidth }
     private var _lineWidth: Double = 1
     
+    public var showGuideLines: Bool { _showGuideLines }
+    private var _showGuideLines: Bool = true
+    
     public init() {}
     
     public func updateViewObjectSize(_ viewObjectSize: NSSize) {
@@ -64,5 +67,9 @@ public class Settings {
     
     public func updateLineWidth(_ lineWidth: Double) {
         _lineWidth = lineWidth
+    }
+    
+    public func updateShowGuideLines(_ showGuideLines: Bool) {
+        _showGuideLines = showGuideLines
     }
 }

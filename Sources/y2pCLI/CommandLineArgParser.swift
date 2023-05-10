@@ -8,7 +8,6 @@ class CommandLineArgParser {
     var fileNameStr: String { _fileNameStr }
     var mode: CLIMode { _mode }
     var dumpSVG: Bool { _dumpSVG }
-    var shouldAddHelperLine: Bool { _shouldAddHelperLine }
     
     private var _yamlfileNameStr: String = "y2p.yaml"
     private var _fileNameStr: String = "screen_transition_diagram.svg"
@@ -17,7 +16,6 @@ class CommandLineArgParser {
     private var _mode: CLIMode = .svg
     /// dump parameter is only for svg
     private var _dumpSVG: Bool = false
-    private var _shouldAddHelperLine: Bool = true
     
     func parse(arguments: [String]) {
         if let fileNameOptionIndex = arguments.firstIndex(of: "-fileName") {
@@ -38,10 +36,6 @@ class CommandLineArgParser {
         
         if arguments.firstIndex(of: "-dump") != nil || arguments.firstIndex(of: "-d") != nil {
             _dumpSVG = true
-        }
-        
-        if arguments.firstIndex(of: "-noGuideLine") != nil {
-            _shouldAddHelperLine = false
         }
     }
 }

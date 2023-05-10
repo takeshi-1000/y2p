@@ -67,6 +67,13 @@ final class SettingsTests: XCTestCase {
             
             XCTAssertEqual(actual, expected)
         }
+        
+        XCTContext.runActivity(named: "settings.showGuideLinesのデフォルト値の確認") { _ in
+            let actual = settings.showGuideLines
+            let expected: Bool = true
+            
+            XCTAssertEqual(actual, expected)
+        }
     }
     
     func test_updateViewObjectSize() {
@@ -217,6 +224,23 @@ final class SettingsTests: XCTestCase {
             
             let actual = settings.lineWidth
             let expected = inputWidth
+                        
+            XCTAssertEqual(actual, expected)
+        }
+    }
+    
+    func test_updateShowGuideLines() {
+        XCTContext.runActivity(named: "updateShowGuideLines適用前") { _ in
+            // test_initSettingsで検証済み
+        }
+        
+        XCTContext.runActivity(named: "updateShowGuideLines適用後") { _ in
+            let settings = Settings()
+            let showGuideLines: Bool = false
+            settings.updateShowGuideLines(showGuideLines)
+            
+            let actual = settings.showGuideLines
+            let expected = showGuideLines
                         
             XCTAssertEqual(actual, expected)
         }

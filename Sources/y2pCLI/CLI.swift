@@ -12,7 +12,6 @@ public class CLI {
         let yamlFileNameStr = commandLineArgParser.yamlfileNameStr
         let fileNameStr = commandLineArgParser.fileNameStr
         let dumpSVG: Bool = commandLineArgParser.dumpSVG
-        let shouldAddHelperLine: Bool = commandLineArgParser.shouldAddHelperLine
         
         // parse yaml
         let yamlParser = YamlParser()
@@ -29,7 +28,6 @@ public class CLI {
         case .svg:
             let svgGenerator = SVGGenerator(views: views, settings: settings)
             svgGenerator.updateShouldDump(dumpSVG)
-            svgGenerator.updateShouldEmitSeparatedLine(shouldAddHelperLine)
             let svgStr = try svgGenerator.generate()
             try svgStr?.write(to: URL(fileURLWithPath: fileNameStr), atomically: true, encoding: .utf8)
         }

@@ -19,6 +19,11 @@ class SettingsGenerator {
                 _settings.updateLineWidth(Double(lineWidth))
             }
             
+            if case .string("showGuideLines") = settings.key,
+               case .bool(let showGuideLines) = settings.value {
+                _settings.updateShowGuideLines(showGuideLines)
+            }
+            
             if case .string("object") = settings.key,
                case .dictionary(let objectInfoDictionaryArray) = settings.value {
                 
