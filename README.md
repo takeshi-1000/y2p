@@ -40,4 +40,4 @@ Contributions are always welcome. Please create an issue or pull request as need
 
 ## Licence
 
-Licensed under the MIT license
+Licensed under the [MIT license](https://github.com/takeshi-1000/y2p/blob/main/LICENCE)
