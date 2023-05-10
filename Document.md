@@ -32,7 +32,7 @@ settings:
     - size: Configuration for the size of the screen objects.
     - width: Specifies the width of the object.
     - height: Specifies the height of the object.
-  - margin: Specifies the internal margin of the objects.
+  - margin: Specify the outer margin for the top, bottom, left, and right of the screen diagram.
   - lineWidth: Specifies the thickness of the lines.
   - showGuideLines: Specifies whether to display guide lines (true for display, false for hide).
 
