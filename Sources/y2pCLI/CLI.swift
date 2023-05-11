@@ -8,10 +8,9 @@ public class CLI {
         // parse commandLine arguments
         let commandLineArgParser = CommandLineArgParser()
         commandLineArgParser.parse(arguments: CommandLine.arguments)
-        let mode = commandLineArgParser.mode
         let yamlFileNameStr = commandLineArgParser.yamlfileNameStr
         let fileNameStr = commandLineArgParser.fileNameStr
-        let dumpSVG: Bool = commandLineArgParser.dumpSVG
+        let dump: Bool = commandLineArgParser.dump
         
         // parse yaml
         let yamlParser = YamlParser()
@@ -19,17 +18,9 @@ public class CLI {
         let views: [View] = yamlParser.views
         let settings: Settings = yamlParser.settings
         
-        // generate some file
-        switch mode {
-        case .image:
-            let imageGenerator = ImageGenerator(views: views, settings: settings)
-            let imageData = try imageGenerator.generate()
-            try? imageData?.write(to: URL(fileURLWithPath: fileNameStr))
-        case .svg:
-            let svgGenerator = SVGGenerator(views: views, settings: settings)
-            svgGenerator.updateShouldDump(dumpSVG)
-            let svgStr = try svgGenerator.generate()
-            try svgStr?.write(to: URL(fileURLWithPath: fileNameStr), atomically: true, encoding: .utf8)
-        }
+        let svgGenerator = SVGGenerator(views: views, settings: settings)
+        svgGenerator.updateShouldDump(dump)
+        let svgStr = try svgGenerator.generate()
+        try svgStr?.write(to: URL(fileURLWithPath: fileNameStr), atomically: true, encoding: .utf8)
     }
 }

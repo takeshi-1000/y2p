@@ -11,7 +11,7 @@ settings:
     height: 50
   margin: 16
   lineWidth: 1
-  showGuideLines: false
+  showGuideLines: true
   
 views:
  Splash:
