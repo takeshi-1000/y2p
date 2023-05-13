@@ -6,6 +6,7 @@ settings:
    fontSize: 13
    verticalMargin: 30
    horizontalMargin: 100
+   enabledRoundCorner: true
    size:
     width: 100
     height: 50

@@ -48,6 +48,10 @@ class SettingsGenerator {
                        case .int(let fontSize) = objectInfoDic.value {
                         _settings.updateViewObjectTextFontSize(Double(fontSize))
                     }
+                    if case .string("enabledRoundCorner") = objectInfoDic.key,
+                       case .bool(let enabledRoundCorner) = objectInfoDic.value {
+                        _settings.updateEnabledRoundCorner(enabledRoundCorner)
+                    }
                     if case .string("size") = objectInfoDic.key,
                        case .dictionary(let sizeDictionaries) = objectInfoDic.value {
                         

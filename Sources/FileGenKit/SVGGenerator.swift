@@ -40,10 +40,22 @@ public class SVGGenerator: FileGeneratable {
  </defs>
 """
                 svgStr += "\n"
-            case .rect(x: let x, y: let y, width: let width, height: let height, fill: let fill, stroke: let stroke):
-                svgStr += """
+            case .rect(rect: let rect, fill: let fill, stroke: let stroke, enabledRound: let enabledRound):
+                let x: Double = Double(rect.origin.x)
+                let y: Double = Double(rect.origin.y)
+                let width: Double = Double(rect.width)
+                let height: Double = Double(rect.height)
+                if enabledRound {
+                    let rx: Double = 4
+                    let ry: Double = 4
+                    svgStr += """
+ <rect x="\(x)" y="\(y)" width="\(width)" height="\(height)" fill="#\(fill)" stroke="#\(stroke)" rx="\(rx)" ry="\(ry)" />
+"""
+                } else {
+                    svgStr += """
  <rect x="\(x)" y="\(y)" width="\(width)" height="\(height)" fill="#\(fill)" stroke="#\(stroke)" />
 """
+                }
                 svgStr += "\n"
             case .line(x1: let x1, y1: let y1, x2: let x2, y2: let y2, stroke: let stroke, strokeWidth: let strokeWidth, let isMarker):
                 if isMarker {
@@ -84,15 +96,23 @@ public class SVGGenerator: FileGeneratable {
                 _svgStr += "\n"
                 
                 // Rect
-                if case .rect(x: let x,
-                              y: let y,
-                              width: let width,
-                              height: let height,
-                              fill: let fill,
-                              stroke: let stroke) = svgRect {
-                    _svgStr += """
+                if case .rect(rect: let rect, fill: let fill, stroke: let stroke, enabledRound: let enabledRound) = svgRect {
+                    let x: Double = Double(rect.origin.x)
+                    let y: Double = Double(rect.origin.y)
+                    let width: Double = Double(rect.width)
+                    let height: Double = Double(rect.height)
+                    
+                    if enabledRound {
+                        let rx: Double = 4
+                        let ry: Double = 4
+                        svgStr += """
+  <rect x="\(x)" y="\(y)" width="\(width)" height="\(height)" fill="#\(fill)" stroke="#\(stroke)" rx="\(rx)" ry="\(ry)" />
+"""
+                    } else {
+                        svgStr += """
   <rect x="\(x)" y="\(y)" width="\(width)" height="\(height)" fill="#\(fill)" stroke="#\(stroke)" />
 """
+                    }
                     _svgStr += "\n"
                 }
                 

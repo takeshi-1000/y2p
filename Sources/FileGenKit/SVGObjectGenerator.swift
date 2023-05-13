@@ -17,6 +17,7 @@ class SVGObjectGenerator {
     private var viewVerticalMargin: Double { settings.viewVerticalMargin }
     private var viewHorizontalMargin: Double { settings.viewHorizontalMargin }
     private var viewObjectSize: NSSize { settings.viewObjectSize }
+    private var enabledRound: Bool { settings.enabledRoundCorner }
     
     var separatedViews: [ColumnViewInfo] {
         columnViewsList
@@ -140,12 +141,13 @@ class SVGObjectGenerator {
                         let x: Double = margin + (Double(separatedViews.count) * viewHorizontalMargin/2)
                         let y: Double = margin + (Double(separatedViews.count) * viewVerticalMargin/2)  + (Double(lineNumber) * (viewVerticalMargin + viewObjectSize.height))
                                                 
-                        let rectSvg: SVGObjectType = .rect(x: x,
-                                                           y: y,
-                                                           width: viewObjectSize.width,
-                                                           height: viewObjectSize.height,
+                        let rectSvg: SVGObjectType = .rect(rect: NSRect(x: x,
+                                                                        y: y,
+                                                                        width: viewObjectSize.width,
+                                                                        height: viewObjectSize.height),
                                                            fill: fillColorStr,
-                                                           stroke: strokeColorStr)
+                                                           stroke: strokeColorStr,
+                                                           enabledRound: enabledRound)
                         let textSvg: SVGObjectType = .text(x: x + 5,
                                                            y: y + 20,
                                                            fontSize: settings.viewObjectTextFontSize,
@@ -194,12 +196,13 @@ class SVGObjectGenerator {
                         }()
                         let y: Double = margin + (Double(lineNumber) * (viewVerticalMargin + viewObjectSize.height)) + Double(separatedViews.count) * viewVerticalMargin/2
                         
-                        let rectSvg: SVGObjectType = .rect(x: x,
-                                                           y: y,
-                                                           width: viewObjectSize.width,
-                                                           height: viewObjectSize.height,
+                        let rectSvg: SVGObjectType = .rect(rect: NSRect(x: x,
+                                                                        y: y,
+                                                                        width: viewObjectSize.width,
+                                                                        height: viewObjectSize.height),
                                                            fill: fillColorStr,
-                                                           stroke: strokeColorStr)
+                                                           stroke: strokeColorStr,
+                                                           enabledRound: enabledRound)
                         let textSvg: SVGObjectType = .text(x: x + 5,
                                                            y: y + 20,
                                                            fontSize: settings.viewObjectTextFontSize,
@@ -238,12 +241,13 @@ class SVGObjectGenerator {
                      ? view.borderColor
                      : settings.viewObjectBorderColorStr
                     
-                    let rectSvg: SVGObjectType = .rect(x: x,
-                                                       y: y,
-                                                       width: viewObjectSize.width,
-                                                       height: viewObjectSize.height,
+                    let rectSvg: SVGObjectType = .rect(rect: NSRect(x: x,
+                                                                    y: y,
+                                                                    width: viewObjectSize.width,
+                                                                    height: viewObjectSize.height),
                                                        fill: fillColorStr,
-                                                       stroke: strokeColorStr)
+                                                       stroke: strokeColorStr,
+                                                       enabledRound: enabledRound)
                     let textSvg: SVGObjectType = .text(x: x + 5,
                                                        y: y + 20,
                                                        fontSize: settings.viewObjectTextFontSize,

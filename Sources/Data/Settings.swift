@@ -22,6 +22,9 @@ public class Settings {
     public var viewHorizontalMargin: Double { _viewHorizontalMargin }
     private var _viewHorizontalMargin: Double = 50
     
+    public var enabledRoundCorner: Bool { _enabledRoundCorner }
+    private var _enabledRoundCorner: Bool = false
+    
     public var margin: Double { _margin }
     private var _margin: Double = 16
     
@@ -59,6 +62,10 @@ public class Settings {
     
     public func updateViewHorizontalMargin(_ viewHorizontalMargin: Double) {
         _viewHorizontalMargin = viewHorizontalMargin
+    }
+    
+    public func updateEnabledRoundCorner(_ enabledRoundCorner: Bool) {
+        _enabledRoundCorner = enabledRoundCorner
     }
     
     public func updateMargin(_ margin: Double) {

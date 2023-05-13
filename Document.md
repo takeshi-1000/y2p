@@ -13,6 +13,7 @@ settings:
    fontSize: 13
    verticalMargin: 30
    horizontalMargin: 100
+   enabledRoundCorner: true
    size:
     width: 100
     height: 50
@@ -29,9 +30,10 @@ settings:
     - fontSize: Specifies the font size of the text within the object.
     - verticalMargin: Specifies the vertical margin between objects.
     - horizontalMargin: Specifies the horizontal margin between objects.
+    - enabledRoundCorner: Specifies whether to round the corners.
     - size: Configuration for the size of the screen objects.
-    - width: Specifies the width of the object.
-    - height: Specifies the height of the object.
+      - width: Specifies the width of the object.
+      - height: Specifies the height of the object.
   - margin: Specify the outer margin for the top, bottom, left, and right of the screen diagram.
   - lineWidth: Specifies the thickness of the lines.
   - showGuideLines: Specifies whether to display guide lines (true for display, false for hide).
