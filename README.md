@@ -1,5 +1,3 @@
-(Under development)
-
 # y2p
 
 This is CLI application which generate screen trantision diagram based on some yaml file.
