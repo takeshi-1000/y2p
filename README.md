@@ -10,11 +10,19 @@ This tool is specifically designed for the screen transition of mobile applicati
 
 ## How to use
 
-- git clone this repository
-- cd this repository
-- swift build
-- ./.build/debug/y2p
-  - When executing this command, you need to have the "y2p.yaml" file in the directory where the command is being executed.
+### manual setup
+
+1. `$ git clone this repository`
+2. `$ cd this repository`
+3. `$ swift build`
+4. `$ ./.build/debug/y2p`
+  When executing this command, you need to have the "y2p.yaml" file in the directory where the command is being executed.
+
+### homebrew
+
+1. `$ brew tap takeshi-1000/y2p`
+2. `$ brew install y2p`
+3. `$ y2p` or `$ y2p -fileName {name of yaml name}`
   
 ## Options
 
