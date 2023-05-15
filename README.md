@@ -22,7 +22,7 @@ This tool is specifically designed for the screen transition of mobile applicati
 
 1. `$ brew tap takeshi-1000/y2p`
 2. `$ brew install y2p`
-3. `$ y2p` or `$ y2p -fileName {name of yaml name}`
+3. `$ y2p` or `$ y2p -fileName {name of yaml file}`
   
 ## Options
 
