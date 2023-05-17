@@ -18,6 +18,9 @@ class SVGObjectGenerator {
     private var viewHorizontalMargin: Double { settings.viewHorizontalMargin }
     private var viewObjectSize: NSSize { settings.viewObjectSize }
     private var enabledRound: Bool { settings.enabledRoundCorner }
+    private var titleSectionHeight: Double {
+        settings.title.isEmpty ? 0 : 50
+    }
     
     var separatedViews: [ColumnViewInfo] {
         columnViewsList
@@ -27,11 +30,25 @@ class SVGObjectGenerator {
     
     func generate(shouldEmitSeparatedLine: Bool) {
         appendSVGObject(shouldEmitSeparatedLine: shouldEmitSeparatedLine)
+        appendSVGObjectForTitle()
         appendSVGRectObject(shouldEmitSeparatedLine: shouldEmitSeparatedLine)
         appendSVGLineObject(shouldEmitSeparatedLine: shouldEmitSeparatedLine)
         if shouldEmitSeparatedLine {
             appendSVGHelperLineObject()
         }
+    }
+    
+    func appendSVGObjectForTitle() {
+        guard settings.title.isEmpty == false else {
+            return
+        }
+        
+        _svgObjectList.append(
+            .text(x: settings.margin,
+                  y: titleSectionHeight - 10,
+                  fontSize: 30,
+                  fill: "000000",
+                  value: settings.title))
     }
     
     func appendSVGObject(shouldEmitSeparatedLine: Bool) {
@@ -86,7 +103,7 @@ class SVGObjectGenerator {
                 let objectHeight: Double = lineNumber * viewObjectSize.height
                 let objectBetweenMargin: Double = (lineNumber - 1) * viewVerticalMargin
                 let topPlusMargin: Double = Double(separatedViews.count) * viewVerticalMargin/2
-                return objectHeight + objectBetweenMargin + sideMargin + topPlusMargin
+                return objectHeight + objectBetweenMargin + sideMargin + topPlusMargin + titleSectionHeight
             }()
             
             _svgObjectList.append(
@@ -114,7 +131,7 @@ class SVGObjectGenerator {
                 let lineNumber = Double(maxLineNumber ?? 0) + 1 // lineNumberは0から始まるので
                 let objectHeight: Double = lineNumber * viewObjectSize.height
                 let objectBetweenMargin: Double = (lineNumber - 1) * viewVerticalMargin
-                return objectHeight + objectBetweenMargin + sideMargin
+                return objectHeight + objectBetweenMargin + sideMargin + titleSectionHeight
             }()
             
             _svgObjectList.append(
@@ -139,7 +156,7 @@ class SVGObjectGenerator {
                     
                     if columnViews.columnNumber == 0 {
                         let x: Double = margin + (Double(separatedViews.count) * viewHorizontalMargin/2)
-                        let y: Double = margin + (Double(separatedViews.count) * viewVerticalMargin/2)  + (Double(lineNumber) * (viewVerticalMargin + viewObjectSize.height))
+                        let y: Double = margin + (Double(separatedViews.count) * viewVerticalMargin/2)  + (Double(lineNumber) * (viewVerticalMargin + viewObjectSize.height)) + titleSectionHeight
                                                 
                         let rectSvg: SVGObjectType = .rect(rect: NSRect(x: x,
                                                                         y: y,
@@ -194,7 +211,7 @@ class SVGObjectGenerator {
                                 return beforeColumnX + (Double(includeSeparateViewCountBefore) * viewHorizontalMargin/4) + viewHorizontalMargin
                             }
                         }()
-                        let y: Double = margin + (Double(lineNumber) * (viewVerticalMargin + viewObjectSize.height)) + Double(separatedViews.count) * viewVerticalMargin/2
+                        let y: Double = margin + (Double(lineNumber) * (viewVerticalMargin + viewObjectSize.height)) + Double(separatedViews.count) * viewVerticalMargin/2 + titleSectionHeight
                         
                         let rectSvg: SVGObjectType = .rect(rect: NSRect(x: x,
                                                                         y: y,
@@ -232,7 +249,7 @@ class SVGObjectGenerator {
                     let lineNumber: Int = data.lineNumber
                                     
                     let x: Double = margin + (Double(columnViews.columnNumber) * (viewHorizontalMargin + viewObjectSize.width))
-                    let y: Double = margin + (Double(lineNumber) * (viewVerticalMargin + viewObjectSize.height))
+                    let y: Double = margin + (Double(lineNumber) * (viewVerticalMargin + viewObjectSize.height)) + titleSectionHeight
                     
                     let fillColorStr: String = view.contentColor.isEmpty == false
                      ? view.contentColor
@@ -279,7 +296,7 @@ class SVGObjectGenerator {
                 continue
             }
             columnViews.viewList.forEach { viewInfo in
-                let y: Double = margin + (viewObjectSize.height + viewVerticalMargin) * Double(viewInfo.lineNumber) + (viewObjectSize.height / 2) + Double(separatedViews.count) * viewVerticalMargin/2
+                let y: Double = margin + (viewObjectSize.height + viewVerticalMargin) * Double(viewInfo.lineNumber) + (viewObjectSize.height / 2) + Double(separatedViews.count) * viewVerticalMargin/2 + titleSectionHeight
                 
                 let x2: Double = Double(viewInfo.view.rect.minX)
                 let columnNumber: Int = columnViews.columnNumber
@@ -316,7 +333,7 @@ class SVGObjectGenerator {
                        let endLineNumber = filterViewInfoList.sorted(by: { $0.lineNumber > $1.lineNumber }).first?.lineNumber {
                            let x = x2 - (viewHorizontalMargin / 2)
                            let y1: Double = y
-                        let y2: Double = margin + ((viewObjectSize.height + viewVerticalMargin) * Double(endLineNumber)) + (viewObjectSize.height / 2) + (Double(separatedViews.count) *  (viewVerticalMargin/2))
+                        let y2: Double = margin + ((viewObjectSize.height + viewVerticalMargin) * Double(endLineNumber)) + (viewObjectSize.height / 2) + (Double(separatedViews.count) *  (viewVerticalMargin/2)) + titleSectionHeight
                         
                            _svgObjectList.append(
                             .line(x1: x,
@@ -341,7 +358,7 @@ class SVGObjectGenerator {
             let columnNumber: Double = Double(columnViews.columnNumber)
             
             columnViews.viewList.forEach { viewInfo in
-                let y: Double = margin + ((viewObjectSize.height + viewVerticalMargin) * Double(viewInfo.lineNumber)) + (viewObjectSize.height / 2)
+                let y: Double = margin + ((viewObjectSize.height + viewVerticalMargin) * Double(viewInfo.lineNumber)) + (viewObjectSize.height / 2) + titleSectionHeight
                 let x2: Double = margin + ((viewObjectSize.width + viewHorizontalMargin) * columnNumber)
                 
                 let x1: Double = {
@@ -372,7 +389,7 @@ class SVGObjectGenerator {
                        let endLineNumber = filterViewInfoList.sorted(by: { $0.lineNumber > $1.lineNumber }).first?.lineNumber {
                            let x = x2 - (viewHorizontalMargin / 2)
                            let y1: Double = y
-                           let y2: Double = margin + ((viewObjectSize.height + viewVerticalMargin) * Double(endLineNumber)) + (viewObjectSize.height / 2)
+                           let y2: Double = margin + ((viewObjectSize.height + viewVerticalMargin) * Double(endLineNumber)) + (viewObjectSize.height / 2) + titleSectionHeight
                            
                            _svgObjectList.append(
                             .line(x1: x,
@@ -452,7 +469,7 @@ class SVGObjectGenerator {
                     .view.rect.maxX ?? 0
             )
             
-            let testOffset = columnViewsList
+            let tmpOffset = columnViewsList
                 .first { $0.columnNumber == maxColumnNumber }?
                 .viewList
                 .filter { columnViewView in
@@ -465,7 +482,7 @@ class SVGObjectGenerator {
                 } ?? 0
             
             let x1_3: Double = x1_2
-            let x2_3: Double = maxColumnNumberColumnViewMaxX + ((viewHorizontalMargin/4) * Double(testOffset + 1))
+            let x2_3: Double = maxColumnNumberColumnViewMaxX + ((viewHorizontalMargin/4) * Double(tmpOffset + 1))
             let y1_3: Double = y1_2
             let y2_3: Double = y1_3
             

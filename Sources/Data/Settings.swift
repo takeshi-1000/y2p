@@ -1,6 +1,9 @@
 import Cocoa
 
 public class Settings {
+    public var title: String { _title }
+    private var _title: String = ""
+    
     public var viewObjectSize: NSSize { _viewObjectSize }
     private var _viewObjectSize: NSSize = NSSize(width: 100, height: 50)
     
@@ -35,6 +38,10 @@ public class Settings {
     private var _showGuideLines: Bool = true
     
     public init() {}
+    
+    public func updateTitle(_ title: String) {
+        _title = title
+    }
     
     public func updateViewObjectSize(_ viewObjectSize: NSSize) {
         _viewObjectSize = viewObjectSize

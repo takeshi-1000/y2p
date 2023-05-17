@@ -8,6 +8,10 @@ class SettingsGenerator {
         let _settings = Settings()
             
         settingsInfoList.forEach { settings in
+            if case .string("title") = settings.key,
+               case .string(let title) = settings.value {
+                _settings.updateTitle(title)
+            }
             
             if case .string("margin") = settings.key,
                case .int(let margin) = settings.value {

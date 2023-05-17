@@ -1,4 +1,5 @@
 settings:
+  title: "the screen transition diagram of XXX"
   object:
    borderColor: "000000"
    contentColor: "FFFFFF"
